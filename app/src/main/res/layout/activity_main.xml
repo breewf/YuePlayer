@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray6"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include layout="@layout/custom_toolbar"></include>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 主界面布局-->
+        <RelativeLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        </RelativeLayout>
+
+        <!-- The drawerLayout侧滑菜单布局 -->
+        <RelativeLayout
+            android:id="@+id/drawer_content"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/gray4">
+
+            <include layout="@layout/layout_drawer_layout"></include>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+
+</LinearLayout>

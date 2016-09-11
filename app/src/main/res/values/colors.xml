@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray">#696969</color>
+      <!-- A light Holo shade of blue -->
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <!-- A light Holo shade of gray -->
+    <color name="holo_gray_light">#33999999</color>
+    <!-- A light Holo shade of green -->
+    <color name="holo_green_light">#008B45</color>
+    <!-- A light Holo shade of red -->
+    <color name="holo_red_light">#ffff4444</color>
+    <!-- A dark Holo shade of blue -->
+    <!-- A dark Holo shade of green -->
+    <color name="holo_green_dark">#008B45</color>
+    <!-- A dark Holo shade of red -->
+    <color name="holo_red_dark">#ffcc0000</color>
+    <!-- A Holo shade of purple -->
+    <color name="holo_purple">#ffaa66cc</color>
+    <!-- A light Holo shade of orange -->
+    <color name="holo_orange_light">#ffffbb33</color>
+    <!-- A dark Holo shade of orange -->
+    <color name="holo_orange_dark">#ffff8800</color>
+    <!-- A really bright Holo shade of blue -->
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <!-- A really bright Holo shade of gray -->
+    <color name="holo_gray_bright">#33CCCCCC</color>
+
+    <color name="colorPrimary">#FF03A9F4</color>
+    <color name="colorPrimaryDark">#ff0171c9</color>
+
+    <color name="background_window">#FFE5E5E5</color>
+    <color name="green">#689F38</color>
+    <color name="green2">#ff45c01a</color>
+    <color name="yellow">#FFC444</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#FFC93437</color>
+    <color name="blue">#0090F4</color>
+    <color name="icon_blue">#0090F4</color>
+
+    <color name="dark_red">#ff510209</color>
+    <color name="progress_gray">#FFD8D8D8</color>
+    <color name="progress_gray_dark">#FF383838</color>
+
+    <color name="gray0">#F0F0F0</color>
+    <color name="gray1">#E5E5E5</color>
+    <color name="gray2">#c0c0c0</color>
+    <color name="gray3">#999999</color>
+    <color name="gray4">#888888</color>
+    <color name="gray7">#777777</color>
+    <color name="gray5">#666666</color>
+    <color name="gray6">#444444</color>
+
+    <color name="gray_bg1">#EBEBEB</color>
+    <color name="gray_bg2">#EAEAEA</color>
+    <color name="gray_bg3">#E8E8E8</color>
+    <color name="gray_bg4">#DEDEDE</color>
+    
+</resources>

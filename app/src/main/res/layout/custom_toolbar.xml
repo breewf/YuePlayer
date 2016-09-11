@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/gray"
+    android:id="@+id/custom_toolbar"
+    android:clickable="true" >
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/custom_toolbar_bg"
+        android:clickable="true"
+        android:padding="8dp"
+        android:src="@mipmap/icon_app_white" />
+
+    <com.ghy.yueplayer.view.HeroTextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/local_music"
+        android:layout_toRightOf="@+id/app_icon"
+        android:background="@drawable/custom_toolbar_bg"
+        android:clickable="true"
+        android:gravity="center|left"
+        android:text="YuePlayer"
+        android:textColor="@color/gray_light"
+        android:textSize="24dp" />
+
+    <ImageView
+        android:id="@+id/local_music"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/favour_music"
+        android:background="@drawable/custom_toolbar_bg"
+        android:clickable="true"
+        android:padding="8dp"
+        android:src="@mipmap/icon_music" />
+
+    <ImageView
+        android:id="@+id/favour_music"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/custom_toolbar_bg"
+        android:clickable="true"
+        android:padding="8dp"
+        android:src="@mipmap/note_btn_love" />
+
+</RelativeLayout>
