@@ -42,7 +42,7 @@ public class LrcView extends View implements ILrcView{
 	/**高亮歌词当前的字体大小***/
 	private float mCurSizeForHightLightLrc = DEFAULT_SIZE_FOR_HIGHT_LIGHT_LRC;
 	/**高亮歌词的默认字体颜色**/
-	private static final int DEFAULT_COLOR_FOR_HIGHT_LIGHT_LRC = 0xffEE4000;
+	private static final int DEFAULT_COLOR_FOR_HIGHT_LIGHT_LRC = 0xFFC93437;
 	/**高亮歌词当前的字体颜色**/
 	private int mCurColorForHightLightLrc = DEFAULT_COLOR_FOR_HIGHT_LIGHT_LRC;
 

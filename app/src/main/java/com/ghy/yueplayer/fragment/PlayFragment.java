@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.SPUtil;
-import com.ghy.yueplayer.view.SeekArc;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -52,7 +52,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private TextView tvMusicName;
     private TextView tvSinger;
 
-    private SeekArc mSeekArc;
+    private SeekBar mSeekBar;
     private CircleImageView iv_music_album;
     boolean isRotate = false;//专辑封面是否转动
 
@@ -112,7 +112,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         tvMusicName = (TextView) getActivity().findViewById(R.id.tvMusicName);
         tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
 
-        mSeekArc = (SeekArc) getActivity().findViewById(R.id.seekArc);
+        mSeekBar = (SeekBar) getActivity().findViewById(R.id.play_seek_bar);
         iv_music_album = (CircleImageView) getActivity().findViewById(R.id.iv_music_album);
         //设置专辑图片宽高
         ViewGroup.LayoutParams params = iv_music_album.getLayoutParams();
@@ -194,23 +194,23 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         }
 
         //监听事件
-        mSeekArc.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekArc seekArc, int progress, boolean fromUser) {
-
-                if (fromUser) {
-                    int position = (int) (((double) progress / 1.5));
-                    int mSecond = (int) ((position / 100.0) * (MusicPlayService.time));
+            public void onProgressChanged(SeekBar bar, int i, boolean b) {
+                if (b) {
+                    int mSecond = (int) ((i / 100.0) * (MusicPlayService.time));
                     MusicPlayService.MPSInstance.seekPositionPlay(mSecond);
                 }
             }
 
             @Override
-            public void onStartTrackingTouch(SeekArc seekArc) {
+            public void onStartTrackingTouch(SeekBar bar) {
+
             }
 
             @Override
-            public void onStopTrackingTouch(SeekArc seekArc) {
+            public void onStopTrackingTouch(SeekBar bar) {
+
             }
         });
 
@@ -314,9 +314,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                         public void run() {
                             tv_time_duration.setText(getFormatTime(
                                     MusicPlayService.MPSInstance.getCurrentDuration()));
-                            //seekBar
-                            mSeekArc.setProgress(
-                                    getSeekBarProgress());
+                            //播放进度
+                            mSeekBar.setProgress(getSeekBarProgress());
                         }
                     }
             );
@@ -326,7 +325,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private int getSeekBarProgress() {
         int timeAll = MusicPlayService.time;
         int timeCurrent = MusicPlayService.MPSInstance.getCurrentDuration();
-        double percent = (double) timeCurrent / timeAll * 1.5;//mSeekArc的progress值为150
+        double percent = (double) timeCurrent / timeAll;
         percent = ((int) (percent * 100)) / 100.0;
         return (int) (percent * 100);
     }
@@ -339,7 +338,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         iv_control_start_pause.setImageResource(R.mipmap.icon_play_play);
         //播放时间清零，seekBar清零
         tv_time_duration.setText("00:00");
-        mSeekArc.setProgress(0);
+        mSeekBar.setProgress(0);
         //若封面转动则停止转动
         if (isRotate) {
             stopAlbumAnim();

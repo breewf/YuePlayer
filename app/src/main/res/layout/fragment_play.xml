@@ -22,7 +22,7 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:text="歌曲名称"
         android:textStyle="bold"
         android:layout_marginTop="60dp"/>
@@ -54,35 +54,19 @@
             android:id="@+id/seekArcContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp"
-            android:layout_weight="1" >
-
-            <com.ghy.yueplayer.view.SeekArc
-                android:id="@+id/seekArc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="40dp"
-                seekarc:arcColor="#80FFFFFF"
-                seekarc:clockwise="true"
-                seekarc:max="150"
-                seekarc:progressColor="@color/red"
-                seekarc:rotation="180"
-                seekarc:startAngle="30"
-                seekarc:sweepAngle="300"
-                seekarc:arcWidth="2dp"
-                seekarc:thumb="@drawable/custom_seek_arc_control_selector"
-                seekarc:touchInside="false" />
-
+            android:padding="20dp">
 
             <!-- 专辑封面-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_music_album"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 app:border_color="@color/white"
                 app:border_width="4dp"
+                seekarc:border_width="1dp"
+                seekarc:border_color="@color/gray2"
                 android:src="@mipmap/default_artist" />
 
             <!-- 时间-->
@@ -97,22 +81,35 @@
                     android:id="@+id/tv_time_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:layout_marginRight="50dp"
                     android:text="00:00"
-                    android:textColor="@color/white"/>
+                    android:layout_marginRight="-10dp"
+                    android:textColor="@color/gray1"/>
+
+                <SeekBar
+                    android:id="@+id/play_seek_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxHeight="2dp"
+                    android:minHeight="2dp"
+                    android:progressDrawable="@drawable/my_seek_bar_red_bg"
+                    android:thumb="@drawable/custom_seek_bar_control_selector"
+                    android:thumbOffset="0dp"/>
+
                 <TextView
                     android:id="@+id/tv_time_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:layout_marginLeft="50dp"
                     android:text="00:00"
-                    android:textColor="@color/white"/>
+                    android:layout_marginLeft="-10dp"
+                    android:textColor="@color/gray2"/>
 
             </LinearLayout>
+
         </FrameLayout>
 
     </RelativeLayout>
@@ -123,7 +120,8 @@
         android:id="@+id/play_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"

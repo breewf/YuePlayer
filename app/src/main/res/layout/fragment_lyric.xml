@@ -20,12 +20,14 @@
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="6dp"
+        android:maxHeight="2dp"
+        android:minHeight="2dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
-        android:progressDrawable="@drawable/my_seek_bar_bg"
+        android:progressDrawable="@drawable/my_seek_bar_red_bg"
         android:thumb="@drawable/custom_seek_bar_control_selector"
+        android:thumbOffset="0dp"
         android:visibility="gone"
         android:layout_marginRight="20dp" />
 
