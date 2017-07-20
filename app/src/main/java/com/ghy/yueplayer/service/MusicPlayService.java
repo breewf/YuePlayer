@@ -65,7 +65,7 @@ public class MusicPlayService extends Service {
     /*
     * 播放音乐，path参数播放使用，musicName参数通知使用，artist参数通知使用
     * */
-    public void playMusic(String path,String musicName,String artist) {
+    public void playMusic(String path, String musicName, String artist) {
         if (player != null) {
             player.release();
             player = null;
@@ -83,7 +83,7 @@ public class MusicPlayService extends Service {
             showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
 
             //加载歌词
-            if (LyricFragment.LYFInstance!=null){
+            if (LyricFragment.LYFInstance != null) {
                 LyricFragment.LYFInstance.startInitLyric();
             }
 
@@ -127,7 +127,7 @@ public class MusicPlayService extends Service {
     /*
     * 播放或暂停方法
     * */
-    public void playOrPause(String musicUrl,String musicName,String artist) {
+    public void playOrPause(String musicUrl, String musicName, String artist) {
         if (player != null) {
             if (player.isPlaying()) {
                 player.pause();
@@ -139,7 +139,7 @@ public class MusicPlayService extends Service {
             if (musicUrl.equals("")) {
                 showToast("没有正在播放的歌曲");
             } else {
-                playMusic(musicUrl,musicName,artist);
+                playMusic(musicUrl, musicName, artist);
                 //重新加载播放界面数据
                 PlayFragment.PFInstance.initData();
             }
@@ -160,9 +160,9 @@ public class MusicPlayService extends Service {
     * 下一曲方法
     * */
     public void playNext() {
-        if (musicList!=null && musicList.size()!=0){
+        if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayNext();
-        }else {
+        } else {
             showToast("没有发现歌曲");
         }
     }
@@ -172,9 +172,9 @@ public class MusicPlayService extends Service {
         playListId = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListId");
         playListNumber = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListNumber");
         //根据播放模式获取下一首歌曲在列表中的位置
-        int getPlayMode=SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");
+        int getPlayMode = SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");
         int nextMusicId = 0;
-        switch (getPlayMode){
+        switch (getPlayMode) {
             case -1:
                 //默认列表循环模式
                 nextMusicId = getDefaultNextMusicId();
@@ -201,7 +201,7 @@ public class MusicPlayService extends Service {
 
         saveMusicInfoSP(nextMusicName, nextMusicArtist, nextMusicAlbumUri, nextMusicUrl, nextMusicId);
 
-        playMusic(nextMusicUrl,nextMusicName,nextMusicArtist);
+        playMusic(nextMusicUrl, nextMusicName, nextMusicArtist);
         //重新加载播放界面数据
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.initData();
@@ -262,9 +262,9 @@ public class MusicPlayService extends Service {
     * 上一曲方法
     * */
     public void playPre() {
-        if (musicList!=null && musicList.size()!=0){
+        if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayPre();
-        }else {
+        } else {
             showToast("没有发现歌曲");
         }
 
@@ -287,7 +287,7 @@ public class MusicPlayService extends Service {
 
         saveMusicInfoSP(preMusicName, preMusicArtist, preMusicAlbumUri, preMusicUrl, preMusicId);
 
-        playMusic(preMusicUrl,preMusicName,preMusicArtist);
+        playMusic(preMusicUrl, preMusicName, preMusicArtist);
         //重新加载播放界面数据
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.initData();
@@ -321,24 +321,37 @@ public class MusicPlayService extends Service {
     /*
     * 显示后台运行通知
     * */
-    private void showNotification(String tickerText,String title,String content) {
-        if (notificationManager==null){
+    private void showNotification(String tickerText, String title, String content) {
+        if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
-        if (notification==null){
-            notification = new Notification();
-        }
-        notification.icon=R.mipmap.icon_app_notify_white;
-        notification.tickerText=tickerText;
-        notification.flags = Notification.FLAG_NO_CLEAR;
-        //使用如下的Intent，便不会调用对应的Activity，而是调用Task中的栈顶Activity
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClass(this, MusicPlayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                intent, 0);
-        notification.setLatestEventInfo(this, title, content , contentIntent);
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            notification = new Notification();
+        notification = new Notification.Builder(this)
+                .setAutoCancel(false)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setContentIntent(contentIntent)
+                .setSmallIcon(R.mipmap.icon_app_notify_white)
+                .setWhen(System.currentTimeMillis())
+                .build();
+//        notification.icon = R.mipmap.icon_app_notify_white;
+//        notification.tickerText = tickerText;
+//        notification.flags = Notification.FLAG_NO_CLEAR;
+        //使用如下的Intent，便不会调用对应的Activity，而是调用Task中的栈顶Activity
+//        Intent intent = new Intent(Intent.ACTION_MAIN);
+//        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+//        intent.setClass(this, MusicPlayActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        notification.setLatestEventInfo(this, title, content, contentIntent);
         notificationManager.notify(notification_id, notification);
     }
 
@@ -350,9 +363,9 @@ public class MusicPlayService extends Service {
     public void onDestroy() {
         super.onDestroy();
         //取消通知
-        if (notificationManager!=null){
+        if (notificationManager != null) {
             notificationManager.cancel(notification_id);
-            notificationManager=null;
+            notificationManager = null;
         }
         if (player != null) {
             player.release();

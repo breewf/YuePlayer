@@ -47,7 +47,7 @@ public class MusicListFragment extends Fragment {
     private SQLiteDatabase db;
     private ContentValues cv;
     private List<Map<String, Object>> list_like;
-    boolean haveLike=false;
+    boolean haveLike = false;
 
     public MusicListFragment() {
         // Required empty public constructor
@@ -64,7 +64,7 @@ public class MusicListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MLFInstance=this;
+        MLFInstance = this;
         initView();
 
         //扫描音乐并设置adapter
@@ -77,11 +77,11 @@ public class MusicListFragment extends Fragment {
     }
 
     private void initView() {
-        lv_music= (ListView) getActivity().findViewById(R.id.lv_music);
+        lv_music = (ListView) getActivity().findViewById(R.id.lv_music);
 
     }
 
-    class MusicLoaderTask extends AsyncTask<Void, Void, List<MusicInfo>>{
+    class MusicLoaderTask extends AsyncTask<Void, Void, List<MusicInfo>> {
 
         @Override
         protected List<MusicInfo> doInBackground(Void... voids) {
@@ -94,14 +94,14 @@ public class MusicListFragment extends Fragment {
             //加载列表
             inflateListView(musicInfo);
             //此处非常重要
-            boolean isLikeList = SPUtil.getBooleanSP(getActivity(),Constant.MUSIC_SP,"isLikeList");
-            if (!isLikeList){
-                MusicPlayService.musicList=musicInfo;
+            boolean isLikeList = SPUtil.getBooleanSP(getActivity(), Constant.MUSIC_SP, "isLikeList");
+            if (!isLikeList) {
+                MusicPlayService.musicList = musicInfo;
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", musicInfo.size());
-            }else {
-                MusicPlayService.musicList=LikeListFragment.likeMusicList;
+            } else {
+                MusicPlayService.musicList = LikeListFragment.likeMusicList;
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", LikeListFragment.likeMusicList.size());
@@ -111,7 +111,7 @@ public class MusicListFragment extends Fragment {
 
     private void inflateListView(final List<MusicInfo> musicInfo) {
 
-        musicListAdapter=new MusicListAdapter( musicInfo, getActivity(), ImageLoader.getInstance());
+        musicListAdapter = new MusicListAdapter(musicInfo, getActivity(), ImageLoader.getInstance());
         lv_music.setAdapter(musicListAdapter);
 
         //音乐列表点击事件
@@ -147,7 +147,7 @@ public class MusicListFragment extends Fragment {
 
                 //播放
                 MusicPlayService.MPSInstance.playMusic(musicInfo.get(i).getUrl(),
-                        musicInfo.get(i).getTitle(),musicInfo.get(i).getArtist());
+                        musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist());
 
                 //启动音乐页面
                 Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
@@ -215,9 +215,9 @@ public class MusicListFragment extends Fragment {
         helper = new DBHelper(getActivity());
         db = helper.getWritableDatabase();
         cv = new ContentValues();
-        cv.put("musicName",musicName);
-        cv.put("musicArtist",musicArtist);
-        cv.put("musicAlbumId",musicAlbumId);
+        cv.put("musicName", musicName);
+        cv.put("musicArtist", musicArtist);
+        cv.put("musicAlbumId", musicAlbumId);
         cv.put("musicUrl", musicUrl);
         db.insert("like_music_list", null, cv);
         showToast("添加喜欢成功");

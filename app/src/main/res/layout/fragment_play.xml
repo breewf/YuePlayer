@@ -1,91 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:seekarc="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    xmlns:seekarc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/gray6">
+    android:background="@color/gray6"
+    android:orientation="vertical">
 
     <!-- 歌曲名，歌手名-->
     <RelativeLayout
         android:id="@+id/play_layout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tvMusicName"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:text="歌曲名称"
-        android:textStyle="bold"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp">
 
+        <TextView
+            android:id="@+id/tvMusicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="歌曲名称"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/tvSinger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="#80FFFFFF"
-        android:textSize="16sp"
-        android:text="歌手名"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/tvMusicName"/>
+        <TextView
+            android:id="@+id/tvSinger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvMusicName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="歌手名"
+            android:textColor="#80FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
     </RelativeLayout>
-
 
     <!-- 进度条，封面-->
     <RelativeLayout
         android:id="@+id/play_layout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center">
 
         <FrameLayout
             android:id="@+id/seekArcContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp">
+            android:layout_height="match_parent">
 
             <!-- 专辑封面-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_music_album"
-                android:layout_width="260dp"
-                android:layout_height="260dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
                 android:layout_gravity="center"
+                android:src="@mipmap/default_artist"
                 app:border_color="@color/white"
                 app:border_width="4dp"
-                seekarc:border_width="1dp"
+                android:layout_marginBottom="20dp"
                 seekarc:border_color="@color/gray2"
-                android:src="@mipmap/default_artist" />
+                seekarc:border_width="1dp"/>
 
             <!-- 时间-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="bottom"
                 android:gravity="center"
-                android:layout_gravity="bottom">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_time_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:text="00:00"
                     android:layout_marginRight="-10dp"
-                    android:textColor="@color/gray1"/>
+                    android:text="00:00"
+                    android:textColor="@color/gray1"
+                    android:textSize="10sp"
+                    android:textStyle="bold"/>
 
                 <SeekBar
                     android:id="@+id/play_seek_bar"
@@ -102,11 +101,11 @@
                     android:id="@+id/tv_time_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:text="00:00"
                     android:layout_marginLeft="-10dp"
-                    android:textColor="@color/gray2"/>
+                    android:text="00:00"
+                    android:textColor="@color/gray2"
+                    android:textSize="10sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -114,38 +113,38 @@
 
     </RelativeLayout>
 
-
     <!-- 播放控制，收藏-->
     <RelativeLayout
         android:id="@+id/play_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/iv_control_pre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
                 android:layout_marginLeft="40dp"
+                android:layout_weight="1"
                 android:background="@drawable/control_image_bg_selector_color1"
+                android:padding="10dp"
                 android:src="@mipmap/icon_play_pre"/>
 
             <ImageView
                 android:id="@+id/iv_control_start_pause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/control_image_bg_selector_color1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
+                android:background="@drawable/control_image_bg_selector_color1"
                 android:padding="10dp"
                 android:src="@mipmap/icon_play_play"/>
 
@@ -153,18 +152,14 @@
                 android:id="@+id/iv_control_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="10dp"
                 android:layout_marginRight="40dp"
+                android:layout_weight="1"
                 android:background="@drawable/control_image_bg_selector_color1"
+                android:padding="10dp"
                 android:src="@mipmap/icon_play_next"/>
-
 
         </LinearLayout>
 
     </RelativeLayout>
-
-
-
 
 </LinearLayout>

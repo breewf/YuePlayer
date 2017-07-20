@@ -1,5 +1,6 @@
 package com.ghy.yueplayer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener {
 
+    @SuppressLint("StaticFieldLeak")
     public static MainActivity MainInstance;
     ViewPager viewPager_main;
     ArrayList<Fragment> listFragments;

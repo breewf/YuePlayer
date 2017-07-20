@@ -1,6 +1,9 @@
 package com.ghy.yueplayer.fragment;
 
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,7 +11,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
@@ -40,6 +42,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    @SuppressLint("StaticFieldLeak")
     public static PlayFragment PFInstance;
 
     /*
@@ -55,6 +58,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private SeekBar mSeekBar;
     private CircleImageView iv_music_album;
     boolean isRotate = false;//专辑封面是否转动
+    private ObjectAnimator rotationAnim;
 
     private Timer timer;
     private CurrentPlayTimerTask timerTask;
@@ -86,9 +90,20 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
         initView();
 
+        initRotateAnim();
+
         initData();
 
         setOnClickListener();
+    }
+
+    private void initRotateAnim() {
+        rotationAnim = ObjectAnimator.ofFloat(iv_music_album, "rotation", 0f, 360f);
+        rotationAnim.setDuration(16000);
+        rotationAnim.setInterpolator(new LinearInterpolator());
+        rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
+        rotationAnim.start();
+        rotationAnim.pause();
     }
 
     private void setOnClickListener() {
@@ -97,14 +112,14 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         iv_control_pre.setOnClickListener(this);
         iv_control_start_pause.setOnClickListener(this);
         iv_control_next.setOnClickListener(this);
-
     }
 
     private void startAlbumAnim() {
-        Animation rotateAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.image_rotate);
-        LinearInterpolator lin = new LinearInterpolator();//匀速转动
-        rotateAnim.setInterpolator(lin);
-        iv_music_album.startAnimation(rotateAnim);
+//        Animation rotateAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.image_rotate);
+//        LinearInterpolator lin = new LinearInterpolator();//匀速转动
+//        rotateAnim.setInterpolator(lin);
+//        iv_music_album.startAnimation(rotateAnim);
+        if (rotationAnim != null) rotationAnim.resume();
         isRotate = true;
     }
 
@@ -116,8 +131,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         iv_music_album = (CircleImageView) getActivity().findViewById(R.id.iv_music_album);
         //设置专辑图片宽高
         ViewGroup.LayoutParams params = iv_music_album.getLayoutParams();
-        params.width = getDisplayWidth()/7*4;
-        params.height = getDisplayWidth()/7*4;
+        params.width = getDisplayWidth() / 7 * 4;
+        params.height = getDisplayWidth() / 7 * 4;
         iv_music_album.setLayoutParams(params);
 
 
@@ -229,6 +244,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == iv_music_album) {
+            if (!MusicPlayService.MPSInstance.isPlay()) return;
             if (isRotate) {
                 stopAlbumAnim();
             } else {
@@ -242,7 +258,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             //播放or暂停
             //参数为保存的上次播放的歌曲路径，如果是直接到播放页面然后点击播放（不是点击音乐列表），
             //则播放上次记忆的歌曲
-            MusicPlayService.MPSInstance.playOrPause(musicUrl,musicName,musicArtist);
+            MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
             playOrPause();
         } else if (view == iv_control_next) {
             MusicPlayService.MPSInstance.stopPlay();
@@ -263,20 +279,10 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void albumAnimJudge() {
         if (MusicPlayService.MPSInstance.isPlay()) {
-            startAlbumAnimDelay();
+            startAlbumAnim();
         } else {
             stopAlbumAnim();
         }
-    }
-
-    private void startAlbumAnimDelay() {
-        //封面转动
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startAlbumAnim();
-            }
-        }, 1000);
     }
 
     private void playOrPauseControlView() {
@@ -288,7 +294,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void stopAlbumAnim() {
-        iv_music_album.clearAnimation();
+//        iv_music_album.clearAnimation();
+        if (rotationAnim != null) rotationAnim.pause();
         isRotate = false;
     }
 
@@ -304,7 +311,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     /*
     * 计时任务
     * */
-    class CurrentPlayTimerTask extends TimerTask {
+    private class CurrentPlayTimerTask extends TimerTask {
 
         @Override
         public void run() {
@@ -353,31 +360,31 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     /*
     * 按Home键进入后台
     * */
-    public void homeBackground(){
+    public void homeBackground() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isRotate){
+                if (isRotate) {
                     stopAlbumAnim();
                 }
             }
-        },600);
+        }, 600);
     }
 
     /*
    * 从后台返回
    * */
-    public void fromBackgroundBack(){
+    public void fromBackgroundBack() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!isRotate){
-                    if (MusicPlayService.MPSInstance.isPlay()){
+                if (!isRotate) {
+                    if (MusicPlayService.MPSInstance.isPlay()) {
                         startAlbumAnim();
                     }
                 }
             }
-        },600);
+        }, 600);
     }
 
     @Override

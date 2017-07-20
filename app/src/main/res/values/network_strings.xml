@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="abs_loading_msg">正在努力加载中…</string>
+    <string name="abs_loading_error">加载出错！请稍后重试~</string>
+    <string name="abs_loading_no_net">网络出错！检查网络后重试~</string>
+    <string name="abs_loading_no_data">空空如也！没有找到数据呢~</string>
+    <!-- noHttp网络请求错误信息 -->
+    <string name="error_please_check_network">请检查网络设置</string>
+    <string name="error_timeout">抱歉，请求超时</string>
+    <string name="error_not_found_server">连接服务器失败</string>
+    <string name="error_url_error">请求地址错误</string>
+    <string name="error_not_found_cache">没有发现缓存</string>
+    <string name="error_system_not_support_method">系统不支持的请求方法</string>
+    <string name="error_parse_data_error">解析数据时发生错误</string>
+    <string name="error_connect">连接服务器出错，请稍后重试</string>
+    <string name="error_un_know">请求出错，请稍后重试</string>
+    <string name="error_code_403">403-请求页面的访问被禁止</string>
+    <string name="error_code_404">404-服务器无法找到被请求的页面</string>
+    <string name="error_code_500">500-服务器遇到不可预知的情况</string>
+    <string name="error_code_502">502-Bad Gateway</string>
+    <string name="error_code_503">503-服务器不可用</string>
+    <string name="error_code_504">504-服务器网关超时</string>
+    <string name="error_info_common">请求出错，请稍后重试</string>
+</resources>

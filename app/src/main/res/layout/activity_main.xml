@@ -22,7 +22,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+                android:layout_height="match_parent"/>
         </RelativeLayout>
 
         <!-- The drawerLayout侧滑菜单布局 -->
@@ -33,7 +33,7 @@
             android:layout_gravity="start"
             android:background="@color/gray4">
 
-            <include layout="@layout/layout_drawer_layout"></include>
+            <include layout="@layout/layout_drawer_layout"/>
 
         </RelativeLayout>
 

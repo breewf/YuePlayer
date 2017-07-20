@@ -2,18 +2,30 @@ package com.ghy.yueplayer;
 
 import android.app.Application;
 
+import com.ghy.yueplayer.network.NoHttpUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * Created by GHY on 2015/8/7.
  */
-public class MyApplication extends Application {
+public class PlayerApplication extends Application {
+
+    /**
+     * 全局application实例
+     */
+    private static PlayerApplication mInstance = null;
+
+    public static PlayerApplication getInstance() {
+        return mInstance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
         initImageLoader();
+        NoHttpUtils.initNoHttp(this);
     }
 
     private void initImageLoader() {
