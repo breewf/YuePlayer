@@ -1,43 +1,125 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray6"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/custom_toolbar"></include>
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- 主界面布局-->
-        <RelativeLayout
-            android:id="@+id/main"
+        <include layout="@layout/custom_toolbar"/>
+
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager_main"
+            <!-- 主界面布局-->
+            <FrameLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </RelativeLayout>
+                android:layout_height="match_parent">
 
-        <!-- The drawerLayout侧滑菜单布局 -->
-        <RelativeLayout
-            android:id="@+id/drawer_content"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/gray4">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <include layout="@layout/layout_drawer_layout"/>
+                <!--底部控制布局-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="-15dp"
+                    android:background="@color/transparent">
 
-        </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:orientation="horizontal">
 
-    </android.support.v4.widget.DrawerLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"/>
 
+                        <com.ghy.yueplayer.main.VDHLayout
+                            android:id="@+id/vdh_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center">
 
-</LinearLayout>
+                            <com.ghy.yueplayer.view.CircleImageView
+                                android:id="@+id/iv_play"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="1dp"/>
+
+                        </com.ghy.yueplayer.main.VDHLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <!--控制显示布局-->
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical">
+
+                    <com.ghy.yueplayer.main.PlayControlView
+                        android:id="@+id/play_control_view"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center|top"
+                        android:layout_marginBottom="40dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_play_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:background="@drawable/bg_black_gradient_angle"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="松手暂停"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"/>
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <!-- The drawerLayout侧滑菜单布局 -->
+            <RelativeLayout
+                android:id="@+id/drawer_content"
+                android:layout_width="260dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/gray4">
+
+                <include layout="@layout/layout_drawer_layout"/>
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

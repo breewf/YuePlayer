@@ -141,7 +141,9 @@ public class MusicPlayService extends Service {
             } else {
                 playMusic(musicUrl, musicName, artist);
                 //重新加载播放界面数据
-                PlayFragment.PFInstance.initData();
+                if (PlayFragment.PFInstance != null) {
+                    PlayFragment.PFInstance.initData();
+                }
             }
         }
     }

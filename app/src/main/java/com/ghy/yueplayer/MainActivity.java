@@ -1,5 +1,7 @@
 package com.ghy.yueplayer;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +11,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.activity.AboutActivity;
@@ -27,14 +33,21 @@ import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
+import com.ghy.yueplayer.global.Constant;
+import com.ghy.yueplayer.main.ImageLoader;
+import com.ghy.yueplayer.main.PlayControlView;
+import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
+import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        View.OnLongClickListener {
+        View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
+
+    public static final String TAG = "MainActivity";
 
     @SuppressLint("StaticFieldLeak")
     public static MainActivity MainInstance;
@@ -51,6 +64,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private RelativeLayout drawer_content;//侧滑菜单布局
 
+    private VDHLayout mVDHLayout;
+    private ImageView mPlayerImageView;
+    private PlayControlView mPlayControlView;
+    private TextView mTvPlayTip;
+    private int percentDirection = 0;//0:未达到最大值，1:右滑至最大值，2:左滑至最大值
+    private ObjectAnimator rotationAnim;
+    private boolean isPlay = false;
+
+    String musicUrl;
+    String musicName;
+    String musicArtist;
+    String musicAlbumUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.startService(timeService);
 
         initView();
+
+        getPlayMusicData();
 
         initViewPager();
 
@@ -112,6 +140,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
+
+        mVDHLayout = (VDHLayout) findViewById(R.id.vdh_layout);
+        mPlayerImageView = (ImageView) findViewById(R.id.iv_play);
+        mPlayControlView = (PlayControlView) findViewById(R.id.play_control_view);
+        mTvPlayTip = (TextView) findViewById(R.id.tv_play_tip);
+        mPlayControlView.setVisibility(View.INVISIBLE);
+        mTvPlayTip.setVisibility(View.INVISIBLE);
+
+        mVDHLayout.setTouchDirectionListener(this);
+        mVDHLayout.setTouchReleasedListener(this);
+
+        mPlayerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MusicPlayActivity.class));
+            }
+        });
+
+        rotationAnim = ObjectAnimator.ofFloat(mPlayerImageView, "rotation", 0f, 360f);
+        rotationAnim.setDuration(10000);
+        rotationAnim.setInterpolator(new LinearInterpolator());
+        rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
+        rotationAnim.start();
+        rotationAnim.pause();
+    }
+
+    private void getPlayMusicData() {
+        //从本地共享文件参数获取数据
+        musicName = SPUtil.getStringSP(this,
+                Constant.MUSIC_SP, "musicName");
+        musicArtist = SPUtil.getStringSP(this,
+                Constant.MUSIC_SP, "musicArtist");
+        musicUrl = SPUtil.getStringSP(this,
+                Constant.MUSIC_SP, "musicUrl");
+        musicAlbumUri = SPUtil.getStringSP(this,
+                Constant.MUSIC_SP, "musicAlbumUri");
+
+        ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
     }
 
     private void setOnclickListener() {
@@ -263,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     * 停止音乐播放服务和统计服务
     * */
     private void stopService() {
-        if(MusicPlayService.MPSInstance != null) MusicPlayService.MPSInstance.stopSelf();
+        if (MusicPlayService.MPSInstance != null) MusicPlayService.MPSInstance.stopSelf();
         if (TimeService.TSInstance != null) TimeService.TSInstance.stopSelf();
     }
 
@@ -307,4 +373,118 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
+
+    @Override
+    public void touchDirection(int direction, int percent) {
+        switch (direction) {
+            case VDHLayout.DIRECTION_RIGHT:
+                Log.i(TAG, "右滑-->>" + percent + "%");
+                mPlayControlView.setVisibility(View.VISIBLE);
+                mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_RIGHT, percent, isPlay);
+                if (percent >= 20) {
+                    if (mPlayControlView.getAlpha() != 1f) mPlayControlView.setAlpha(1f);
+                    mTvPlayTip.setVisibility(View.VISIBLE);
+                    mTvPlayTip.setText("滑动切歌");
+                    mTvPlayTip.setAlpha(percent * 0.01f);
+                } else {
+                    mPlayControlView.setAlpha(percent * 0.01f * 5);
+                    mTvPlayTip.setVisibility(View.INVISIBLE);
+                }
+                if (percent == 100) {
+                    mTvPlayTip.setText("松手切歌");
+                    percentDirection = 1;
+                } else {
+                    percentDirection = 0;
+                }
+                break;
+            case VDHLayout.DIRECTION_LEFT:
+                Log.i(TAG, "左滑-->>" + percent + "%");
+                mPlayControlView.setVisibility(View.VISIBLE);
+                mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_LEFT, percent, isPlay);
+                if (percent >= 20) {
+                    if (mPlayControlView.getAlpha() != 1f) mPlayControlView.setAlpha(1f);
+                    mTvPlayTip.setVisibility(View.VISIBLE);
+                    if (isPlay) {
+                        mTvPlayTip.setText("滑动暂停");
+                    } else {
+                        mTvPlayTip.setText("滑动播放");
+                    }
+                    mTvPlayTip.setAlpha(percent * 0.01f);
+                } else {
+                    mPlayControlView.setAlpha(percent * 0.01f * 5);
+                    mTvPlayTip.setVisibility(View.INVISIBLE);
+                }
+                if (percent == 100) {
+                    if (isPlay) {
+                        mTvPlayTip.setText("松手暂停");
+                    } else {
+                        mTvPlayTip.setText("松手播放");
+                    }
+                    percentDirection = 2;
+                } else {
+                    percentDirection = 0;
+                }
+                break;
+            case VDHLayout.DIRECTION_ORIGIN:
+                Log.i(TAG, "原点-->>" + percent + "%");
+                mPlayControlView.setVisibility(View.INVISIBLE);
+                mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_ORIGIN, percent, isPlay);
+                break;
+        }
+    }
+
+    @Override
+    public void touchReleased() {
+        if (percentDirection == 1) {
+            //右滑至最大值释放--切歌
+            if (MusicPlayService.MPSInstance != null) {
+                MusicPlayService.MPSInstance.playNext();
+                getPlayMusicData();
+                Toast.makeText(this, "播放歌曲" + musicName, Toast.LENGTH_SHORT).show();
+                if (rotationAnim != null) rotationAnim.resume();
+            }
+        } else if (percentDirection == 2) {
+            //左滑至最大值释放--播放/暂停
+            if (MusicPlayService.MPSInstance == null) return;
+            isPlay = MusicPlayService.MPSInstance.isPlay();
+            if (isPlay) {
+                if (TextUtils.isEmpty(musicUrl)) {
+                    Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
+                isPlay = MusicPlayService.MPSInstance.isPlay();
+                Toast.makeText(this, "暂停播放", Toast.LENGTH_SHORT).show();
+                if (rotationAnim != null) rotationAnim.pause();
+            } else {
+                if (TextUtils.isEmpty(musicUrl)) {
+                    Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
+                isPlay = MusicPlayService.MPSInstance.isPlay();
+                Toast.makeText(this, "开始播放", Toast.LENGTH_SHORT).show();
+                if (rotationAnim != null) rotationAnim.resume();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MusicPlayService.MPSInstance != null) {
+            isPlay = MusicPlayService.MPSInstance.isPlay();
+            getPlayMusicData();
+            if (isPlay) {
+                if (rotationAnim != null) rotationAnim.resume();
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (rotationAnim != null) rotationAnim.pause();
+    }
+
 }
