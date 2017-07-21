@@ -41,7 +41,8 @@
             android:text="歌曲名称"
             android:textColor="@android:color/white"
             android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:transitionName="@string/transition_title"/>
 
         <TextView
             android:id="@+id/tvSinger"
@@ -51,7 +52,8 @@
             android:text="歌手名"
             android:textColor="#80FFFFFF"
             android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:transitionName="@string/transition_artist"/>
     </LinearLayout>
 
     <!-- 进度条，封面-->
@@ -75,6 +77,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:src="@mipmap/default_artist"
+                android:transitionName="@string/transition_album"
                 app:border_color="@color/white"
                 app:border_width="4dp"
                 seekarc:border_color="@color/gray2"

@@ -11,4 +11,9 @@
     <string name="title_activity_help">HelpActivity</string>
     <string name="title_activity_set">SetActivity</string>
     <string name="title_activity_time">TimeActivity</string>
+
+    <string name="transition_album">transition_album</string>
+    <string name="transition_title">transition_title</string>
+    <string name="transition_artist">transition_artist</string>
+
 </resources>

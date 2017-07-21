@@ -1,8 +1,8 @@
 package com.ghy.yueplayer.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.adapter.MusicListAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.db.DBHelper;
@@ -37,6 +36,7 @@ import java.util.Map;
  */
 public class MusicListFragment extends Fragment {
 
+    @SuppressLint("StaticFieldLeak")
     public static MusicListFragment MLFInstance;
     ListView lv_music;
     MusicListAdapter musicListAdapter;
@@ -81,7 +81,7 @@ public class MusicListFragment extends Fragment {
 
     }
 
-    class MusicLoaderTask extends AsyncTask<Void, Void, List<MusicInfo>> {
+    private class MusicLoaderTask extends AsyncTask<Void, Void, List<MusicInfo>> {
 
         @Override
         protected List<MusicInfo> doInBackground(Void... voids) {
@@ -149,10 +149,13 @@ public class MusicListFragment extends Fragment {
                 MusicPlayService.MPSInstance.playMusic(musicInfo.get(i).getUrl(),
                         musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist());
 
-                //启动音乐页面
-                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
-                startActivity(intent);
+                if (MainActivity.MainInstance != null) {
+                    MainActivity.MainInstance.refreshPlayMusicData();
+                }
 
+                //启动音乐页面
+//                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
+//                startActivity(intent);
 
             }
         });

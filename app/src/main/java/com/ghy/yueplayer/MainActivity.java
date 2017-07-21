@@ -4,9 +4,13 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -160,7 +164,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, MusicPlayActivity.class));
+//                startPlayActivityTransIntent();
+                Intent intent = new Intent(MainActivity.this, MusicPlayActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -189,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (MusicPlayService.MPSInstance != null) {
             isPlay = MusicPlayService.MPSInstance.isPlay();
         }
+        judgePlayRotationAlbum();
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
@@ -241,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view == app_icon) {
             showDrawerLayout();
         } else if (view == tv_app_name) {
-            startActivity(new Intent(MainActivity.this, MusicPlayActivity.class));
+//            showToast("欢迎您使用YuePlayer");
         }
     }
 
@@ -339,6 +346,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void startActivity(Class<?> activity) {
         Intent intent = new Intent(MainActivity.this, activity);
         startActivity(intent);
+    }
+
+    /**
+     * 转场动画
+     */
+    private void startPlayActivityTransIntent() {
+        Intent intent = new Intent(this, MusicPlayActivity.class);
+        intent.putExtra("key", "value");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+//                            new Pair(mPlayerImageView, getString(R.string.transition_album)),
+                            new Pair(tvMusicTitle, getString(R.string.transition_title)),
+                            new Pair(tvMusicArtist, getString(R.string.transition_artist)));
+            ActivityCompat.startActivity(this, intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     /*
@@ -489,10 +514,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshPlayMusicData();
+    /**
+     * 判断是否在播放，如果是则旋转封面
+     */
+    private void judgePlayRotationAlbum() {
         if (isPlay) {
             if (rotationAnim != null) {
                 new Handler().postDelayed(new Runnable() {
@@ -503,6 +528,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }, 500);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshPlayMusicData();
+        judgePlayRotationAlbum();
     }
 
     @Override
