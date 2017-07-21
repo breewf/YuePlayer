@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.widget.Toast;
@@ -335,11 +336,14 @@ public class MusicPlayService extends Service {
 //            notification = new Notification();
         notification = new Notification.Builder(this)
                 .setAutoCancel(false)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_app_blue))
+                .setSmallIcon(R.mipmap.icon_app_notify_white)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(contentIntent)
-                .setSmallIcon(R.mipmap.icon_app_notify_white)
+                .setTicker(tickerText)
                 .setWhen(System.currentTimeMillis())
+                .setOngoing(true)
                 .build();
 //        notification.icon = R.mipmap.icon_app_notify_white;
 //        notification.tickerText = tickerText;
