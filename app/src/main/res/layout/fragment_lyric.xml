@@ -5,31 +5,14 @@
     android:background="@color/gray6"
     tools:context="com.ghy.yueplayer.fragment.LyricFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <com.ghy.yueplayer.lrc.LrcView
         android:id="@+id/lrcView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"/>
-
-    <SeekBar
-        android:id="@+id/seek_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="2dp"
-        android:minHeight="2dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginLeft="20dp"
-        android:progressDrawable="@drawable/my_seek_bar_red_bg"
-        android:thumb="@drawable/custom_seek_bar_control_selector"
-        android:thumbOffset="0dp"
-        android:visibility="gone"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"/>
 
     <TextView
         android:id="@+id/tv_view_yue"
@@ -40,7 +23,7 @@
         android:textSize="16sp"
         android:visibility="gone"
         android:textStyle="bold"
-        android:text="YuePlayer 听见好音乐"/>
+        android:text="悦听•听见好音乐"/>
 
     <TextView
         android:id="@+id/tv_search_lyric"

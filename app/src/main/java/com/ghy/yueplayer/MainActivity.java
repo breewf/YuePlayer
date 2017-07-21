@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initView();
 
-        getPlayMusicData();
+        refreshPlayMusicData();
 
         initViewPager();
 
@@ -166,7 +166,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotationAnim.pause();
     }
 
-    private void getPlayMusicData() {
+    /**
+     * 刷新界面播放状态及专辑封面
+     */
+    public void refreshPlayMusicData() {
         //从本地共享文件参数获取数据
         musicName = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicName");
@@ -177,6 +180,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         musicAlbumUri = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicAlbumUri");
 
+        if (MusicPlayService.MPSInstance != null) {
+            isPlay = MusicPlayService.MPSInstance.isPlay();
+        }
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
     }
 
@@ -439,8 +445,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //右滑至最大值释放--切歌
             if (MusicPlayService.MPSInstance != null) {
                 MusicPlayService.MPSInstance.playNext();
-                getPlayMusicData();
-                Toast.makeText(this, "播放歌曲" + musicName, Toast.LENGTH_SHORT).show();
+                refreshPlayMusicData();
+                Toast.makeText(this, musicArtist + "-" + musicName, Toast.LENGTH_SHORT).show();
                 if (rotationAnim != null) rotationAnim.resume();
             }
         } else if (percentDirection == 2) {
@@ -454,7 +460,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
-                Toast.makeText(this, "暂停播放", Toast.LENGTH_SHORT).show();
                 if (rotationAnim != null) rotationAnim.pause();
             } else {
                 if (TextUtils.isEmpty(musicUrl)) {
@@ -463,7 +468,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
-                Toast.makeText(this, "开始播放", Toast.LENGTH_SHORT).show();
                 if (rotationAnim != null) rotationAnim.resume();
             }
         }
@@ -472,12 +476,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        if (MusicPlayService.MPSInstance != null) {
-            isPlay = MusicPlayService.MPSInstance.isPlay();
-            getPlayMusicData();
-            if (isPlay) {
-                if (rotationAnim != null) rotationAnim.resume();
-            }
+        refreshPlayMusicData();
+        if (isPlay) {
+            if (rotationAnim != null) rotationAnim.resume();
         }
     }
 

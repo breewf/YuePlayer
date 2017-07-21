@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.widget.Toast;
 
+import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
@@ -79,6 +80,11 @@ public class MusicPlayService extends Service {
             //保存歌曲总时长
             SPUtil.saveSP(MusicPlayService.this, Constant.MUSIC_SP, "musicAllDuration", time);
 
+            //刷新主界面播放状态及专辑封面
+            if (MainActivity.MainInstance != null) {
+                MainActivity.MainInstance.refreshPlayMusicData();
+            }
+
             //设置通知
             showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
 
@@ -113,15 +119,7 @@ public class MusicPlayService extends Service {
     * 判断是播放还是暂停状态 true：播放 false:暂停
     * */
     public boolean isPlay() {
-        if (player != null) {
-            if (player.isPlaying()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return player != null && player.isPlaying();
     }
 
     /*

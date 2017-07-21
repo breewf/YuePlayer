@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -212,26 +213,46 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar bar, int i, boolean b) {
-                if (b) {
-                    int mSecond = (int) ((i / 100.0) * (MusicPlayService.time));
-                    MusicPlayService.MPSInstance.seekPositionPlay(mSecond);
-                }
+//                if (b) {
+//                    int mSecond = (int) ((i / 100.0) * (MusicPlayService.time));
+//                    MusicPlayService.MPSInstance.seekPositionPlay(mSecond);
+//                }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar bar) {
-
+                if (handler != null) handler.removeMessages(0);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar bar) {
-
+                if (MusicPlayService.player != null) {
+                    MusicPlayService.player.seekTo(bar.getProgress());
+                }
+                if (handler != null) handler.sendEmptyMessageDelayed(0, 200);
             }
         });
 
         playOrPause();
 
     }
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (MusicPlayService.player != null) {
+                        mSeekBar.setMax(MusicPlayService.player.getDuration());
+                        mSeekBar.setProgress(MusicPlayService.player.getCurrentPosition());
+                    } else {
+                        mSeekBar.setMax(100);
+                        mSeekBar.setProgress(0);
+                    }
+                    handler.sendEmptyMessageDelayed(0, 200);
+                    break;
+            }
+        }
+    };
 
     private void initLoader() {
         options = new DisplayImageOptions.Builder()
@@ -271,6 +292,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     * 播放或暂停界面显示
     * */
     private void playOrPause() {
+        if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
+            handler.sendEmptyMessage(0);
+        } else {
+            handler.removeMessages(0);
+        }
         //播放or暂停按钮显示
         playOrPauseControlView();
         //专辑封面旋转
@@ -304,8 +330,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     * */
     private String getFormatTime(int time) {
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");//初始化Formatter的转换格式
-        String format = formatter.format(time);
-        return format;
+        return formatter.format(time);
     }
 
     /*
@@ -315,6 +340,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void run() {
+            if (getActivity() == null) return;
             getActivity().runOnUiThread(
                     new Runnable() {
                         @Override
@@ -322,7 +348,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                             tv_time_duration.setText(getFormatTime(
                                     MusicPlayService.MPSInstance.getCurrentDuration()));
                             //播放进度
-                            mSeekBar.setProgress(getSeekBarProgress());
+//                            mSeekBar.setProgress(getSeekBarProgress());
                         }
                     }
             );
@@ -397,6 +423,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         if (PFInstance != null) {
             PFInstance = null;
         }
+        if (handler != null) handler.removeCallbacksAndMessages(null);
     }
 
     private void showToast(String s) {
