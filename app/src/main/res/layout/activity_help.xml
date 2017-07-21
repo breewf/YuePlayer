@@ -5,7 +5,7 @@
     android:orientation="vertical"
     tools:context="com.ghy.yueplayer.activity.HelpActivity">
 
-    <include layout="@layout/toolbar"></include>
+    <include layout="@layout/toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：如何添加喜欢的歌曲与取消喜欢的歌曲？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,13 +31,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：长按音乐列表中的歌曲即可添加到喜欢，同样长按喜欢列表中的歌曲即可取消喜欢。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：我喜欢的歌曲列表在哪呢，怎么找不到？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,13 +53,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：主界面向右滑动就是您喜欢的歌曲列表啦，同样点击主界面上的心形按钮也可以看到哦。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：为什么打开软件却连一首音乐都没有看到？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,13 +75,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：这个可能是因为您的手机上没有音乐文件哦，所以没有扫描到呢。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：我使用过后该如何彻底退出呢？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,57 +97,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：您可以在主界面打开侧滑菜单，选择最后一项exit点击即可完全退出啦！如果此时还在播放音乐，音乐也会停止的哦。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Q：如何打开当前正在播放的歌曲界面？"
-                android:textColor="@color/gray2"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="A：当您点击歌曲时默认会播放该歌曲并跳转到播放页面，若您按了返回按钮返回到主界面后想再次打开播放界面，只需点击主界面的YuePlayer即可进入播放界面啦。"
-                android:textColor="@color/gray2"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Q：播放音乐的时候我不想那个封面一直转该怎么办？"
-                android:textColor="@color/gray2"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="A：您只需要点击一下封面就会停止旋转啦，再次点击可以恢复转动。"
-                android:textColor="@color/gray2"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,7 +111,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：为什么好多歌曲都没有歌词啊？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -163,13 +119,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：这个抱歉了呢，这个是由于使用的公开的歌词API接口，他本身的歌词就很少呢。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -177,7 +133,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：我不想自动去下载歌词怎么办？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,13 +141,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：您可以在主界面打开侧滑菜单，打开设置项，然后关闭自动搜索下载歌词即可。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,7 +155,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：为何在后台播放过程中突然就停止了呢？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -207,13 +163,13 @@
                 android:layout_marginTop="10dp"
                 android:text="A：这个很大可能是因为您的手机系统后台管理软件或者安全软件定时清理了后台的任务，请把本软件添加到后台清理软件的白名单中即可。"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"></View>
+                android:background="@color/gray2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,7 +177,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Q：我还有其它的问题怎么办？"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -229,7 +185,7 @@
                 android:layout_marginTop="10dp"
                 android:text="A：请发送邮件到haiygao@163.com来与我联系吧，谢谢！"
                 android:textColor="@color/gray2"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

@@ -118,8 +118,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onPageSelected(int position) {
                 if (position == 0) {
                     favour_music.setImageResource(R.mipmap.note_btn_love);
+                    local_music.setImageResource(R.mipmap.icon_music_selected);
                 } else if (position == 1) {
                     favour_music.setImageResource(R.mipmap.note_btn_loved_white);
+                    local_music.setImageResource(R.mipmap.icon_music_unselected);
                 }
             }
 
@@ -225,9 +227,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view == local_music) {
             viewPager_main.setCurrentItem(0);
             favour_music.setImageResource(R.mipmap.note_btn_love);
+            local_music.setImageResource(R.mipmap.icon_music_selected);
         } else if (view == favour_music) {
             viewPager_main.setCurrentItem(1);
             favour_music.setImageResource(R.mipmap.note_btn_loved_white);
+            local_music.setImageResource(R.mipmap.icon_music_unselected);
         } else if (view == app_icon) {
             showDrawerLayout();
         } else if (view == tv_app_name) {
