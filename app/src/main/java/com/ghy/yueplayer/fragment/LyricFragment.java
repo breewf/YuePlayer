@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class LyricFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static LyricFragment LYFInstance;
 
+    private SeekBar seek_bar;
     private LrcView lrcView;
     private TextView tv_search_lyric;
     private TextView tv_view_yue;
@@ -90,6 +92,7 @@ public class LyricFragment extends Fragment {
 
     private void initView() {
         lrcView = (LrcView) getActivity().findViewById(R.id.lrcView);
+        seek_bar = (SeekBar) getActivity().findViewById(R.id.seek_bar);
         tv_search_lyric = (TextView) getActivity().findViewById(R.id.tv_search_lyric);
         tv_view_yue = (TextView) getActivity().findViewById(R.id.tv_view_yue);
     }
@@ -257,11 +260,23 @@ public class LyricFragment extends Fragment {
         }
         lrcView.setOnSeekToListener(onSeekToListener);
         lrcView.setOnLrcClickListener(onLrcClickListener);
+        seek_bar.setOnSeekBarChangeListener(onSeekBarChangeListener);
+        handler.sendEmptyMessage(0);
     }
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case 0:
+                    if (MusicPlayService.player != null) {
+                        seek_bar.setMax(MusicPlayService.player.getDuration());
+                        seek_bar.setProgress(MusicPlayService.player.getCurrentPosition());
+                    } else {
+                        seek_bar.setMax(100);
+                        seek_bar.setProgress(0);
+                    }
+                    handler.sendEmptyMessageDelayed(0, 200);
+                    break;
                 case 1:
                     //写入本地歌词成功，则加载本地歌词
                     startInitLyric();
@@ -287,6 +302,35 @@ public class LyricFragment extends Fragment {
                 MusicPlayService.player.seekTo(progress);
             }
         }
+    };
+
+    SeekBar.OnSeekBarChangeListener onSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            if (seek_bar == seekBar) {
+                if (MusicPlayService.player != null) {
+                    MusicPlayService.player.seekTo(seekBar.getProgress());
+                }
+                handler.sendEmptyMessageDelayed(0, 200);
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            if (seek_bar == seekBar) {
+                handler.removeMessages(0);
+            }
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                                      boolean fromUser) {
+            if (seek_bar == seekBar) {
+                lrcView.seekTo(progress, true, fromUser);
+            }
+        }
+
     };
 
     //点击歌词监听
