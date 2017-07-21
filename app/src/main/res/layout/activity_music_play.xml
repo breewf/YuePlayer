@@ -1,13 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/music_play_bg_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray6">
+    android:background="@mipmap/ic_background"
+    android:orientation="vertical">
 
+    <View
+        android:id="@+id/position_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"/>
 
-</RelativeLayout>
+</LinearLayout>

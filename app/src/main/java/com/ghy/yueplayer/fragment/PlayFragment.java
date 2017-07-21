@@ -55,6 +55,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout play_layout3;
 
     private ImageView ivBack;
+    private ImageView ivNeedle;
     private TextView tvMusicName;
     private TextView tvSinger;
 
@@ -62,6 +63,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private CircleImageView iv_music_album;
     boolean isRotate = false;//专辑封面是否转动
     private ObjectAnimator rotationAnim;
+    private ObjectAnimator needleAnimationOn, needleAnimationOff;
 
     private Timer timer;
     private CurrentPlayTimerTask timerTask;
@@ -93,20 +95,32 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
         initView();
 
-        initRotateAnim();
+        initAnim();
 
         initData();
 
         setOnClickListener();
     }
 
-    private void initRotateAnim() {
+    private void initAnim() {
         rotationAnim = ObjectAnimator.ofFloat(iv_music_album, "rotation", 0f, 360f);
         rotationAnim.setDuration(16000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
         rotationAnim.start();
         rotationAnim.pause();
+
+        needleAnimationOn = ObjectAnimator.ofFloat(ivNeedle, "rotation", -25, 0);
+        ivNeedle.setPivotX(0);
+        ivNeedle.setPivotY(0);
+        needleAnimationOn.setDuration(600);
+        needleAnimationOn.setInterpolator(new LinearInterpolator());
+
+        needleAnimationOff = ObjectAnimator.ofFloat(ivNeedle, "rotation", 0, -25);
+        ivNeedle.setPivotX(0);
+        ivNeedle.setPivotY(0);
+        needleAnimationOff.setDuration(600);
+        needleAnimationOff.setInterpolator(new LinearInterpolator());
     }
 
     private void setOnClickListener() {
@@ -118,27 +132,19 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         iv_control_next.setOnClickListener(this);
     }
 
-    private void startAlbumAnim() {
-//        Animation rotateAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.image_rotate);
-//        LinearInterpolator lin = new LinearInterpolator();//匀速转动
-//        rotateAnim.setInterpolator(lin);
-//        iv_music_album.startAnimation(rotateAnim);
-        if (rotationAnim != null) rotationAnim.resume();
-        isRotate = true;
-    }
-
     private void initView() {
         ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
+        ivNeedle = (ImageView) getActivity().findViewById(R.id.iv_needle);
         tvMusicName = (TextView) getActivity().findViewById(R.id.tvMusicName);
         tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
 
         mSeekBar = (SeekBar) getActivity().findViewById(R.id.play_seek_bar);
         iv_music_album = (CircleImageView) getActivity().findViewById(R.id.iv_music_album);
         //设置专辑图片宽高
-        ViewGroup.LayoutParams params = iv_music_album.getLayoutParams();
-        params.width = getDisplayWidth() / 7 * 4;
-        params.height = getDisplayWidth() / 7 * 4;
-        iv_music_album.setLayoutParams(params);
+//        ViewGroup.LayoutParams params = iv_music_album.getLayoutParams();
+//        params.width = getDisplayWidth() / 7 * 4;
+//        params.height = getDisplayWidth() / 7 * 4;
+//        iv_music_album.setLayoutParams(params);
 
 
         tv_time_duration = (TextView) getActivity().findViewById(R.id.tv_time_duration);
@@ -269,12 +275,12 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == iv_music_album) {
-            if (!MusicPlayService.MPSInstance.isPlay()) return;
-            if (isRotate) {
-                stopAlbumAnim();
-            } else {
-                startAlbumAnim();
-            }
+//            if (!MusicPlayService.MPSInstance.isPlay()) return;
+//            if (isRotate) {
+//                stopAlbumAnim();
+//            } else {
+//                startAlbumAnim();
+//            }
         } else if (view == iv_control_pre) {
             MusicPlayService.MPSInstance.stopPlay();
             MusicPlayOver();
@@ -317,18 +323,29 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void startAlbumAnim() {
+//        Animation rotateAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.image_rotate);
+//        LinearInterpolator lin = new LinearInterpolator();//匀速转动
+//        rotateAnim.setInterpolator(lin);
+//        iv_music_album.startAnimation(rotateAnim);
+        if (rotationAnim != null) rotationAnim.resume();
+        if (needleAnimationOn != null) needleAnimationOn.start();
+        isRotate = true;
+    }
+
+    private void stopAlbumAnim() {
+//        iv_music_album.clearAnimation();
+        if (rotationAnim != null) rotationAnim.pause();
+        if (needleAnimationOff != null) needleAnimationOff.start();
+        isRotate = false;
+    }
+
     private void playOrPauseControlView() {
         if (MusicPlayService.MPSInstance.isPlay()) {
             iv_control_start_pause.setImageResource(R.mipmap.icon_play_pause);
         } else {
             iv_control_start_pause.setImageResource(R.mipmap.icon_play_play);
         }
-    }
-
-    private void stopAlbumAnim() {
-//        iv_music_album.clearAnimation();
-        if (rotationAnim != null) rotationAnim.pause();
-        isRotate = false;
     }
 
     /*
