@@ -2,9 +2,8 @@ package com.ghy.yueplayer.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-public class RobotoLightTextView extends TextView {
+public class RobotoLightTextView extends android.support.v7.widget.AppCompatTextView {
 
 	public RobotoLightTextView(Context context) {
 		super(context);

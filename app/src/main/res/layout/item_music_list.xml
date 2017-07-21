@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
+        android:layout_centerVertical="true">
 
         <ImageView
             android:id="@+id/iv_music"
@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"/>
 
         <com.ghy.yueplayer.view.RobotoLightTextView
             android:id="@+id/tv_music_artist"
@@ -30,7 +30,7 @@
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/gray_light"
-            android:textSize="11sp" />
+            android:textSize="11sp"/>
 
         <com.ghy.yueplayer.view.RobotoLightTextView
             android:id="@+id/tv_music_name"
@@ -43,7 +43,7 @@
             android:singleLine="true"
             android:text="TextView"
             android:textColor="@color/gray_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 

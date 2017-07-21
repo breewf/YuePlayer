@@ -27,14 +27,82 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager_main"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:paddingBottom="60dp"/>
 
-                <!--底部控制布局-->
+                <!--底部控制布局1-->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="-15dp"
+                    android:background="@color/gray6">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/gray4"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal">
+
+                        <com.ghy.yueplayer.view.HeroTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5"
+                            android:gravity="center"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="YuePlayer"
+                            android:textColor="@color/gray_light"
+                            android:textSize="20dp"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5"
+                            android:gravity="center|right"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_music_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="未知歌曲"
+                                android:textColor="@color/gray_light"
+                                android:textSize="12dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_music_artist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="2dp"
+                                android:gravity="center"
+                                android:text="未知艺术家"
+                                android:textColor="@color/gray_light"
+                                android:textSize="10dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <!--底部控制布局2-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:background="@color/transparent">
 
                     <LinearLayout
@@ -51,13 +119,14 @@
                             android:id="@+id/vdh_layout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="-15dp"
                             android:layout_weight="2"
                             android:gravity="center">
 
                             <com.ghy.yueplayer.view.CircleImageView
                                 android:id="@+id/iv_play"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 app:civ_border_color="@color/white"
                                 app:civ_border_width="1dp"/>
 

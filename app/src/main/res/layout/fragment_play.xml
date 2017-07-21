@@ -6,39 +6,53 @@
     android:background="@color/gray6"
     android:orientation="vertical">
 
-    <!-- 歌曲名，歌手名-->
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/control_image_bg_selector_color1"
+            android:padding="15dp"
+            android:src="@mipmap/icon_back"/>
+
+    </RelativeLayout>
+
+    <!-- 歌曲名，歌手名-->
+    <LinearLayout
         android:id="@+id/play_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="15dp"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:paddingRight="40dp">
 
         <TextView
             android:id="@+id/tvMusicName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:ellipsize="end"
+            android:gravity="end"
             android:maxLines="1"
             android:text="歌曲名称"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvSinger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMusicName"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="歌手名"
             android:textColor="#80FFFFFF"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <!-- 进度条，封面-->
     <RelativeLayout
@@ -59,10 +73,10 @@
                 android:layout_width="280dp"
                 android:layout_height="280dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:src="@mipmap/default_artist"
                 app:border_color="@color/white"
                 app:border_width="4dp"
-                android:layout_marginBottom="20dp"
                 seekarc:border_color="@color/gray2"
                 seekarc:border_width="1dp"/>
 
@@ -71,9 +85,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView

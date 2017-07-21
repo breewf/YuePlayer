@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -49,10 +50,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     /*
     * 加载动画使用
     * */
-    private RelativeLayout play_layout1;
+    private LinearLayout play_layout1;
     private RelativeLayout play_layout2;
     private RelativeLayout play_layout3;
 
+    private ImageView ivBack;
     private TextView tvMusicName;
     private TextView tvSinger;
 
@@ -108,6 +110,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setOnClickListener() {
+        ivBack.setOnClickListener(this);
         iv_music_album.setOnClickListener(this);
 
         iv_control_pre.setOnClickListener(this);
@@ -125,6 +128,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
+        ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
         tvMusicName = (TextView) getActivity().findViewById(R.id.tvMusicName);
         tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
 
@@ -146,7 +150,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         iv_control_next = (ImageView) getActivity().findViewById(R.id.iv_control_next);
 
         //加载动画
-        play_layout1 = (RelativeLayout) getActivity().findViewById(R.id.play_layout1);
+        play_layout1 = (LinearLayout) getActivity().findViewById(R.id.play_layout1);
         play_layout2 = (RelativeLayout) getActivity().findViewById(R.id.play_layout2);
         play_layout3 = (RelativeLayout) getActivity().findViewById(R.id.play_layout3);
 
@@ -285,6 +289,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             MusicPlayService.MPSInstance.stopPlay();
             MusicPlayOver();
             MusicPlayService.MPSInstance.playNext();
+        } else if (view == ivBack) {
+            getActivity().finish();
         }
     }
 

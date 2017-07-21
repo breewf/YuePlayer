@@ -9,7 +9,9 @@
         android:id="@+id/lv_music"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
-        android:gravity="center" />
+        android:divider="@color/gray5"
+        android:dividerHeight="1px"
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"/>
 
 </RelativeLayout>

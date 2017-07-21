@@ -10,16 +10,17 @@
         android:id="@+id/lv_like_music"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
-        android:gravity="center" />
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/tv_like_remind"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:text="喜欢列表"
         android:textColor="@color/white"
-        android:visibility="gone"
-        android:text="喜欢列表" />
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
