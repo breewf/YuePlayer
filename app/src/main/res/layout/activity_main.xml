@@ -28,7 +28,7 @@
                     android:id="@+id/viewPager_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="60dp"/>
+                    android:paddingBottom="50dp"/>
 
                 <!--底部控制布局1-->
                 <FrameLayout
@@ -44,7 +44,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:orientation="horizontal">
 
                         <com.ghy.yueplayer.view.HeroTextView
@@ -72,22 +72,26 @@
 
                             <TextView
                                 android:id="@+id/tv_music_title"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginTop="5dp"
-                                android:gravity="center"
+                                android:ellipsize="end"
+                                android:gravity="right"
+                                android:maxLines="1"
                                 android:text="未知歌曲"
                                 android:textColor="@color/gray_light"
                                 android:textSize="12dp"/>
 
                             <TextView
                                 android:id="@+id/tv_music_artist"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginTop="2dp"
-                                android:gravity="center"
+                                android:ellipsize="end"
+                                android:gravity="right"
+                                android:maxLines="1"
                                 android:text="未知艺术家"
                                 android:textColor="@color/gray_light"
                                 android:textSize="10dp"/>
@@ -107,7 +111,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
+                        android:layout_height="75dp"
+                        android:layout_marginBottom="-15dp"
                         android:orientation="horizontal">
 
                         <View
@@ -119,7 +124,6 @@
                             android:id="@+id/vdh_layout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="-15dp"
                             android:layout_weight="2"
                             android:gravity="center">
 
@@ -127,6 +131,7 @@
                                 android:id="@+id/iv_play"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:src="@mipmap/default_artist"
                                 app:civ_border_color="@color/white"
                                 app:civ_border_width="1dp"/>
 

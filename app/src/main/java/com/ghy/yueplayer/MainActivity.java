@@ -57,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MusicListFragment musicListFragment;
     LikeListFragment likeListFragment;
 
-    ImageView local_music, favour_music;
-    ImageView app_icon;
-    HeroTextView tv_app_name;
+    private ImageView local_music, favour_music;
+    private ImageView app_icon;
+    private HeroTextView tv_app_name;
+    private TextView tvMusicTitle;
+    private TextView tvMusicArtist;
 
     private DrawerLayout mDrawerLayout;
     private RelativeLayout drawer_content;//侧滑菜单布局
@@ -139,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         favour_music = (ImageView) findViewById(R.id.favour_music);
         app_icon = (ImageView) findViewById(R.id.app_icon);
         tv_app_name = (HeroTextView) findViewById(R.id.tv_app_name);
+        tvMusicTitle = (TextView) findViewById(R.id.tv_music_title);
+        tvMusicArtist = (TextView) findViewById(R.id.tv_music_artist);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
@@ -186,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isPlay = MusicPlayService.MPSInstance.isPlay();
         }
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
+        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
+        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
     }
 
     private void setOnclickListener() {
@@ -450,7 +456,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (MusicPlayService.MPSInstance != null) {
                 MusicPlayService.MPSInstance.playNext();
                 refreshPlayMusicData();
-                Toast.makeText(this, musicArtist + "-" + musicName, Toast.LENGTH_SHORT).show();
+                String toastString;
+                if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
+                    toastString = musicName;
+                } else {
+                    toastString = musicArtist + "-" + musicName;
+                }
+                Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
                 if (rotationAnim != null) rotationAnim.resume();
             }
         } else if (percentDirection == 2) {
@@ -482,7 +494,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         refreshPlayMusicData();
         if (isPlay) {
-            if (rotationAnim != null) rotationAnim.resume();
+            if (rotationAnim != null) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rotationAnim.resume();
+                    }
+                }, 500);
+            }
         }
     }
 
