@@ -50,6 +50,8 @@ import com.ghy.yueplayer.view.HeroTextView;
 
 import java.util.ArrayList;
 
+import io.gresse.hugo.vumeterlibrary.VuMeterView;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
 
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private RelativeLayout drawer_content;//侧滑菜单布局
 
+    private VuMeterView mVuMeterView;
     private VDHLayout mVDHLayout;
     private ImageView mPlayerImageView;
     private PlayControlView mPlayControlView;
@@ -155,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
 
+        mVuMeterView = (VuMeterView) findViewById(R.id.vumeter);
         mVDHLayout = (VDHLayout) findViewById(R.id.vdh_layout);
         mPlayerImageView = (ImageView) findViewById(R.id.iv_play);
         mPlayControlView = (PlayControlView) findViewById(R.id.play_control_view);
@@ -201,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handler.removeMessages(0);
             if (isPlay) {
                 handler.sendEmptyMessage(0);
+                mVuMeterView.resume(true);
+            } else {
+                mVuMeterView.stop(true);
             }
         }
         judgePlayRotationAlbum();
@@ -527,6 +534,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
+                mVuMeterView.stop(true);
             } else {
                 if (TextUtils.isEmpty(musicUrl)) {
                     Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
@@ -535,6 +543,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
+                mVuMeterView.resume(true);
             }
         }
     }

@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray6"
@@ -49,16 +50,25 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
 
-                        <com.ghy.yueplayer.view.HeroTextView
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_weight="1.5"
-                            android:gravity="center"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="YuePlayer"
-                            android:textColor="@color/gray_light"
-                            android:textSize="20dp"/>
+                            android:orientation="vertical">
+
+                            <io.gresse.hugo.vumeterlibrary.VuMeterView
+                                android:id="@+id/vumeter"
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                vumeter:vumeter_backgroundColor="@color/white"
+                                vumeter:vumeter_blockNumber="6"
+                                vumeter:vumeter_speed="4"
+                                vumeter:vumeter_startOff="true"
+                                vumeter:vumeter_stopSize="5dp"/>
+
+                        </LinearLayout>
 
                         <View
                             android:layout_width="0dp"

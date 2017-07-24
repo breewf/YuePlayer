@@ -43,4 +43,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //other
+    compile 'com.github.claucookie.miniequalizer:library:1.0.0'
+    compile 'io.gresse.hugo.vumeterlibrary:vumeterlibrary:1.0.15'
 }
