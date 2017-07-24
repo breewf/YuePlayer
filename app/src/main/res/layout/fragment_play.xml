@@ -153,8 +153,8 @@
         android:id="@+id/play_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -168,8 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:src="@mipmap/icon_play_pre"/>
+                android:src="@mipmap/ic_last"/>
 
             <ImageView
                 android:id="@+id/iv_control_start_pause"
@@ -178,8 +177,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:src="@mipmap/icon_play_play"/>
+                android:src="@mipmap/ic_play"/>
 
             <ImageView
                 android:id="@+id/iv_control_next"
@@ -187,8 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:src="@mipmap/icon_play_next"/>
+                android:src="@mipmap/ic_next"/>
 
         </LinearLayout>
 

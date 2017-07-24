@@ -342,9 +342,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void playOrPauseControlView() {
         if (MusicPlayService.MPSInstance.isPlay()) {
-            iv_control_start_pause.setImageResource(R.mipmap.icon_play_pause);
+            iv_control_start_pause.setImageResource(R.mipmap.ic_pause);
         } else {
-            iv_control_start_pause.setImageResource(R.mipmap.icon_play_play);
+            iv_control_start_pause.setImageResource(R.mipmap.ic_play);
         }
     }
 
