@@ -81,13 +81,20 @@ public class MusicPlayService extends Service {
             //保存歌曲总时长
             SPUtil.saveSP(MusicPlayService.this, Constant.MUSIC_SP, "musicAllDuration", time);
 
+            //设置通知
+            showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
+
             //刷新主界面播放状态及专辑封面
             if (MainActivity.MainInstance != null) {
                 MainActivity.MainInstance.refreshPlayMusicData();
             }
 
-            //设置通知
-            showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
+            //设置播放界面背景
+            if (MusicPlayActivity.MPAInstance != null) {
+                String musicAlbumUri = SPUtil.getStringSP(this,
+                        Constant.MUSIC_SP, "musicAlbumUri");
+                MusicPlayActivity.MPAInstance.setPlayBackgroundImage(musicAlbumUri);
+            }
 
             //加载歌词
             if (LyricFragment.LYFInstance != null) {

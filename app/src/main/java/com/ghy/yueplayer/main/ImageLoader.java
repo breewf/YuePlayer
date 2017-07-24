@@ -114,7 +114,7 @@ public class ImageLoader {
      * 加载网络-高斯模糊图片
      */
     public void loadBlurImage(ImageView imageView, String url) {
-        Glide.with(context).load(url).crossFade().bitmapTransform(new BlurTransformation(context)).into(imageView);
+        Glide.with(context).load(url).crossFade().bitmapTransform(new BlurTransformation(context, 40, 10)).into(imageView);
     }
 
     /**

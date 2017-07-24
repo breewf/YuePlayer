@@ -7,15 +7,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.fragment.LyricFragment;
 import com.ghy.yueplayer.fragment.PlayFragment;
+import com.ghy.yueplayer.global.Constant;
+import com.ghy.yueplayer.main.ImageLoader;
 import com.ghy.yueplayer.util.AppUtils;
+import com.ghy.yueplayer.util.SPUtil;
 
 import java.util.ArrayList;
 
@@ -25,11 +31,14 @@ public class MusicPlayActivity extends FragmentActivity {
     public static MusicPlayActivity MPAInstance;
 
     View positionView;
+    ImageView ivBg;
     ViewPager viewPager;
     ArrayList<Fragment> listFragments;
     PlayFragment playFragment;
     LyricFragment lyricFragment;
     MyPlayerAdapter playerAdapter;
+
+    boolean isOpenAlbumColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +57,15 @@ public class MusicPlayActivity extends FragmentActivity {
 
     private void initView() {
         positionView = findViewById(R.id.position_view);
+        ivBg = (ImageView) findViewById(R.id.iv_bg);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        String musicAlbumUri = SPUtil.getStringSP(this,
+                Constant.MUSIC_SP, "musicAlbumUri");
+        isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
+        if (isOpenAlbumColor && !TextUtils.isEmpty(musicAlbumUri)) {
+            setPlayBackgroundImage(musicAlbumUri);
+        }
     }
 
 
@@ -79,6 +96,12 @@ public class MusicPlayActivity extends FragmentActivity {
         ViewGroup.LayoutParams lp = positionView.getLayoutParams();
         lp.height = AppUtils.getStatusBarHeight(this);
         positionView.setLayoutParams(lp);
+    }
+
+    public void setPlayBackgroundImage(String uri) {
+        if (isOpenAlbumColor && !TextUtils.isEmpty(uri)) {
+            ImageLoader.getInstance().loadBlurImage(ivBg, uri);
+        }
     }
 
     /*

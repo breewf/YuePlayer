@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.SPUtil;
 
@@ -25,6 +26,7 @@ public class SetActivity extends ActionBarActivity {
     RadioButton radioButton2;
     RadioButton radioButton3;
     RadioButton radioButton4;
+    RadioButton radioButtonAlbumColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,8 @@ public class SetActivity extends ActionBarActivity {
     }
 
     private void initToolBar() {
-        app_icon_back= (ImageView) findViewById(R.id.app_icon_back);
-        tv_activity_name= (TextView) findViewById(R.id.tv_activity_name);
+        app_icon_back = (ImageView) findViewById(R.id.app_icon_back);
+        tv_activity_name = (TextView) findViewById(R.id.tv_activity_name);
         tv_activity_name.setText("Set");
         app_icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,15 +50,16 @@ public class SetActivity extends ActionBarActivity {
 
     private void initView() {
 
-        set_group= (RadioGroup) findViewById(R.id.set_group);
-        radioButton1= (RadioButton) findViewById(R.id.radioButton1);
-        radioButton2= (RadioButton) findViewById(R.id.radioButton2);
-        radioButton3= (RadioButton) findViewById(R.id.radioButton3);
-        radioButton4= (RadioButton) findViewById(R.id.radioButton4);
+        set_group = (RadioGroup) findViewById(R.id.set_group);
+        radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
+        radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
+        radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
+        radioButtonAlbumColor = (RadioButton) findViewById(R.id.radioButton_color_test);
 
         //获取保存的播放模式
-        int playMode= SPUtil.getIntSP(this, Constant.MUSIC_SP,"playMode");
-        switch (playMode){
+        int playMode = SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");
+        switch (playMode) {
             case -1:
                 //未设置过，默认列表循环
                 radioButton1.setChecked(true);
@@ -79,40 +82,60 @@ public class SetActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 int radioButtonId = radioGroup.getCheckedRadioButtonId();
-                RadioButton rb = (RadioButton)findViewById(radioButtonId);
-                Toast.makeText(SetActivity.this,rb.getText(),Toast.LENGTH_SHORT).show();
+                RadioButton rb = (RadioButton) findViewById(radioButtonId);
+                Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
 
                 int playMode = -1;
-                if (rb.getText().equals("列表循环")){
-                    playMode=1;
-                }else if (rb.getText().equals("随机播放")){
-                    playMode=2;
-                }else if (rb.getText().equals("单曲循环")){
-                    playMode=3;
+                if (rb.getText().equals("列表循环")) {
+                    playMode = 1;
+                } else if (rb.getText().equals("随机播放")) {
+                    playMode = 2;
+                } else if (rb.getText().equals("单曲循环")) {
+                    playMode = 3;
                 }
                 //保存设置项
-                SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode",playMode);
+                SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode", playMode);
             }
         });
 
         //获取是否自动下载歌词
-        boolean isAutoLyric=SPUtil.getLyricBooleanSP(this,Constant.MUSIC_SP,"autoSearchLyric");
-        if (isAutoLyric){
+        boolean isAutoLyric = SPUtil.getLyricBooleanSP(this, Constant.MUSIC_SP, "autoSearchLyric");
+        if (isAutoLyric) {
             radioButton4.setChecked(true);
-        }else {
+        } else {
             radioButton4.setChecked(false);
         }
 
         radioButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isCheck=SPUtil.getLyricBooleanSP(SetActivity.this,Constant.MUSIC_SP,"autoSearchLyric");
+                boolean isCheck = SPUtil.getLyricBooleanSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric");
                 if (isCheck) {
                     radioButton4.setChecked(false);
                     SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric", false);
                 } else {
                     radioButton4.setChecked(true);
                     SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric", true);
+                }
+            }
+        });
+
+        boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
+        if (isOpenAlbumColor) {
+            radioButtonAlbumColor.setChecked(true);
+        } else {
+            radioButtonAlbumColor.setChecked(false);
+        }
+        radioButtonAlbumColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isCheck = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
+                if (isCheck) {
+                    radioButtonAlbumColor.setChecked(false);
+                    PreferManager.setBoolean(PreferManager.ALBUM_COLOR, false);
+                } else {
+                    radioButtonAlbumColor.setChecked(true);
+                    PreferManager.setBoolean(PreferManager.ALBUM_COLOR, true);
                 }
             }
         });

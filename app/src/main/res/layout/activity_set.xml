@@ -5,88 +5,113 @@
     android:orientation="vertical"
     tools:context="com.ghy.yueplayer.activity.SetActivity">
 
-   <include layout="@layout/toolbar"></include>
+    <include layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="播放模式"/>
+            android:text="播放模式"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.4dp"
             android:layout_marginTop="10dp"
-            android:background="@color/gray2"></View>
+            android:background="@color/gray2"/>
 
         <RadioGroup
             android:id="@+id/set_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="列表循环"
-            android:padding="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/gray2"
-            android:layout_marginTop="10dp"
-            android:id="@+id/radioButton1" />
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="列表循环"
+                android:textColor="@color/gray2"
+                android:textSize="16sp"/>
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="随机播放"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/gray2"
-            android:layout_marginTop="10dp"
-            android:id="@+id/radioButton2" />
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="随机播放"
+                android:textColor="@color/gray2"
+                android:textSize="16sp"/>
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="单曲循环"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/gray2"
-            android:layout_marginTop="10dp"
-            android:id="@+id/radioButton3" />
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="单曲循环"
+                android:textColor="@color/gray2"
+                android:textSize="16sp"/>
 
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"
             android:layout_marginTop="20dp"
-            android:text="歌词搜索"/>
+            android:text="歌词搜索"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.4dp"
             android:layout_marginTop="10dp"
-            android:background="@color/gray2"></View>
+            android:background="@color/gray2"/>
 
         <RadioButton
+            android:id="@+id/radioButton4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="自动搜索下载歌词"
-            android:textSize="16sp"
-            android:padding="10dp"
-            android:textColor="@color/gray2"
             android:layout_marginTop="10dp"
-            android:id="@+id/radioButton4" />
+            android:padding="10dp"
+            android:text="自动搜索下载歌词"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="实验室"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray2"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_color_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:padding="10dp"
+            android:text="专辑封面背景虚化"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
