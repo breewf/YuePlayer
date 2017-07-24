@@ -149,10 +149,6 @@ public class MusicListFragment extends Fragment {
                 MusicPlayService.MPSInstance.playMusic(musicInfo.get(i).getUrl(),
                         musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist());
 
-                if (MainActivity.MainInstance != null) {
-                    MainActivity.MainInstance.refreshPlayMusicData();
-                }
-
                 //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
 //                startActivity(intent);

@@ -506,7 +506,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //右滑至最大值释放--切歌
             if (MusicPlayService.MPSInstance != null) {
                 MusicPlayService.MPSInstance.playNext();
-                refreshPlayMusicData();
                 String toastString;
                 if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
                     toastString = musicName;
@@ -560,7 +559,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         refreshPlayMusicData();
-        judgePlayRotationAlbum();
     }
 
     @Override

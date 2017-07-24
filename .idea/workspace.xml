@@ -13,11 +13,7 @@
     <list default="true" id="d7e2110b-9514-4eeb-882c-d68e2043dd1d" name="Default" comment="提交截图">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lyric.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lyric.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/my_seek_bar_red_bg.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/my_seek_bar_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java" />
     </list>
     <list id="8b1f4a3a-7a76-4671-82ea-126fad17b5c6" name="New changelist" comment="" />
     <ignored path="YuePlayer.iws" />
@@ -95,14 +91,24 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="347">
-              <caret line="202" column="44" selection-start-line="202" selection-start-column="44" selection-end-line="202" selection-end-column="44" />
+              <caret line="205" column="33" selection-start-line="205" selection-start-column="33" selection-end-line="205" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7893#8524#0" expanded="true" />
                 <element signature="e#8523#8524#0" expanded="true" />
-                <element signature="e#20166#20339#0" expanded="true" />
-                <element signature="e#20338#20339#0" expanded="true" />
+                <element signature="e#20126#20299#0" expanded="true" />
+                <element signature="e#20298#20299#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MusicListFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="331">
+              <caret line="148" column="50" selection-start-line="148" selection-start-column="50" selection-end-line="148" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,8 +150,8 @@
       <file leaf-file-name="MusicPlayService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="311" column="28" selection-start-line="311" selection-start-column="28" selection-end-line="311" selection-end-column="28" />
+            <state relative-caret-position="317">
+              <caret line="164" column="25" selection-start-line="164" selection-start-column="25" selection-end-line="164" selection-end-column="25" />
               <folding>
                 <element signature="e#3621#3622#0" expanded="true" />
                 <element signature="e#3680#3681#0" expanded="true" />
@@ -2061,7 +2067,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_music_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AppUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_music_play.xml" />
@@ -2075,8 +2080,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/LikeListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/lrc/LrcView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -3202,6 +3208,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3233,17 +3240,6 @@
           <caret line="267" column="33" selection-start-line="267" selection-start-column="33" selection-end-line="267" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="152" column="59" selection-start-line="152" selection-start-column="59" selection-end-line="152" selection-end-column="59" />
-          <folding>
-            <element signature="e#3687#5547#0" expanded="false" />
-            <element signature="e#5546#5547#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3468,19 +3464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="311" column="28" selection-start-line="311" selection-start-column="28" selection-end-line="311" selection-end-column="28" />
-          <folding>
-            <element signature="e#3621#3622#0" expanded="true" />
-            <element signature="e#3680#3681#0" expanded="true" />
-            <element signature="e#6630#6631#0" expanded="true" />
-            <element signature="e#6667#6668#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="647">
@@ -3527,16 +3510,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/MusicListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="148" column="50" selection-start-line="148" selection-start-column="50" selection-end-line="148" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="164" column="25" selection-start-line="164" selection-start-column="25" selection-end-line="164" selection-end-column="25" />
+          <folding>
+            <element signature="e#3621#3622#0" expanded="true" />
+            <element signature="e#3680#3681#0" expanded="true" />
+            <element signature="e#6630#6631#0" expanded="true" />
+            <element signature="e#6667#6668#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
-          <caret line="202" column="44" selection-start-line="202" selection-start-column="44" selection-end-line="202" selection-end-column="44" />
+          <caret line="205" column="33" selection-start-line="205" selection-start-column="33" selection-end-line="205" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7893#8524#0" expanded="true" />
             <element signature="e#8523#8524#0" expanded="true" />
-            <element signature="e#20166#20339#0" expanded="true" />
-            <element signature="e#20338#20339#0" expanded="true" />
+            <element signature="e#20126#20299#0" expanded="true" />
+            <element signature="e#20298#20299#0" expanded="true" />
           </folding>
         </state>
       </provider>
