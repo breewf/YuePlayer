@@ -164,19 +164,22 @@ public class LrcView extends View implements ILrcView {
         DEFAULT_SIZE_FOR_OTHER_LRC = AppUtils.dip2px(getContext(), 14);
         mCurSizeForOtherLrc = DEFAULT_SIZE_FOR_OTHER_LRC;
         SIZE_FOR_TIME = AppUtils.dip2px(getContext(), 12);
-        DEFAULT_PADDING = AppUtils.dip2px(getContext(), 10);
+        DEFAULT_PADDING = AppUtils.dip2px(getContext(), 15);
         mCurPadding = DEFAULT_PADDING;
 
         mScroller = new Scroller(getContext());
         mPaintForHighLightLrc = new Paint();
+        mPaintForHighLightLrc.setAntiAlias(true);
         mPaintForHighLightLrc.setColor(mCurColorForHightLightLrc);
         mPaintForHighLightLrc.setTextSize(mCurSizeForHightLightLrc);
 
         mPaintForOtherLrc = new Paint();
+        mPaintForOtherLrc.setAntiAlias(true);
         mPaintForOtherLrc.setColor(mCurColorForOtherLrc);
         mPaintForOtherLrc.setTextSize(mCurSizeForOtherLrc);
 
         mPaintForTimeLine = new Paint();
+        mPaintForTimeLine.setAntiAlias(true);
         mPaintForTimeLine.setColor(COLOR_FOR_TIME_LINE);
         mPaintForTimeLine.setTextSize(SIZE_FOR_TIME);
 

@@ -1,7 +1,7 @@
 package com.ghy.yueplayer.fragment;
 
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.adapter.LikeListAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.db.DBHelper;
@@ -38,6 +37,7 @@ import java.util.Map;
  */
 public class LikeListFragment extends Fragment {
 
+    @SuppressLint("StaticFieldLeak")
     public static LikeListFragment LLFInstance;
 
     private ListView lv_like_music;
@@ -116,11 +116,11 @@ public class LikeListFragment extends Fragment {
                         "playListNumber", likeMusicList.size());
                 //播放
                 MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
-                likeMusicList.get(i).getTitle(),likeMusicList.get(i).getArtist());
+                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist());
 
                 //启动音乐页面
-                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
+//                startActivity(intent);
 
             }
         });
@@ -167,7 +167,7 @@ public class LikeListFragment extends Fragment {
         lv_like_music.setAdapter(adapter);
     }
 
-    public void notifyAdapter(){
+    public void notifyAdapter() {
         adapter.notifyAdapter(likeMusicList);
     }
 
@@ -216,8 +216,8 @@ public class LikeListFragment extends Fragment {
 
             //保存新的喜欢歌曲数目和歌曲列表，若添加后不保存，则下一曲上一曲功能将不适用于最新添加的歌曲
             //非常重要！前提是当前正在播放喜欢的歌曲列表
-            boolean isLikeList = SPUtil.getBooleanSP(getActivity(),Constant.MUSIC_SP,"isLikeList");
-            if (isLikeList){
+            boolean isLikeList = SPUtil.getBooleanSP(getActivity(), Constant.MUSIC_SP, "isLikeList");
+            if (isLikeList) {
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", likeMusicList.size());
@@ -234,8 +234,8 @@ public class LikeListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LLFInstance!=null){
-            LLFInstance=null;
+        if (LLFInstance != null) {
+            LLFInstance = null;
         }
     }
 }
