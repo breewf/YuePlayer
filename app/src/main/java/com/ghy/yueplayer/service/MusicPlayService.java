@@ -224,8 +224,7 @@ public class MusicPlayService extends Service {
     * 获取随机播放下一首歌在列表中的位置
     * */
     private int getRandomNextMusicId() {
-        int nextMusicId = RandomNumber();
-        return nextMusicId;
+        return RandomNumber();
     }
 
     /*

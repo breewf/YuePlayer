@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private HeroTextView tv_app_name;
     private TextView tvMusicTitle;
     private TextView tvMusicArtist;
+    private ProgressBar mProgressbar;
 
     private DrawerLayout mDrawerLayout;
     private RelativeLayout drawer_content;//侧滑菜单布局
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_app_name = (HeroTextView) findViewById(R.id.tv_app_name);
         tvMusicTitle = (TextView) findViewById(R.id.tv_music_title);
         tvMusicArtist = (TextView) findViewById(R.id.tv_music_artist);
+        mProgressbar = (ProgressBar) findViewById(R.id.main_seek_bar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
@@ -194,12 +198,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (MusicPlayService.MPSInstance != null) {
             isPlay = MusicPlayService.MPSInstance.isPlay();
+            handler.removeMessages(0);
+            if (isPlay) {
+                handler.sendEmptyMessage(0);
+            }
         }
         judgePlayRotationAlbum();
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
     }
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (MusicPlayService.player != null) {
+                        mProgressbar.setMax(MusicPlayService.player.getDuration());
+                        mProgressbar.setProgress(MusicPlayService.player.getCurrentPosition());
+                    } else {
+                        mProgressbar.setMax(100);
+                        mProgressbar.setProgress(0);
+                    }
+                    handler.sendEmptyMessageDelayed(0, 200);
+                    break;
+            }
+        }
+    };
 
     private void setOnclickListener() {
         local_music.setOnClickListener(this);
@@ -394,6 +419,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (handler != null) handler.removeCallbacksAndMessages(null);
         stopService();
     }
 
