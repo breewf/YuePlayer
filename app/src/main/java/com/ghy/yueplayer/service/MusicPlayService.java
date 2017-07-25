@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.media.audiofx.Equalizer;
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class MusicPlayService extends Service {
 
     public static MusicPlayService MPSInstance;
     public static MediaPlayer player;
+    // 定义系统的均衡器
+    private Equalizer mEqualizer;
 
     private static String AlbumUri = "content://media/external/audio/albumart";
 
@@ -73,6 +76,7 @@ public class MusicPlayService extends Service {
             player = null;
         }
         player = new MediaPlayer();
+        setupEqualizer();
         try {
             player.setDataSource(path);
             player.prepare();
@@ -121,6 +125,15 @@ public class MusicPlayService extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupEqualizer() {
+        // 以MediaPlayer的AudioSessionId创建Equalizer
+        // 相当于设置Equalizer负责控制该MediaPlayer
+        if (player == null) return;
+        mEqualizer = new Equalizer(0, player.getAudioSessionId());
+        // 启用均衡控制效果
+        mEqualizer.setEnabled(true);
     }
 
     /*

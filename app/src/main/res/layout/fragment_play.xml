@@ -47,7 +47,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:transitionName="@string/transition_artist"/>
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_music_fx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="音效调节"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

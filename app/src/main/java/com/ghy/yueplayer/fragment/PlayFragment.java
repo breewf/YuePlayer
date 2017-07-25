@@ -4,6 +4,8 @@ package com.ghy.yueplayer.fragment;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.activity.MusicFxActivity;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.SPUtil;
@@ -57,6 +60,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private ImageView ivBack;
     private ImageView ivNeedle;
     private TextView tvMusicName;
+    private TextView tvMusicFx;
     private TextView tvSinger;
 
     private SeekBar mSeekBar;
@@ -125,6 +129,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void setOnClickListener() {
         ivBack.setOnClickListener(this);
+        tvMusicFx.setOnClickListener(this);
         iv_music_album.setOnClickListener(this);
 
         iv_control_pre.setOnClickListener(this);
@@ -136,6 +141,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
         ivNeedle = (ImageView) getActivity().findViewById(R.id.iv_needle);
         tvMusicName = (TextView) getActivity().findViewById(R.id.tvMusicName);
+        tvMusicFx = (TextView) getActivity().findViewById(R.id.tv_music_fx);
         tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
 
         mSeekBar = (SeekBar) getActivity().findViewById(R.id.play_seek_bar);
@@ -186,6 +192,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     * 加载歌曲播放数据方法
     * */
     public void initData() {
+
+        //设置音频流 - STREAM_MUSIC：音乐回放即媒体音量
+        getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         //从本地共享文件参数获取数据
         musicName = SPUtil.getStringSP(getActivity(),
@@ -297,6 +306,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             MusicPlayService.MPSInstance.playNext();
         } else if (view == ivBack) {
             getActivity().finish();
+        } else if (view == tvMusicFx) {
+            startActivity(new Intent(getActivity(), MusicFxActivity.class));
         }
     }
 
@@ -316,7 +327,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void albumAnimJudge() {
-        if (MusicPlayService.MPSInstance.isPlay()) {
+        if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
             startAlbumAnim();
         } else {
             stopAlbumAnim();
@@ -341,7 +352,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     }
 
     private void playOrPauseControlView() {
-        if (MusicPlayService.MPSInstance.isPlay()) {
+        if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
             iv_control_start_pause.setImageResource(R.mipmap.ic_pause);
         } else {
             iv_control_start_pause.setImageResource(R.mipmap.ic_play);
