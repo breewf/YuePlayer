@@ -353,7 +353,7 @@ public class MusicPlayService extends Service {
                 .build();
 //        notification.icon = R.mipmap.icon_app_notify_white;
 //        notification.tickerText = tickerText;
-//        notification.flags = Notification.FLAG_NO_CLEAR;
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
         //使用如下的Intent，便不会调用对应的Activity，而是调用Task中的栈顶Activity
 //        Intent intent = new Intent(Intent.ACTION_MAIN);
 //        intent.addCategory(Intent.CATEGORY_LAUNCHER);
