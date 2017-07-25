@@ -112,7 +112,7 @@ public class MusicPlayActivity extends FragmentActivity {
                         .bitmap(bitmap) //要模糊的图片
                         .radius(20)//模糊半径 RenderScript时0<radius<=25
                         .scale(15)//指定模糊前缩小的倍数
-                        .policy(EasyBlur.BlurPolicy.FAST_BLUR)//使用fastBlur
+//                        .policy(EasyBlur.BlurPolicy.FAST_BLUR)//使用fastBlur
                         .blur();
                 ivBg.setImageBitmap(finalBitmap);
             } catch (IOException e) {
