@@ -1,6 +1,7 @@
 package com.ghy.yueplayer.main;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -57,8 +58,8 @@ public class ImageLoader {
     /**
      * 加载网络图片
      */
-    public void loadImageError(ImageView imageView, String url, int errorResId) {
-        Glide.with(context).load(url).crossFade().error(errorResId).into(imageView);
+    public void loadImageUri(ImageView imageView, Uri uri) {
+        Glide.with(context).load(uri).crossFade().into(imageView);
     }
 
     /**
@@ -66,6 +67,13 @@ public class ImageLoader {
      */
     public void loadImage(ImageView imageView, String url, int placeholderResId, int errorResId) {
         Glide.with(context).load(url).crossFade().placeholder(placeholderResId).error(errorResId).into(imageView);
+    }
+
+    /**
+     * 加载网络图片
+     */
+    public void loadImageError(ImageView imageView, String url, int errorResId) {
+        Glide.with(context).load(url).crossFade().error(errorResId).into(imageView);
     }
 
     /**
@@ -115,6 +123,13 @@ public class ImageLoader {
      */
     public void loadBlurImage(ImageView imageView, String url) {
         Glide.with(context).load(url).crossFade().bitmapTransform(new BlurTransformation(context, 40, 10)).into(imageView);
+    }
+
+    /**
+     * 加载URI-高斯模糊图片
+     */
+    public void loadBlurImage(ImageView imageView, Uri uri) {
+        Glide.with(context).load(uri).crossFade().bitmapTransform(new BlurTransformation(context, 40, 10)).into(imageView);
     }
 
     /**

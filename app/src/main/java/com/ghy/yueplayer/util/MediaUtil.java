@@ -41,9 +41,9 @@ public class MediaUtil {
 
 
                 if (url.endsWith(".mp3") || url.endsWith(".MP3")
-                        ||url.endsWith(".ape")||url.endsWith(".APE")) {
-                    //过滤时长小于30秒的歌曲
-                    if (duration >= 30000){
+                        || url.endsWith(".ape") || url.endsWith(".APE")) {
+                    //过滤时长小于60秒的歌曲
+                    if (duration >= 60000) {
                         MusicInfo musicInfo = new MusicInfo();
                         musicInfo.setTitle(title);
                         musicInfo.setArtist(artist);
@@ -56,7 +56,7 @@ public class MediaUtil {
             }
         }
         try {
-            cursor.close();
+            if (cursor != null) cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
             return list;

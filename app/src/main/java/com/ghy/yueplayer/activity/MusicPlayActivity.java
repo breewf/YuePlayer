@@ -1,9 +1,12 @@
 package com.ghy.yueplayer.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -16,13 +19,14 @@ import android.widget.ImageView;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.common.PreferManager;
+import com.ghy.yueplayer.component.blurlibrary.EasyBlur;
 import com.ghy.yueplayer.fragment.LyricFragment;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
-import com.ghy.yueplayer.main.ImageLoader;
 import com.ghy.yueplayer.util.AppUtils;
 import com.ghy.yueplayer.util.SPUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MusicPlayActivity extends FragmentActivity {
@@ -98,9 +102,22 @@ public class MusicPlayActivity extends FragmentActivity {
         positionView.setLayoutParams(lp);
     }
 
-    public void setPlayBackgroundImage(String uri) {
-        if (isOpenAlbumColor && !TextUtils.isEmpty(uri)) {
-            ImageLoader.getInstance().loadBlurImage(ivBg, uri);
+    public void setPlayBackgroundImage(String url) {
+        if (isOpenAlbumColor && !TextUtils.isEmpty(url)) {
+            Uri uri = Uri.parse(url);
+            // 读取uri所在的图片
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                Bitmap finalBitmap = EasyBlur.with(MusicPlayActivity.this)
+                        .bitmap(bitmap) //要模糊的图片
+                        .radius(20)//模糊半径 RenderScript时0<radius<=25
+                        .scale(15)//指定模糊前缩小的倍数
+                        .policy(EasyBlur.BlurPolicy.FAST_BLUR)//使用fastBlur
+                        .blur();
+                ivBg.setImageBitmap(finalBitmap);
+            } catch (IOException e) {
+                ivBg.setImageResource(R.mipmap.ic_background);
+            }
         }
     }
 
