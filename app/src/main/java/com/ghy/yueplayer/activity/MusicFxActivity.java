@@ -2,6 +2,7 @@ package com.ghy.yueplayer.activity;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar;
-import com.ghy.yueplayer.service.MusicPlayService;
 
 import static com.ghy.yueplayer.service.MusicPlayService.mBass;
 import static com.ghy.yueplayer.service.MusicPlayService.mEqualizer;
@@ -112,9 +112,9 @@ public class MusicFxActivity extends AppCompatActivity {
             int maxValue = maxEQLevel - minEQLevel;
             verticalSeekBars[i].setMax(maxValue);
             int bandLevel = getEQUALIZER(i);
-            bandLevel = bandLevel == 0 ? (maxEQLevel - minEQLevel) / 2 : bandLevel;
+            verticalSeekBars[i].setProgress(bandLevel == -10000 ? maxEQLevel : bandLevel + maxEQLevel);
+            bandLevel = bandLevel == -10000 ? 0 : bandLevel;
 //            verticalSeekBars[i].setProgress(mEqualizer.getBandLevel(i));
-            verticalSeekBars[i].setProgress(bandLevel + maxEQLevel);
             if (mEqualizer != null) mEqualizer.setBandLevel(i, (short) bandLevel);
             final short brand = i;
             // 为SeekBar的拖动事件设置事件监听器
@@ -135,10 +135,10 @@ public class MusicFxActivity extends AppCompatActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    saveEQUALIZER(brand, (seekBar.getProgress() + minEQLevel));
                     if (mEqualizer == null) return;
                     mEqualizer.setBandLevel(brand,
                             (short) (seekBar.getProgress() + minEQLevel));
-                    saveEQUALIZER(brand, (seekBar.getProgress() + minEQLevel));
                     Log.i("musicFx", "brand--onStopTrackingTouch-->>" + brand + "--level-->>" + (short) (seekBar.getProgress() + minEQLevel));
                 }
             });
@@ -161,15 +161,15 @@ public class MusicFxActivity extends AppCompatActivity {
 
     private int getEQUALIZER(short brand) {
         if (brand == 0) {
-            return PreferManager.getInt(PreferManager.EQUALIZER1, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER1, -10000);
         } else if (brand == 1) {
-            return PreferManager.getInt(PreferManager.EQUALIZER2, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER2, -10000);
         } else if (brand == 2) {
-            return PreferManager.getInt(PreferManager.EQUALIZER3, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER3, -10000);
         } else if (brand == 3) {
-            return PreferManager.getInt(PreferManager.EQUALIZER4, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER4, -10000);
         } else if (brand == 4) {
-            return PreferManager.getInt(PreferManager.EQUALIZER5, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER5, -10000);
         } else {
             return 0;
         }
@@ -185,6 +185,9 @@ public class MusicFxActivity extends AppCompatActivity {
 //        // 设置启用重低音效果
 //        mBass.setEnabled(true);
         // 重低音的范围为0～1000
+        if (mBass == null) {
+            mBass = new BassBoost(0, new MediaPlayer().getAudioSessionId());
+        }
         mSeekBarBass.setMax(1000);
         int bassLevel = PreferManager.getInt(PreferManager.BASS, 0);
         mSeekBarBass.setProgress(bassLevel);
@@ -206,9 +209,9 @@ public class MusicFxActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (MusicPlayService.mBass == null) return;
-                mBass.setStrength((short) seekBar.getProgress());
                 PreferManager.setInt(PreferManager.BASS, seekBar.getProgress());
+                if (mBass == null) return;
+                mBass.setStrength((short) seekBar.getProgress());
                 Log.i("musicFx", "bass--onStopTrackingTouch-->>" + (short) seekBar.getProgress());
             }
         });

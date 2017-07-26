@@ -147,7 +147,7 @@ public class MusicPlayService extends Service {
         short brands = mEqualizer.getNumberOfBands();
         for (short i = 0; i < brands; i++) {
             int bandLevel = getEQUALIZER(i);
-            bandLevel = bandLevel == 0 ? (maxEQLevel - minEQLevel) / 2 : bandLevel;
+            bandLevel = bandLevel == -10000 ? 0 : bandLevel;
             mEqualizer.setBandLevel(i, (short) bandLevel);
         }
     }
@@ -165,15 +165,15 @@ public class MusicPlayService extends Service {
 
     private int getEQUALIZER(short brand) {
         if (brand == 0) {
-            return PreferManager.getInt(PreferManager.EQUALIZER1, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER1, -10000);
         } else if (brand == 1) {
-            return PreferManager.getInt(PreferManager.EQUALIZER2, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER2, -10000);
         } else if (brand == 2) {
-            return PreferManager.getInt(PreferManager.EQUALIZER3, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER3, -10000);
         } else if (brand == 3) {
-            return PreferManager.getInt(PreferManager.EQUALIZER4, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER4, -10000);
         } else if (brand == 4) {
-            return PreferManager.getInt(PreferManager.EQUALIZER5, 0);
+            return PreferManager.getInt(PreferManager.EQUALIZER5, -10000);
         } else {
             return 0;
         }
