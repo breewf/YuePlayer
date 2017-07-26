@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.os.IBinder;
 import android.widget.Toast;
@@ -32,7 +33,9 @@ public class MusicPlayService extends Service {
     public static MusicPlayService MPSInstance;
     public static MediaPlayer player;
     // 定义系统的均衡器
-    private Equalizer mEqualizer;
+    public static Equalizer mEqualizer;
+    // 定义系统的重低音控制器
+    public static BassBoost mBass;
 
     private static String AlbumUri = "content://media/external/audio/albumart";
 
@@ -76,7 +79,10 @@ public class MusicPlayService extends Service {
             player = null;
         }
         player = new MediaPlayer();
+        // 初始化均衡控制器
         setupEqualizer();
+        // 初始化重低音控制器
+        setupBassBoost();
         try {
             player.setDataSource(path);
             player.prepare();
@@ -134,6 +140,15 @@ public class MusicPlayService extends Service {
         mEqualizer = new Equalizer(0, player.getAudioSessionId());
         // 启用均衡控制效果
         mEqualizer.setEnabled(true);
+    }
+
+    private void setupBassBoost() {
+        // 以MediaPlayer的AudioSessionId创建BassBoost
+        // 相当于设置BassBoost负责控制该MediaPlayer
+        if (player == null) return;
+        mBass = new BassBoost(0, player.getAudioSessionId());
+        // 设置启用重低音效果
+        mBass.setEnabled(true);
     }
 
     /*

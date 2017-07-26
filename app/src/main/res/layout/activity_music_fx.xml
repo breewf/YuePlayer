@@ -1,18 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
-    <LinearLayout
-        android:id="@+id/fx_content_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/fx_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="音效调节功能需要插入耳机"
+                android:textColor="@color/gray4"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="均衡器"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:id="@+id/equalizer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_top1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"/>
+
+                    <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="280dp">
+
+                        <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/ver_seek_bar1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:splitTrack="false"
+                            app:seekBarRotation="CW270"/>
+
+                    </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
+
+                    <TextView
+                        android:id="@+id/tv_bottom1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-15db"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_top2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"/>
+
+                    <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="280dp">
+
+                        <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/ver_seek_bar2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:splitTrack="false"
+                            app:seekBarRotation="CW270"/>
+
+                    </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
+
+                    <TextView
+                        android:id="@+id/tv_bottom2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-15db"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_top3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"/>
+
+                    <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="280dp">
+
+                        <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/ver_seek_bar3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:splitTrack="false"
+                            app:seekBarRotation="CW270"/>
+
+                    </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
+
+                    <TextView
+                        android:id="@+id/tv_bottom3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-15db"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_top4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"/>
+
+                    <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="280dp">
+
+                        <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/ver_seek_bar4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:splitTrack="false"
+                            app:seekBarRotation="CW270"/>
+
+                    </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
+
+                    <TextView
+                        android:id="@+id/tv_bottom4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-15db"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_top5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"/>
+
+                    <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
+                        android:layout_width="wrap_content"
+                        android:layout_height="280dp">
+
+                        <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar
+                            android:id="@+id/ver_seek_bar5"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:splitTrack="false"
+                            app:seekBarRotation="CW270"/>
+
+                    </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
+
+                    <TextView
+                        android:id="@+id/tv_bottom5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-15db"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:background="@color/gray5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="重低音"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <SeekBar
+                android:id="@+id/seek_bass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
