@@ -16,6 +16,7 @@ import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.fragment.LyricFragment;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
@@ -140,6 +141,15 @@ public class MusicPlayService extends Service {
         mEqualizer = new Equalizer(0, player.getAudioSessionId());
         // 启用均衡控制效果
         mEqualizer.setEnabled(true);
+        // 获取均衡控制器支持最小值和最大值
+        short minEQLevel = mEqualizer.getBandLevelRange()[0];//第一个下标为最低的限度范围 -1500
+        short maxEQLevel = mEqualizer.getBandLevelRange()[1];//第二个下标为最高的限度范围 1500
+        short brands = mEqualizer.getNumberOfBands();
+        for (short i = 0; i < brands; i++) {
+            int bandLevel = getEQUALIZER(i);
+            bandLevel = bandLevel == 0 ? (maxEQLevel - minEQLevel) / 2 : bandLevel;
+            mEqualizer.setBandLevel(i, (short) bandLevel);
+        }
     }
 
     private void setupBassBoost() {
@@ -149,6 +159,24 @@ public class MusicPlayService extends Service {
         mBass = new BassBoost(0, player.getAudioSessionId());
         // 设置启用重低音效果
         mBass.setEnabled(true);
+        int bassLevel = PreferManager.getInt(PreferManager.BASS, 0);
+        mBass.setStrength((short) bassLevel);
+    }
+
+    private int getEQUALIZER(short brand) {
+        if (brand == 0) {
+            return PreferManager.getInt(PreferManager.EQUALIZER1, 0);
+        } else if (brand == 1) {
+            return PreferManager.getInt(PreferManager.EQUALIZER2, 0);
+        } else if (brand == 2) {
+            return PreferManager.getInt(PreferManager.EQUALIZER3, 0);
+        } else if (brand == 3) {
+            return PreferManager.getInt(PreferManager.EQUALIZER4, 0);
+        } else if (brand == 4) {
+            return PreferManager.getInt(PreferManager.EQUALIZER5, 0);
+        } else {
+            return 0;
+        }
     }
 
     /*
