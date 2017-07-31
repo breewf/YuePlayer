@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.ghy.yueplayer.activity.AboutActivity;
 import com.ghy.yueplayer.activity.HelpActivity;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
+import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
@@ -350,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int id = view.getId();
                     switch (id) {
                         case R.id.layout1:
-                            showToast("欢迎您使用YuePlayer");
+                            startActivity(OnLineMusicActivity.class);
                             break;
                         case R.id.layout2:
                             startActivity(TimeActivity.class);

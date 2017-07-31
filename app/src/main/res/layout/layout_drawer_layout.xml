@@ -51,7 +51,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/white"
-                    android:text="Music" />
+                    android:text="OnLine" />
 
             </LinearLayout>
 
