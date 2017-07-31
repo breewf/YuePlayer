@@ -12,12 +12,28 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_see_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:background="@drawable/bg_selector_1"
+            android:text="默认为热歌榜，点我查看其它榜单"
+            android:textColor="@color/gray2"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray3"/>
+
+        <ListView
+            android:id="@+id/lv_hot_music"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="榜单页面"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:divider="@color/gray5"
+            android:dividerHeight="1px"
+            android:gravity="center"/>
 
     </LinearLayout>
 

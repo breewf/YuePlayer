@@ -1,16 +1,15 @@
 package com.ghy.yueplayer.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.fragment.RecommendFragment;
 import com.ghy.yueplayer.fragment.SongListFragment;
 import com.ghy.yueplayer.fragment.TopListFragment;
@@ -18,13 +17,12 @@ import com.ghy.yueplayer.fragment.TopListFragment;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 在线歌曲
  */
-public class OnLineMusicActivity extends AppCompatActivity {
+public class OnLineMusicActivity extends BaseActivity {
 
     @Bind(R.id.et_search)
     EditText mEtSearch;
@@ -38,11 +36,17 @@ public class OnLineMusicActivity extends AppCompatActivity {
     private String[] mTitles = {"榜单", "推荐", "歌单"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_line_music);
-        ButterKnife.bind(this);
+    protected int getLayoutID() {
+        return R.layout.activity_on_line_music;
+    }
 
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
         mFragments.add(new TopListFragment());
         mFragments.add(new RecommendFragment());
         mFragments.add(new SongListFragment());
@@ -88,9 +92,4 @@ public class OnLineMusicActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 }

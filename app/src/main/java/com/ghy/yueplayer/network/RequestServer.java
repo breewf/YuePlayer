@@ -52,6 +52,13 @@ public class RequestServer {
     /**
      * 添加一个请求到请求队列.
      */
+    public <T> void add(int what, Request<T> request, HttpResponseListener<T> callback) {
+        requestQueue.add(what, request, callback);
+    }
+
+    /**
+     * 添加一个请求到请求队列.
+     */
     public <T> void addCommon(int what, Request<T> request, HttpListener<T> callback) {
         requestQueue.add(what, request, new HttpResponseListener<>(callback));
     }

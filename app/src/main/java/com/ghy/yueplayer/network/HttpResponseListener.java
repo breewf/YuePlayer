@@ -17,7 +17,6 @@ import java.net.ProtocolException;
 
 /**
  * 网络请求回调监听
- * Java后台
  */
 public class HttpResponseListener<T> implements OnResponseListener<T> {
 
