@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/music_list_bg_selector_color1"
+    android:padding="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_music_num"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="01"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="italic"/>
+
+        <ImageView
+            android:id="@+id/iv_music"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_music_num"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/tv_music_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_music"
+            android:layout_alignLeft="@+id/tv_music_name"
+            android:layout_marginBottom="5dp"
+            android:text="TextView"
+            android:textColor="@color/gray_light"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/tv_music_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_music"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/iv_music"
+            android:maxLines="1"
+            android:text="TextView"
+            android:textColor="@color/gray_light"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

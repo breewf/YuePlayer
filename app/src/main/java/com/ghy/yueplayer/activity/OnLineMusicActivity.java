@@ -53,6 +53,7 @@ public class OnLineMusicActivity extends BaseActivity {
         //设置adapter
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(3);
 
         //设置关联
         mTabLayout.setViewPager(mViewPager);

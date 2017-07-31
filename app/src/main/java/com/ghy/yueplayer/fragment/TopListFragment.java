@@ -1,14 +1,17 @@
 package com.ghy.yueplayer.fragment;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.adapter.OnLineMusicListAdapter;
 import com.ghy.yueplayer.api.APIS;
 import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.OnLineListInfo;
@@ -16,6 +19,8 @@ import com.ghy.yueplayer.network.HttpListener;
 import com.ghy.yueplayer.network.JavaBeanRequest;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
+
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -30,6 +35,9 @@ public class TopListFragment extends BaseFragment {
     TextView mTvSeeAll;
     @Bind(R.id.lv_hot_music)
     ListView mLvHotMusic;
+
+    private MediaPlayer player;
+    private OnLineMusicListAdapter mOnLineMusicListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,13 +83,54 @@ public class TopListFragment extends BaseFragment {
     private HttpListener<OnLineListInfo> getTopListListener = new HttpListener<OnLineListInfo>() {
 
         @Override
-        public void onSucceed(OnLineListInfo onLineListInfo) {
+        public void onSucceed(final OnLineListInfo onLineListInfo) {
             Log.i("onLineMusic", "获取榜单成功-->>");
+            if (onLineListInfo == null || onLineListInfo.getSong_list() == null ||
+                    onLineListInfo.getSong_list().size() == 0) {
+                Toast.makeText(getActivity(), "获取数据为空", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            mOnLineMusicListAdapter = new OnLineMusicListAdapter(getActivity(), onLineListInfo);
+            mLvHotMusic.setAdapter(mOnLineMusicListAdapter);
+            mLvHotMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //播放
+                    String musicName = onLineListInfo.getSong_list().get(i).getTitle();
+                    String artist = onLineListInfo.getSong_list().get(i).getAuthor();
+                    String imgUrl = onLineListInfo.getSong_list().get(i).getPic_big();
+                    String songId = onLineListInfo.getSong_list().get(i).getSong_id();
+
+                    String musicPath = APIS.BASE_URL_BAI_DU_MUSIC + "?method="
+                            + APIS.BAI_DU_METHOD_PLAY + "&songid=" + songId;
+
+                    if (player != null) {
+                        player.release();
+                        player = null;
+                    }
+                    player = new MediaPlayer();
+                    try {
+                        player.reset();
+                        player.setDataSource(musicPath);
+                        player.prepareAsync();
+                        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                player.start();
+                            }
+                        });
+//                        player.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         @Override
         public void onFailed(int errorCode, String msg) {
             Log.i("onLineMusic", "获取榜单出错-->>" + msg);
+            Toast.makeText(getActivity(), "请求出错", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -94,4 +143,12 @@ public class TopListFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+    }
 }
