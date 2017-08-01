@@ -67,6 +67,10 @@
         </activity>
         <activity android:name=".activity.OnLineMusicActivity">
         </activity>
+        <activity android:name=".activity.AllTopListActivity">
+        </activity>
+        <activity android:name=".activity.AllTopListDetailActivity">
+        </activity>
     </application>
 
 </manifest>

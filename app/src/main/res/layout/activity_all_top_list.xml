@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_layout"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_list_new"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="新歌榜"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/tv_list_hot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="热歌榜"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_list_pop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="流行榜"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/tv_list_us"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="欧美金曲"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_list_old"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="经典老歌"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/tv_list_love"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="情歌对唱"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_list_movie"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="影视金曲"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/tv_list_net"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_top_list"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="网络歌曲"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

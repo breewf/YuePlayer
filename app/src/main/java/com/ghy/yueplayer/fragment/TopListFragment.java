@@ -1,5 +1,6 @@
 package com.ghy.yueplayer.fragment;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.activity.AllTopListActivity;
 import com.ghy.yueplayer.adapter.OnLineMusicListAdapter;
 import com.ghy.yueplayer.api.APIS;
 import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.OnLineListInfo;
 import com.ghy.yueplayer.network.HttpListener;
 import com.ghy.yueplayer.network.JavaBeanRequest;
+import com.ghy.yueplayer.util.AnimUtils;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
 
@@ -33,6 +37,8 @@ public class TopListFragment extends BaseFragment {
 
     @Bind(R.id.tv_see_all)
     TextView mTvSeeAll;
+    @Bind(R.id.spin_kit)
+    SpinKitView mSpinKitView;
     @Bind(R.id.lv_hot_music)
     ListView mLvHotMusic;
 
@@ -78,13 +84,14 @@ public class TopListFragment extends BaseFragment {
     }
 
     /**
-     * 获取歌词回调
+     * 获取歌曲列表回调
      */
     private HttpListener<OnLineListInfo> getTopListListener = new HttpListener<OnLineListInfo>() {
 
         @Override
         public void onSucceed(final OnLineListInfo onLineListInfo) {
             Log.i("onLineMusic", "获取榜单成功-->>");
+            mSpinKitView.setVisibility(View.GONE);
             if (onLineListInfo == null || onLineListInfo.getSong_list() == null ||
                     onLineListInfo.getSong_list().size() == 0) {
                 Toast.makeText(getActivity(), "获取数据为空", Toast.LENGTH_SHORT).show();
@@ -130,6 +137,7 @@ public class TopListFragment extends BaseFragment {
         @Override
         public void onFailed(int errorCode, String msg) {
             Log.i("onLineMusic", "获取榜单出错-->>" + msg);
+            mSpinKitView.setVisibility(View.GONE);
             Toast.makeText(getActivity(), "请求出错", Toast.LENGTH_SHORT).show();
         }
     };
@@ -138,7 +146,7 @@ public class TopListFragment extends BaseFragment {
     public void topListClick(View view) {
         switch (view.getId()) {
             case R.id.tv_see_all:
-                Toast.makeText(getActivity(), "查看更多", Toast.LENGTH_SHORT).show();
+                AnimUtils.toLeftAnim(getActivity(), new Intent(getActivity(), AllTopListActivity.class));
                 break;
         }
     }

@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_layout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.Wave"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            app:SpinKit_Color="@color/white"/>
+
+        <ListView
+            android:id="@+id/lv_music"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/gray5"
+            android:dividerHeight="1px"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

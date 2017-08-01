@@ -26,8 +26,8 @@
             android:id="@+id/iv_music"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/tv_music_num"
             android:src="@mipmap/ic_launcher"/>
 
@@ -38,6 +38,9 @@
             android:layout_alignBottom="@+id/iv_music"
             android:layout_alignLeft="@+id/tv_music_name"
             android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="TextView"
             android:textColor="@color/gray_light"
             android:textSize="11sp"/>
@@ -48,8 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_music"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/iv_music"
+            android:ellipsize="end"
             android:maxLines="1"
             android:text="TextView"
             android:textColor="@color/gray_light"

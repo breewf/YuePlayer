@@ -4,8 +4,12 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.network.HttpListener;
 import com.ghy.yueplayer.network.HttpResponseListener;
 import com.ghy.yueplayer.network.NoHttpUtils;
@@ -56,6 +60,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title
+     */
+    protected void backWithTitle(String title) {
+        ImageView iv = (ImageView) findViewById(R.id.iv_back);
+        TextView tv = (TextView) findViewById(R.id.tv_title);
+        if (tv != null && !TextUtils.isEmpty(title)) {
+            tv.setText(title);
+        }
+        if (iv != null) {
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
     }
 
     /**
