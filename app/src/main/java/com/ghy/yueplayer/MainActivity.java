@@ -38,6 +38,7 @@ import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
 import com.ghy.yueplayer.global.Constant;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private RelativeLayout drawer_content;//侧滑菜单布局
 
+    private MusicNoteViewLayout mMusicNoteViewLayout;
     private VuMeterView mVuMeterView;
     private VDHLayout mVDHLayout;
     private ImageView mPlayerImageView;
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvMusicArtist = (TextView) findViewById(R.id.tv_music_artist);
         mProgressbar = (ProgressBar) findViewById(R.id.main_seek_bar);
 
+        mMusicNoteViewLayout = (MusicNoteViewLayout) findViewById(R.id.note_layout);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
 
@@ -203,9 +206,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (MusicPlayService.MPSInstance != null) {
             isPlay = MusicPlayService.MPSInstance.isPlay();
-            handler.removeMessages(0);
+            removeHandler();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
+                handler.sendEmptyMessageDelayed(1, 1000);
                 mVuMeterView.resume(true);
             } else {
                 mVuMeterView.stop(true);
@@ -230,9 +234,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     handler.sendEmptyMessageDelayed(0, 200);
                     break;
+                case 1:
+                    mMusicNoteViewLayout.addMusicNote();//添加一个音符
+                    handler.sendEmptyMessageDelayed(1, 1000);
+                    break;
             }
         }
     };
+
+    private void removeHandler() {
+        if (handler != null) {
+            handler.removeMessages(0);
+            handler.removeMessages(1);
+        }
+    }
 
     private void setOnclickListener() {
         local_music.setOnClickListener(this);
@@ -536,6 +551,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
                 mVuMeterView.stop(true);
+                handler.removeMessages(1);
             } else {
                 if (TextUtils.isEmpty(musicUrl)) {
                     Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
@@ -545,6 +561,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
                 mVuMeterView.resume(true);
+                handler.sendEmptyMessageDelayed(1, 1000);
             }
         }
     }
