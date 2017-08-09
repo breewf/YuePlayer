@@ -17,6 +17,7 @@ public class PreferManager {
     public static final String IMEI_CODE = "imei";//IMEI号
 
     public static final String ALBUM_COLOR = "album_color";//专辑图背景虚化
+    public static final String MUSIC_NOTE = "music_note";//音乐音符
     public static final String EQUALIZER1 = "equalizer1";//均衡器数值
     public static final String EQUALIZER2 = "equalizer2";//均衡器数值
     public static final String EQUALIZER3 = "equalizer3";//均衡器数值

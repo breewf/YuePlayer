@@ -38,6 +38,7 @@ import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
@@ -209,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             removeHandler();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
-                handler.sendEmptyMessageDelayed(1, 1000);
                 mVuMeterView.resume(true);
+                isOpenMusicNote();
             } else {
                 mVuMeterView.stop(true);
             }
@@ -219,6 +220,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
+    }
+
+    private void isOpenMusicNote() {
+        boolean isOpenMusicNote = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
+        if (isOpenMusicNote) {
+            handler.sendEmptyMessageDelayed(1, 1000);
+        }
     }
 
     Handler handler = new Handler() {
@@ -561,7 +569,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
                 mVuMeterView.resume(true);
-                handler.sendEmptyMessageDelayed(1, 1000);
+                isOpenMusicNote();
             }
         }
     }

@@ -27,6 +27,7 @@ public class SetActivity extends ActionBarActivity {
     RadioButton radioButton3;
     RadioButton radioButton4;
     RadioButton radioButtonAlbumColor;
+    RadioButton radioButtonMusicNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class SetActivity extends ActionBarActivity {
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
         radioButtonAlbumColor = (RadioButton) findViewById(R.id.radioButton_color_test);
+        radioButtonMusicNote = (RadioButton) findViewById(R.id.radioButton_note_test);
 
         //获取保存的播放模式
         int playMode = SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");
@@ -136,6 +138,26 @@ public class SetActivity extends ActionBarActivity {
                 } else {
                     radioButtonAlbumColor.setChecked(true);
                     PreferManager.setBoolean(PreferManager.ALBUM_COLOR, true);
+                }
+            }
+        });
+
+        boolean isOpenMusicNote = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
+        if (isOpenMusicNote) {
+            radioButtonMusicNote.setChecked(true);
+        } else {
+            radioButtonMusicNote.setChecked(false);
+        }
+        radioButtonMusicNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isCheck = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
+                if (isCheck) {
+                    radioButtonMusicNote.setChecked(false);
+                    PreferManager.setBoolean(PreferManager.MUSIC_NOTE, false);
+                } else {
+                    radioButtonMusicNote.setChecked(true);
+                    PreferManager.setBoolean(PreferManager.MUSIC_NOTE, true);
                 }
             }
         });
