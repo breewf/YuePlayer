@@ -76,9 +76,9 @@ public class PlayControlView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        centerX = getWidth() / 2;
-        centerY = getHeight() / 2;
-        radius = getWidth() / 2;
+        centerX = getMeasuredWidth() / 2;
+        centerY = getMeasuredHeight() / 2;
+        radius = getMeasuredWidth() / 2;
         diameter = radius * 2;
         leftCenterX = centerX - diameter;
         rightCenterX = centerX + diameter;
