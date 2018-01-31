@@ -109,28 +109,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Q：我不想自动去下载歌词怎么办？"
-                android:textColor="@color/gray2"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="A：您可以在主界面打开侧滑菜单，打开设置项，然后关闭自动搜索下载歌词即可。"
-                android:textColor="@color/gray2"
-                android:textSize="14sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="Q：为何在后台播放过程中突然就停止了呢？"
                 android:textColor="@color/gray2"
                 android:textSize="14sp"/>

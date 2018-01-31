@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -36,7 +36,6 @@
                 android:text="歌曲名称"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 android:transitionName="@string/transition_title"/>
 
             <TextView
@@ -47,7 +46,6 @@
                 android:text="歌手名"
                 android:textColor="#80FFFFFF"
                 android:textSize="12sp"
-                android:textStyle="bold"
                 android:transitionName="@string/transition_artist"/>
 
         </LinearLayout>
@@ -121,8 +119,7 @@
                     android:layout_marginRight="-10dp"
                     android:text="00:00"
                     android:textColor="@color/gray1"
-                    android:textSize="10sp"
-                    android:textStyle="bold"/>
+                    android:textSize="10sp"/>
 
                 <SeekBar
                     android:id="@+id/play_seek_bar"
@@ -141,9 +138,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-10dp"
                     android:text="00:00"
-                    android:textColor="@color/gray2"
-                    android:textSize="10sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/gray1"
+                    android:textSize="10sp"/>
 
             </LinearLayout>
 

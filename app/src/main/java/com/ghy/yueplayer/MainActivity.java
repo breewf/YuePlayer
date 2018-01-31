@@ -461,13 +461,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onLongClick(View view) {
         if (view == app_icon) {
-            showToast("侧滑菜单");
+            showToast("点我打开菜单哦");
         } else if (view == tv_app_name) {
-            showToast("播放页面");
+            showToast("听见好音乐~");
         } else if (view == local_music) {
-            showToast("音乐列表");
+            showToast("我的音乐列表");
         } else if (view == favour_music) {
-            showToast("喜欢列表");
+            showToast("我的喜欢列表");
         }
         return true;
     }
