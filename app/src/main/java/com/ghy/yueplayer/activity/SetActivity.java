@@ -1,6 +1,7 @@
 package com.ghy.yueplayer.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ public class SetActivity extends Activity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
+    TextView tv_fx;
 
     RadioGroup set_group;
     RadioButton radioButton1;
@@ -50,12 +52,15 @@ public class SetActivity extends Activity {
 
     private void initView() {
 
+        tv_fx = (TextView) findViewById(R.id.tv_fx);
         set_group = (RadioGroup) findViewById(R.id.set_group);
         radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
         radioButtonAlbumColor = (RadioButton) findViewById(R.id.radioButton_color_test);
         radioButtonMusicNote = (RadioButton) findViewById(R.id.radioButton_note_test);
+
+        tv_fx.setOnClickListener(view -> startActivity(new Intent(this, MusicFxActivity.class)));
 
         //获取保存的播放模式
         int playMode = SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");

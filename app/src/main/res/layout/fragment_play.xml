@@ -20,17 +20,19 @@
             android:id="@+id/play_layout1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="5dp">
+            android:orientation="vertical">
 
-            <TextView
+            <com.ghy.yueplayer.view.MarqueeTextView
                 android:id="@+id/tvMusicName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
+                android:ellipsize="marquee"
                 android:gravity="end"
-                android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 android:text="歌曲名称"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
@@ -50,16 +52,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_music_fx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="音效调节"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
-
     </LinearLayout>
 
     <!-- 歌曲名，歌手名-->
@@ -67,7 +59,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray2"/>
+        android:background="@color/gray4"/>
 
     <!-- 进度条，封面-->
     <RelativeLayout

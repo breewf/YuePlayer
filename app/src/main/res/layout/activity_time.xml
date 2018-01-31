@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -54,8 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="00:"
                     android:textColor="@color/gray2"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/tv_time_this"
@@ -63,8 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="00:00"
                     android:textColor="@color/gray2"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 
@@ -88,8 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="00:"
                     android:textColor="@color/gray2"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textSize="24sp"/>
 
                 <TextView
                     android:id="@+id/tv_time_all_use"
@@ -97,10 +94,9 @@
                     android:layout_height="wrap_content"
                     android:text="00:00"
                     android:textColor="@color/gray2"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    android:textSize="24sp"/>
 
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

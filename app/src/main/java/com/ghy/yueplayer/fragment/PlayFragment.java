@@ -4,7 +4,6 @@ package com.ghy.yueplayer.fragment;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,10 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.activity.MusicFxActivity;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.view.MarqueeTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -59,8 +58,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private ImageView ivBack;
     private ImageView ivNeedle;
-    private TextView tvMusicName;
-    private TextView tvMusicFx;
+    private MarqueeTextView tvMusicName;
     private TextView tvSinger;
 
     private SeekBar mSeekBar;
@@ -129,7 +127,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
     private void setOnClickListener() {
         ivBack.setOnClickListener(this);
-        tvMusicFx.setOnClickListener(this);
         iv_music_album.setOnClickListener(this);
 
         iv_control_pre.setOnClickListener(this);
@@ -140,8 +137,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private void initView() {
         ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
         ivNeedle = (ImageView) getActivity().findViewById(R.id.iv_needle);
-        tvMusicName = (TextView) getActivity().findViewById(R.id.tvMusicName);
-        tvMusicFx = (TextView) getActivity().findViewById(R.id.tv_music_fx);
+        tvMusicName = (MarqueeTextView) getActivity().findViewById(R.id.tvMusicName);
         tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
 
         mSeekBar = (SeekBar) getActivity().findViewById(R.id.play_seek_bar);
@@ -167,7 +163,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         play_layout3 = (RelativeLayout) getActivity().findViewById(R.id.play_layout3);
 
         play_layout1.startAnimation(AnimationUtils.loadAnimation(
-                getActivity(), R.anim.view_show_translate_scale_from_top
+                getActivity(), R.anim.view_show_translate_from_right
         ));
         play_layout2.startAnimation(AnimationUtils.loadAnimation(
                 getActivity(), R.anim.view_show_scale_from_center
@@ -306,8 +302,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
             MusicPlayService.MPSInstance.playNext();
         } else if (view == ivBack) {
             getActivity().finish();
-        } else if (view == tvMusicFx) {
-            startActivity(new Intent(getActivity(), MusicFxActivity.class));
         }
     }
 

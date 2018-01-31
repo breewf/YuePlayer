@@ -68,6 +68,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:text="设置项"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray2"/>
+
+        <TextView
+            android:id="@+id/tv_fx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="音效调节"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="实验室"
             android:textColor="@color/gray2"
             android:textSize="16sp"/>
