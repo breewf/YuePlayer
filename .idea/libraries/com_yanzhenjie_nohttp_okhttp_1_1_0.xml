@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="com.yanzhenjie.nohttp:okhttp-1.1.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.1.0.aar/fbe1c487f5416dafe9c220e3ebb1f6e6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.1.0.aar/fbe1c487f5416dafe9c220e3ebb1f6e6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.1.0.aar/925ea668c654fe7a442ab11bbb9a5f23/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.1.0.aar/925ea668c654fe7a442ab11bbb9a5f23/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yanzhenjie.nohttp/okhttp/1.1.0/d83711da40cae270d037be7155c1604a6e67115b/okhttp-1.1.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yanzhenjie.nohttp/okhttp/1.1.0/55e86f519282e6b1ec710ba1063646d109f58b8f/okhttp-1.1.0-sources.jar!/" />
     </SOURCES>

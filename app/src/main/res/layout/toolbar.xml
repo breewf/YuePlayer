@@ -3,8 +3,7 @@
     android:id="@+id/custom_toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/gray"
-    android:clickable="true">
+    android:background="@color/gray">
 
     <ImageView
         android:id="@+id/app_icon_back"
@@ -13,7 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/custom_toolbar_bg"
-        android:clickable="true"
         android:padding="8dp"
         android:src="@mipmap/icon_app_white"/>
 
@@ -24,8 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/local_music"
         android:layout_toRightOf="@+id/app_icon_back"
-        android:background="@drawable/custom_toolbar_bg"
-        android:clickable="true"
         android:gravity="center|left"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

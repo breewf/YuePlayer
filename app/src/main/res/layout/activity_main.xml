@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <!-- 主界面布局-->
+
             <FrameLayout
                 android:id="@+id/main"
                 android:layout_width="match_parent"
@@ -31,6 +32,7 @@
                     android:paddingBottom="50dp"/>
 
                 <!--底部控制布局1-->
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,6 +116,7 @@
                 </FrameLayout>
 
                 <!--底部控制布局2-->
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,6 +195,7 @@
             </FrameLayout>
 
             <!-- The drawerLayout侧滑菜单布局 -->
+
             <RelativeLayout
                 android:id="@+id/drawer_content"
                 android:layout_width="260dp"

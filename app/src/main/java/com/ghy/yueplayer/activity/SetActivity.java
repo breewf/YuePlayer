@@ -1,7 +1,7 @@
 package com.ghy.yueplayer.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.SPUtil;
 
-public class SetActivity extends ActionBarActivity {
+public class SetActivity extends Activity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
@@ -25,7 +25,6 @@ public class SetActivity extends ActionBarActivity {
     RadioButton radioButton1;
     RadioButton radioButton2;
     RadioButton radioButton3;
-    RadioButton radioButton4;
     RadioButton radioButtonAlbumColor;
     RadioButton radioButtonMusicNote;
 
@@ -55,7 +54,6 @@ public class SetActivity extends ActionBarActivity {
         radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
         radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
-        radioButton4 = (RadioButton) findViewById(R.id.radioButton4);
         radioButtonAlbumColor = (RadioButton) findViewById(R.id.radioButton_color_test);
         radioButtonMusicNote = (RadioButton) findViewById(R.id.radioButton_note_test);
 
@@ -97,28 +95,6 @@ public class SetActivity extends ActionBarActivity {
                 }
                 //保存设置项
                 SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode", playMode);
-            }
-        });
-
-        //获取是否自动下载歌词
-        boolean isAutoLyric = SPUtil.getLyricBooleanSP(this, Constant.MUSIC_SP, "autoSearchLyric");
-        if (isAutoLyric) {
-            radioButton4.setChecked(true);
-        } else {
-            radioButton4.setChecked(false);
-        }
-
-        radioButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isCheck = SPUtil.getLyricBooleanSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric");
-                if (isCheck) {
-                    radioButton4.setChecked(false);
-                    SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric", false);
-                } else {
-                    radioButton4.setChecked(true);
-                    SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "autoSearchLyric", true);
-                }
             }
         });
 

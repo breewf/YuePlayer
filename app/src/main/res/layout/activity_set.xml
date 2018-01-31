@@ -68,30 +68,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="歌词搜索"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray2"/>
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:text="自动搜索下载歌词"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="实验室"
             android:textColor="@color/gray2"
             android:textSize="16sp"/>

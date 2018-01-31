@@ -3,8 +3,7 @@
     android:id="@+id/custom_toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/gray"
-    android:clickable="true">
+    android:background="@color/gray">
 
     <ImageView
         android:id="@+id/app_icon"
@@ -24,8 +23,6 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/local_music"
         android:layout_toRightOf="@+id/app_icon"
-        android:background="@drawable/custom_toolbar_bg"
-        android:clickable="true"
         android:gravity="center|left"
         android:paddingLeft="10dp"
         android:text="YuePlayer"
@@ -39,7 +36,6 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/favour_music"
         android:background="@drawable/custom_toolbar_bg"
-        android:clickable="true"
         android:padding="10dp"
         android:src="@mipmap/icon_music_selected"/>
 
@@ -50,7 +46,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/custom_toolbar_bg"
-        android:clickable="true"
         android:padding="8dp"
         android:src="@mipmap/note_btn_love"/>
 

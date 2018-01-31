@@ -3,7 +3,6 @@ package com.ghy.yueplayer;
 import android.app.Application;
 
 import com.ghy.yueplayer.common.PreferManager;
-import com.ghy.yueplayer.network.NoHttpUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -27,7 +26,6 @@ public class PlayerApplication extends Application {
         mInstance = this;
         initImageLoader();
         PreferManager.init(this);
-        NoHttpUtils.initNoHttp(this);
     }
 
     private void initImageLoader() {

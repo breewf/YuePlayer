@@ -17,7 +17,6 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.PreferManager;
-import com.ghy.yueplayer.fragment.LyricFragment;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.SPUtil;
@@ -105,11 +104,6 @@ public class MusicPlayService extends Service {
                 String musicAlbumUri = SPUtil.getStringSP(this,
                         Constant.MUSIC_SP, "musicAlbumUri");
                 MusicPlayActivity.MPAInstance.setPlayBackgroundImage(musicAlbumUri);
-            }
-
-            //加载歌词
-            if (LyricFragment.LYFInstance != null) {
-                LyricFragment.LYFInstance.startInitLyric();
             }
 
             //监听歌曲播放完毕

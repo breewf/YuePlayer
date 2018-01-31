@@ -3,18 +3,17 @@ package com.ghy.yueplayer.base;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.network.HttpListener;
-import com.ghy.yueplayer.network.HttpResponseListener;
-import com.ghy.yueplayer.network.NoHttpUtils;
-import com.ghy.yueplayer.network.RequestServer;
-import com.yolanda.nohttp.rest.Request;
+import com.ghy.yueplayer.api.ApiHelper;
+import com.ghy.yueplayer.api.ApiService;
+import com.ghy.yueplayer.network.BaseRequestCallBack;
+import com.ghy.yueplayer.network.RetrofitManager;
+import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 
 import java.util.LinkedHashMap;
 
@@ -25,9 +24,8 @@ import butterknife.ButterKnife;
  * Desc: BaseActivity
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxFragmentActivity {
 
-    protected RequestServer mRequestServer;
     protected LinkedHashMap<String, Object> requestParams = new LinkedHashMap<>();
     protected String loadingMsg;
     protected String className;
@@ -56,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         View rootView = getLayoutInflater().inflate(getLayoutID(), null);
         setContentView(rootView);
         className = getClass().getSimpleName();
-        mRequestServer = RequestServer.getRequestInstance();
         ButterKnife.bind(this);
         initView();
         initData();
@@ -68,46 +65,48 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param title
      */
     protected void backWithTitle(String title) {
-        ImageView iv = (ImageView) findViewById(R.id.iv_back);
-        TextView tv = (TextView) findViewById(R.id.tv_title);
+        ImageView iv = findViewById(R.id.iv_back);
+        TextView tv = findViewById(R.id.tv_title);
         if (tv != null && !TextUtils.isEmpty(title)) {
             tv.setText(title);
         }
         if (iv != null) {
-            iv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            iv.setOnClickListener(view -> finish());
         }
     }
 
-    /**
-     * 使用noHttp进行网络请求
-     * 显示默认loading
-     */
-    public <T> void requestAPI(Request<T> request, HttpListener<T> callback) {
-        requestAPI(request, callback, "");
+    /***----------------Api请求Start------------------------------**/
+
+    public void clearParams() {
+        if (requestParams != null && requestParams.size() != 0) requestParams.clear();
     }
 
-    /**
-     * 使用noHttp进行网络请求
-     * 显示自定义文案loading
-     * 不显示loading时传null
-     */
-    public <T> void requestAPI(Request<T> request, HttpListener<T> callback, String loadingMsg) {
-        this.loadingMsg = loadingMsg;
-        request.setCancelSign(className);
-        NoHttpUtils.addRequestParams(request, requestParams);
-        HttpResponseListener<T> httpResponseListener = new HttpResponseListener<>(callback);
-        RequestServer.getRequestInstance().add(0, request, httpResponseListener);
+    public ApiService getAPiService() {
+        return RetrofitManager.getInstance().API();
     }
+
+    public void requestApi(String url, BaseRequestCallBack requestCallBack) {
+        requestApi(url, "", requestCallBack);
+    }
+
+    public void requestApi(String url, String loadingMsg, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApi(this, requestParams, url, loadingMsg, requestCallBack);
+    }
+
+    public void requestApi(String url, String loadingMsg, String requestMethod, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApi(this, requestParams, url, loadingMsg, requestCallBack, requestMethod);
+    }
+
+    public void requestApiPostJson(String url, String jsonData, String loadingMsg, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApiPostJson(this, jsonData, url, loadingMsg, requestCallBack);
+    }
+
+    /***----------------Api请求End------------------------------**/
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        if (mRequestServer != null) mRequestServer.cancelBySign(className);
     }
+
 }

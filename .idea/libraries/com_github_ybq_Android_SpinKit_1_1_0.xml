@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.github.ybq:Android-SpinKit-1.1.0">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Android-SpinKit-1.1.0.aar/668d55298cac50b06e84a8c678fa3449/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Android-SpinKit-1.1.0.aar/668d55298cac50b06e84a8c678fa3449/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Android-SpinKit-1.1.0.aar/17544f682f3e1578626f4365fdd9102a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Android-SpinKit-1.1.0.aar/17544f682f3e1578626f4365fdd9102a/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/music_list_bg_selector_color1"
-    android:padding="4dp">
+    android:padding="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_marginLeft="5dp"
             android:src="@mipmap/ic_launcher"/>
 
-        <com.ghy.yueplayer.view.RobotoLightTextView
+        <TextView
             android:id="@+id/tv_music_artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,20 +30,20 @@
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/gray_light"
-            android:textSize="11sp"/>
+            android:textSize="10sp"/>
 
-        <com.ghy.yueplayer.view.RobotoLightTextView
+        <TextView
             android:id="@+id/tv_music_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_music"
-            android:layout_marginLeft="26dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/iv_music"
             android:singleLine="true"
             android:text="TextView"
             android:textColor="@color/gray_light"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 

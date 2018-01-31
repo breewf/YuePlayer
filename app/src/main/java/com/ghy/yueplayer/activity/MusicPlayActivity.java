@@ -20,7 +20,6 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.blurlibrary.EasyBlur;
-import com.ghy.yueplayer.fragment.LyricFragment;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.AppUtils;
@@ -39,7 +38,6 @@ public class MusicPlayActivity extends FragmentActivity {
     ViewPager viewPager;
     ArrayList<Fragment> listFragments;
     PlayFragment playFragment;
-    LyricFragment lyricFragment;
     MyPlayerAdapter playerAdapter;
 
     boolean isOpenAlbumColor;
@@ -77,9 +75,7 @@ public class MusicPlayActivity extends FragmentActivity {
 
         listFragments = new ArrayList<>();
         playFragment = new PlayFragment();
-        lyricFragment = new LyricFragment();
         listFragments.add(playFragment);
-        listFragments.add(lyricFragment);
 
         playerAdapter = new MyPlayerAdapter(getSupportFragmentManager(), listFragments);
         viewPager.setAdapter(playerAdapter);
@@ -130,9 +126,6 @@ public class MusicPlayActivity extends FragmentActivity {
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.homeBackground();
         }
-        if (LyricFragment.LYFInstance != null) {
-            LyricFragment.LYFInstance.homeBackground();
-        }
     }
 
     @Override
@@ -140,9 +133,6 @@ public class MusicPlayActivity extends FragmentActivity {
         super.onResume();
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.fromBackgroundBack();
-        }
-        if (LyricFragment.LYFInstance != null) {
-            LyricFragment.LYFInstance.fromBackgroundBack();
         }
     }
 }

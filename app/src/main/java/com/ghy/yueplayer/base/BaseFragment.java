@@ -2,16 +2,15 @@ package com.ghy.yueplayer.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ghy.yueplayer.network.HttpListener;
-import com.ghy.yueplayer.network.HttpResponseListener;
-import com.ghy.yueplayer.network.NoHttpUtils;
-import com.ghy.yueplayer.network.RequestServer;
-import com.yolanda.nohttp.rest.Request;
+import com.ghy.yueplayer.api.ApiHelper;
+import com.ghy.yueplayer.api.ApiService;
+import com.ghy.yueplayer.network.BaseRequestCallBack;
+import com.ghy.yueplayer.network.RetrofitManager;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.LinkedHashMap;
 
@@ -22,9 +21,8 @@ import butterknife.ButterKnife;
  * Desc: BaseFragment
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
 
-    protected RequestServer mRequestServer;
     protected LinkedHashMap<String, Object> requestParams = new LinkedHashMap<>();
     protected String loadingMsg;
     protected String className;
@@ -58,41 +56,45 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         className = getClass().getSimpleName();
-        mRequestServer = RequestServer.getRequestInstance();
         initView();
         initData();
     }
 
-    /**
-     * 使用noHttp进行网络请求
-     * 显示默认loading
-     */
-    public <T> void requestAPI(Request<T> request, HttpListener<T> callback) {
-        requestAPI(request, callback, "");
+    /***----------------Api请求Start------------------------------**/
+
+    public void clearParams() {
+        if (requestParams != null && requestParams.size() != 0) requestParams.clear();
     }
 
-    /**
-     * 使用noHttp进行网络请求
-     * 显示自定义文案loading
-     * 不显示loading时传null
-     */
-    public <T> void requestAPI(Request<T> request, HttpListener<T> callback, String loadingMsg) {
-        this.loadingMsg = loadingMsg;
-        request.setCancelSign(className);
-        NoHttpUtils.addRequestParams(request, requestParams);
-        HttpResponseListener<T> httpResponseListener = new HttpResponseListener<>(callback);
-        RequestServer.getRequestInstance().add(0, request, httpResponseListener);
+    public ApiService getAPiService() {
+        return RetrofitManager.getInstance().API();
     }
+
+    public void requestApi(String url, BaseRequestCallBack requestCallBack) {
+        requestApi(url, "", requestCallBack);
+    }
+
+    public void requestApi(String url, String loadingMsg, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApi(this, requestParams, url, loadingMsg, requestCallBack);
+    }
+
+    public void requestApi(String url, String loadingMsg, String requestMethod, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApi(this, requestParams, url, loadingMsg, requestCallBack, requestMethod);
+    }
+
+    public void requestApiPostJson(String url, String jsonData, String loadingMsg, BaseRequestCallBack requestCallBack) {
+        ApiHelper.requestApiPostJson(this, jsonData, url, loadingMsg, requestCallBack);
+    }
+
+    /***----------------Api请求End------------------------------**/
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mRequestServer != null) mRequestServer.cancelBySign(className);
     }
 }

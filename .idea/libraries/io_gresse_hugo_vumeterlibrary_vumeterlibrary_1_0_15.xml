@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="io.gresse.hugo.vumeterlibrary:vumeterlibrary-1.0.15">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/vumeterlibrary-1.0.15.aar/376087ab5cbe03c0d0e4e669d2d35c12/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/vumeterlibrary-1.0.15.aar/376087ab5cbe03c0d0e4e669d2d35c12/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/vumeterlibrary-1.0.15.aar/ffb4dd95e9a0b3e02b63fbf233483e31/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/vumeterlibrary-1.0.15.aar/ffb4dd95e9a0b3e02b63fbf233483e31/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
