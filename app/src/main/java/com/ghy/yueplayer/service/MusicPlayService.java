@@ -330,16 +330,16 @@ public class MusicPlayService extends Service {
     /*
     * 上一曲方法
     * */
-    public void playPre(int musicId) {
+    public void playPre() {
         if (musicList != null && musicList.size() != 0) {
-            haveMusicAndPlayPre(musicId);
+            haveMusicAndPlayPre();
         } else {
             showToast("没有发现歌曲");
         }
 
     }
 
-    private void haveMusicAndPlayPre(int musicId) {
+    private void haveMusicAndPlayPre() {
         //获取保存的当前播放歌曲在列表中的位置和歌曲总数目
         playListId = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListId");
         playListNumber = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListNumber");
@@ -353,10 +353,11 @@ public class MusicPlayService extends Service {
         String preMusicArtist = musicList.get(preMusicId).getArtist();
         String preMusicAlbumUri = AlbumUri + File.separator + musicList.get(preMusicId).getAlbumId();
         String preMusicUrl = musicList.get(preMusicId).getUrl();
+        saveMusicId = musicList.get(preMusicId).getId();
 
         saveMusicInfoSP(preMusicName, preMusicArtist, preMusicAlbumUri, preMusicUrl, preMusicId);
 
-        playMusic(preMusicUrl, preMusicName, preMusicArtist, musicId);
+        playMusic(preMusicUrl, preMusicName, preMusicArtist, saveMusicId);
         //重新加载播放界面数据
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.initData();

@@ -292,7 +292,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         } else if (view == iv_control_pre) {
             MusicPlayService.MPSInstance.stopPlay();
             MusicPlayOver();
-            MusicPlayService.MPSInstance.playPre(musicId);
+            MusicPlayService.MPSInstance.playPre();
         } else if (view == iv_control_start_pause) {
             //播放or暂停
             //参数为保存的上次播放的歌曲路径，如果是直接到播放页面然后点击播放（不是点击音乐列表），
