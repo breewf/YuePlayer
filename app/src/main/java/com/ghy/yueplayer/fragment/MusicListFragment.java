@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MusicListAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.db.DBHelper;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
@@ -27,7 +29,11 @@ import com.ghy.yueplayer.util.MediaUtil;
 import com.ghy.yueplayer.util.SPUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +46,7 @@ public class MusicListFragment extends Fragment {
     public static MusicListFragment MLFInstance;
     ListView lv_music;
     MusicListAdapter musicListAdapter;
+    ImageView iv_location;
 
     private static String AlbumUri = "content://media/external/audio/albumart";
 
@@ -48,6 +55,9 @@ public class MusicListFragment extends Fragment {
     private ContentValues cv;
     private List<Map<String, Object>> list_like;
     boolean haveLike = false;
+
+    private List<MusicInfo> mMusicInfoList = new ArrayList<>();
+    private int toMovePosition = 0;
 
     public MusicListFragment() {
         // Required empty public constructor
@@ -58,6 +68,7 @@ public class MusicListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        EventBus.getDefault().register(this);
         return inflater.inflate(R.layout.fragment_music_list, container, false);
     }
 
@@ -78,7 +89,9 @@ public class MusicListFragment extends Fragment {
 
     private void initView() {
         lv_music = (ListView) getActivity().findViewById(R.id.lv_music);
-
+        iv_location = (ImageView) getActivity().findViewById(R.id.iv_location);
+        iv_location.setOnClickListener(view ->
+                lv_music.smoothScrollToPosition(toMovePosition));
     }
 
     private class MusicLoaderTask extends AsyncTask<Void, Void, List<MusicInfo>> {
@@ -91,6 +104,7 @@ public class MusicListFragment extends Fragment {
         @Override
         protected void onPostExecute(List<MusicInfo> musicInfo) {
             super.onPostExecute(musicInfo);
+            mMusicInfoList = musicInfo;
             //加载列表
             inflateListView(musicInfo);
             //此处非常重要
@@ -144,10 +158,14 @@ public class MusicListFragment extends Fragment {
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", musicInfo.size());
+                //保存歌曲id
+                SPUtil.saveSP(getActivity(),
+                        Constant.MUSIC_SP,
+                        "musicId", musicInfo.get(i).getId());
 
                 //播放
                 MusicPlayService.MPSInstance.playMusic(musicInfo.get(i).getUrl(),
-                        musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist());
+                        musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist(), musicInfo.get(i).getId());
 
                 //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
@@ -229,8 +247,38 @@ public class MusicListFragment extends Fragment {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
+    @Subscribe
+    public void onEvent(UpdateTypeModel updateTypeModel) {
+        switch (updateTypeModel.updateType) {
+            case MUSIC_PALY_CHANGE://切换播放歌曲
+                int musicId = updateTypeModel.dataInt;
+                refreshPlayingMusic(musicId);
+                break;
+        }
+    }
+
+    private void refreshPlayingMusic(int musicId) {
+        if (mMusicInfoList.size() != 0) {
+            for (int i = 0; i < mMusicInfoList.size(); i++) {
+                MusicInfo musicInfo = mMusicInfoList.get(i);
+                if (musicInfo.getId() == musicId) {
+                    musicInfo.setPlaying(true);
+                    toMovePosition = i;
+                } else {
+                    musicInfo.setPlaying(false);
+                }
+            }
+            notifyChange();
+        }
+    }
+
+    public void notifyChange() {
+        if (musicListAdapter != null) musicListAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

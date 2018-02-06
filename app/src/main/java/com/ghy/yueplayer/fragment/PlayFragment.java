@@ -82,6 +82,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     String musicUrl;
     String musicName;
     String musicArtist;
+    int musicId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -201,6 +202,8 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 Constant.MUSIC_SP, "musicAlbumUri");
         musicUrl = SPUtil.getStringSP(getActivity(),
                 Constant.MUSIC_SP, "musicUrl");
+        musicId = SPUtil.getIntSP(getActivity(),
+                Constant.MUSIC_SP, "musicId");
 
 
         tvMusicName.setText(musicName.equals("") ? "未知歌曲" : musicName);
@@ -289,12 +292,12 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         } else if (view == iv_control_pre) {
             MusicPlayService.MPSInstance.stopPlay();
             MusicPlayOver();
-            MusicPlayService.MPSInstance.playPre();
+            MusicPlayService.MPSInstance.playPre(musicId);
         } else if (view == iv_control_start_pause) {
             //播放or暂停
             //参数为保存的上次播放的歌曲路径，如果是直接到播放页面然后点击播放（不是点击音乐列表），
             //则播放上次记忆的歌曲
-            MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
+            MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
             playOrPause();
         } else if (view == iv_control_next) {
             MusicPlayService.MPSInstance.stopPlay();

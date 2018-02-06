@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.ghy.yueplayer.fragment.MusicListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/lv_music"
         android:layout_width="match_parent"
@@ -13,5 +12,15 @@
         android:dividerHeight="1px"
         android:gravity="center"
         android:listSelector="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/icon_location_white"/>
 
 </RelativeLayout>

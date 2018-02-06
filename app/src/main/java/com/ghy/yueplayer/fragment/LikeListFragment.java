@@ -114,9 +114,13 @@ public class LikeListFragment extends Fragment {
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", likeMusicList.size());
+                //保存歌曲id
+                SPUtil.saveSP(getActivity(),
+                        Constant.MUSIC_SP,
+                        "musicId", likeMusicList.get(i).getId());
                 //播放
                 MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
-                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist());
+                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(),likeMusicList.get(i).getId());
 
                 //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);

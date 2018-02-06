@@ -17,9 +17,13 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.PreferManager;
+import com.ghy.yueplayer.constant.UpdateType;
+import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.SPUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +46,7 @@ public class MusicPlayService extends Service {
     public int playListId;//当前播放歌曲在listView中的位置
     public int playListNumber;//listView中所有歌曲数目
     public static List<MusicInfo> musicList;//歌曲列表
+    private int saveMusicId;
 
 
     public static int time;//总时间
@@ -73,7 +78,7 @@ public class MusicPlayService extends Service {
     /*
     * 播放音乐，path参数播放使用，musicName参数通知使用，artist参数通知使用
     * */
-    public void playMusic(String path, String musicName, String artist) {
+    public void playMusic(String path, String musicName, String artist, int musicId) {
         if (player != null) {
             player.release();
             player = null;
@@ -93,6 +98,8 @@ public class MusicPlayService extends Service {
 
             //设置通知
             showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
+
+            EventBus.getDefault().post(new UpdateTypeModel(UpdateType.MUSIC_PALY_CHANGE, musicId));
 
             //刷新主界面播放状态及专辑封面
             if (MainActivity.MainInstance != null) {
@@ -183,7 +190,7 @@ public class MusicPlayService extends Service {
     /*
     * 播放或暂停方法
     * */
-    public void playOrPause(String musicUrl, String musicName, String artist) {
+    public void playOrPause(String musicUrl, String musicName, String artist, int musicId) {
         if (player != null) {
             if (player.isPlaying()) {
                 player.pause();
@@ -195,7 +202,7 @@ public class MusicPlayService extends Service {
             if (musicUrl.equals("")) {
                 showToast("没有正在播放的歌曲");
             } else {
-                playMusic(musicUrl, musicName, artist);
+                playMusic(musicUrl, musicName, artist, musicId);
                 //重新加载播放界面数据
                 if (PlayFragment.PFInstance != null) {
                     PlayFragment.PFInstance.initData();
@@ -256,10 +263,11 @@ public class MusicPlayService extends Service {
         String nextMusicArtist = musicList.get(nextMusicId).getArtist();
         String nextMusicAlbumUri = AlbumUri + File.separator + musicList.get(nextMusicId).getAlbumId();
         String nextMusicUrl = musicList.get(nextMusicId).getUrl();
+        saveMusicId = musicList.get(nextMusicId).getId();
 
         saveMusicInfoSP(nextMusicName, nextMusicArtist, nextMusicAlbumUri, nextMusicUrl, nextMusicId);
 
-        playMusic(nextMusicUrl, nextMusicName, nextMusicArtist);
+        playMusic(nextMusicUrl, nextMusicName, nextMusicArtist, saveMusicId);
         //重新加载播放界面数据
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.initData();
@@ -313,21 +321,25 @@ public class MusicPlayService extends Service {
         SPUtil.saveSP(MusicPlayService.this,
                 Constant.MUSIC_SP,
                 "playListId", musicId);
+        //保存歌曲id
+        SPUtil.saveSP(MusicPlayService.this,
+                Constant.MUSIC_SP,
+                "musicId", saveMusicId);
     }
 
     /*
     * 上一曲方法
     * */
-    public void playPre() {
+    public void playPre(int musicId) {
         if (musicList != null && musicList.size() != 0) {
-            haveMusicAndPlayPre();
+            haveMusicAndPlayPre(musicId);
         } else {
             showToast("没有发现歌曲");
         }
 
     }
 
-    private void haveMusicAndPlayPre() {
+    private void haveMusicAndPlayPre(int musicId) {
         //获取保存的当前播放歌曲在列表中的位置和歌曲总数目
         playListId = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListId");
         playListNumber = SPUtil.getIntSP(MusicPlayService.this, Constant.MUSIC_SP, "playListNumber");
@@ -344,7 +356,7 @@ public class MusicPlayService extends Service {
 
         saveMusicInfoSP(preMusicName, preMusicArtist, preMusicAlbumUri, preMusicUrl, preMusicId);
 
-        playMusic(preMusicUrl, preMusicName, preMusicArtist);
+        playMusic(preMusicUrl, preMusicName, preMusicArtist, musicId);
         //重新加载播放界面数据
         if (PlayFragment.PFInstance != null) {
             PlayFragment.PFInstance.initData();

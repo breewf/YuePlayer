@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/music_list_bg_selector_color1"
     android:padding="5dp">
 
@@ -44,6 +45,21 @@
             android:text="TextView"
             android:textColor="@color/gray_light"
             android:textSize="16sp"/>
+
+        <io.gresse.hugo.vumeterlibrary.VuMeterView
+            android:id="@+id/vumeter"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            vumeter:vumeter_backgroundColor="@color/white"
+            vumeter:vumeter_blockNumber="6"
+            vumeter:vumeter_speed="4"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            vumeter:vumeter_startOff="true"
+            android:visibility="gone"
+            vumeter:vumeter_stopSize="5dp"/>
 
     </RelativeLayout>
 

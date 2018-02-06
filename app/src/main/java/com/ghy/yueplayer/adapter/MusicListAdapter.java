@@ -4,19 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.util.List;
+
+import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
 /**
  * Created by GHY on 2015/8/6.
@@ -70,6 +72,7 @@ public class MusicListAdapter extends BaseAdapter {
         ImageView iv_music = ViewHolder.getView(view, R.id.iv_music);
         TextView tv_music_name = ViewHolder.getView(view, R.id.tv_music_name);
         TextView tv_music_artist = ViewHolder.getView(view, R.id.tv_music_artist);
+        VuMeterView vumeter = ViewHolder.getView(view, R.id.vumeter);
 
         MusicInfo musicInfo = mMusicInfo.get(i);
 
@@ -82,8 +85,19 @@ public class MusicListAdapter extends BaseAdapter {
         String uri = mArtworkUri + File.separator + musicInfo.getAlbumId();
         mImageLoader.displayImage(uri, iv_music, options);
 
+        if (musicInfo.isPlaying()) {
+            vumeter.setVisibility(View.VISIBLE);
+            if (MusicPlayService.MPSInstance.isPlay()) {
+                vumeter.resume(true);
+            } else {
+                vumeter.stop(true);
+            }
+        } else {
+            vumeter.setVisibility(View.GONE);
+        }
+
         //加载动画
-        view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
+//        view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
 
         return view;
     }

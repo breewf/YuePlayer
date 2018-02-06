@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String musicName;
     String musicArtist;
     String musicAlbumUri;
+    int musicId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initView();
 
-        refreshPlayMusicData();
-
         initViewPager();
 
         setOnclickListener();
+
+        refreshPlayMusicData();
 
     }
 
@@ -204,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Constant.MUSIC_SP, "musicUrl");
         musicAlbumUri = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicAlbumUri");
+        musicId = SPUtil.getIntSP(this,
+                Constant.MUSIC_SP, "musicId");
 
         if (MusicPlayService.MPSInstance != null) {
             isPlay = MusicPlayService.MPSInstance.isPlay();
@@ -220,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
+        musicListFragment.notifyChange();
     }
 
     private void isOpenMusicNote() {
@@ -555,21 +559,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
+                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
                 mVuMeterView.stop(true);
                 handler.removeMessages(1);
+                musicListFragment.notifyChange();
             } else {
                 if (TextUtils.isEmpty(musicUrl)) {
                     Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist);
+                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
                 mVuMeterView.resume(true);
                 isOpenMusicNote();
+                musicListFragment.notifyChange();
             }
         }
     }

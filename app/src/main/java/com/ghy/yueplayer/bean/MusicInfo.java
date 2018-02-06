@@ -8,6 +8,16 @@ public class MusicInfo {
     private String url;
     private int albumId;
 
+    private boolean isPlaying;//是否正在播放
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
+    }
+
     public String getTitle() {
         return title;
     }
