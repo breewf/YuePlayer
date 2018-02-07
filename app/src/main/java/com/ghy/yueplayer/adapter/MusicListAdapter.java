@@ -28,6 +28,7 @@ public class MusicListAdapter extends BaseAdapter {
     private List<MusicInfo> mMusicInfo;
     private Context mContext;
     private ImageLoader mImageLoader;
+    private boolean isPlayLike;//是否在播放喜欢列表
 
     private static String mArtworkUri = "content://media/external/audio/albumart";
     private DisplayImageOptions options;
@@ -45,6 +46,11 @@ public class MusicListAdapter extends BaseAdapter {
                 .showImageForEmptyUri(R.mipmap.default_artist)
                 .showImageOnFail(R.mipmap.default_artist).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true).build();
+    }
+
+    public void notifyDataSetChanged(boolean isPlayLike) {
+        this.isPlayLike = isPlayLike;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -85,12 +91,16 @@ public class MusicListAdapter extends BaseAdapter {
         String uri = mArtworkUri + File.separator + musicInfo.getAlbumId();
         mImageLoader.displayImage(uri, iv_music, options);
 
-        if (musicInfo.isPlaying()) {
-            vumeter.setVisibility(View.VISIBLE);
-            if (MusicPlayService.MPSInstance.isPlay()) {
-                vumeter.resume(true);
+        if (!isPlayLike) {
+            if (musicInfo.isPlaying()) {
+                vumeter.setVisibility(View.VISIBLE);
+                if (MusicPlayService.MPSInstance.isPlay()) {
+                    vumeter.resume(true);
+                } else {
+                    vumeter.stop(true);
+                }
             } else {
-                vumeter.stop(true);
+                vumeter.setVisibility(View.GONE);
             }
         } else {
             vumeter.setVisibility(View.GONE);

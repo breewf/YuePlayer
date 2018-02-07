@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,22 +39,26 @@ import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
+import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
 import com.ghy.yueplayer.global.Constant;
-import com.ghy.yueplayer.main.ImageLoader;
 import com.ghy.yueplayer.main.PlayControlView;
 import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-
-import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
@@ -79,14 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout drawer_content;//侧滑菜单布局
 
     private MusicNoteViewLayout mMusicNoteViewLayout;
-    private VuMeterView mVuMeterView;
     private VDHLayout mVDHLayout;
     private ImageView mPlayerImageView;
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
+    private LinearLayout music_info_layout;
     private int percentDirection = 0;//0:未达到最大值，1:右滑至最大值，2:左滑至最大值
     private ObjectAnimator rotationAnim;
     private boolean isPlay = false;
+    private long lastClickTime;
+    private int toMovePosition = 0;
+    private com.nostra13.universalimageloader.core.ImageLoader mImageLoader;
+    private DisplayImageOptions options;
 
     String musicUrl;
     String musicName;
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MainInstance = this;
+        EventBus.getDefault().register(this);
 
         //启动音乐服务
         Intent service = new Intent(this, MusicPlayService.class);
@@ -106,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //启动时间统计服务
         Intent timeService = new Intent(this, TimeService.class);
         this.startService(timeService);
+
+        initLoader();
 
         initView();
 
@@ -115,6 +127,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         refreshPlayMusicData();
 
+    }
+
+    private void initLoader() {
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.default_artist)
+                .showImageForEmptyUri(R.mipmap.default_artist)
+                .showImageOnFail(R.mipmap.default_artist).cacheInMemory(true)
+                .cacheOnDisk(true).considerExifParams(true).build();
+        mImageLoader = ImageLoader.getInstance();
     }
 
     private void initViewPager() {
@@ -164,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
 
-        mVuMeterView = (VuMeterView) findViewById(R.id.vumeter);
         mVDHLayout = (VDHLayout) findViewById(R.id.vdh_layout);
         mPlayerImageView = (ImageView) findViewById(R.id.iv_play);
         mPlayControlView = (PlayControlView) findViewById(R.id.play_control_view);
+        music_info_layout = (LinearLayout) findViewById(R.id.music_info_layout);
         mTvPlayTip = (TextView) findViewById(R.id.tv_play_tip);
         mPlayControlView.setVisibility(View.INVISIBLE);
         mTvPlayTip.setVisibility(View.INVISIBLE);
@@ -184,12 +205,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        music_info_layout.setOnClickListener(view -> {
+            if (isFastClick()) {
+                boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
+                if (!isLikeList) {
+                    if (musicListFragment != null) musicListFragment.fastClick(toMovePosition);
+                }
+            }
+        });
+
         rotationAnim = ObjectAnimator.ofFloat(mPlayerImageView, "rotation", 0f, 360f);
         rotationAnim.setDuration(10000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
         rotationAnim.start();
         rotationAnim.pause();
+    }
+
+    public synchronized boolean isFastClick() {
+        long time = System.currentTimeMillis();
+        if ((time - lastClickTime < 500)) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
     }
 
     /**
@@ -213,17 +252,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             removeHandler();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
-                mVuMeterView.resume(true);
                 isOpenMusicNote();
             } else {
-                mVuMeterView.stop(true);
+
             }
         }
         judgePlayRotationAlbum();
-        ImageLoader.getInstance().loadImageError(mPlayerImageView, musicAlbumUri, R.mipmap.default_artist);
+        mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
-        musicListFragment.notifyChange();
+        notifyAdapterChange();
     }
 
     private void isOpenMusicNote() {
@@ -455,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         if (handler != null) handler.removeCallbacksAndMessages(null);
+        EventBus.getDefault().unregister(this);
         stopService();
     }
 
@@ -541,14 +580,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //右滑至最大值释放--切歌
             if (MusicPlayService.MPSInstance != null) {
                 MusicPlayService.MPSInstance.playNext();
-                String toastString;
-                if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
-                    toastString = musicName;
-                } else {
-                    toastString = musicArtist + "-" + musicName;
-                }
-                Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
-                if (rotationAnim != null) rotationAnim.resume();
+//                String toastString;
+//                if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
+//                    toastString = musicName;
+//                } else {
+//                    toastString = musicArtist + "-" + musicName;
+//                }
+//                Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
             }
         } else if (percentDirection == 2) {
             //左滑至最大值释放--播放/暂停
@@ -562,9 +600,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
-                mVuMeterView.stop(true);
                 handler.removeMessages(1);
-                musicListFragment.notifyChange();
+                notifyAdapterChange();
             } else {
                 if (TextUtils.isEmpty(musicUrl)) {
                     Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
@@ -573,9 +610,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
-                mVuMeterView.resume(true);
                 isOpenMusicNote();
-                musicListFragment.notifyChange();
+                notifyAdapterChange();
             }
         }
     }
@@ -591,9 +627,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
                         rotationAnim.resume();
                     }
-                }, 500);
+                }, 800);
             }
         }
+    }
+
+    @Subscribe
+    public void onEvent(UpdateTypeModel updateTypeModel) {
+        switch (updateTypeModel.updateType) {
+            case MUSIC_PALY_CHANGE://切换播放歌曲
+                int musicId = updateTypeModel.dataInt;
+                refreshPlayingMusic(musicId);
+                break;
+        }
+    }
+
+    private void refreshPlayingMusic(int musicId) {
+        if (MusicPlayService.musicList.size() != 0) {
+            for (int i = 0; i < MusicPlayService.musicList.size(); i++) {
+                MusicInfo musicInfo = MusicPlayService.musicList.get(i);
+                if (musicInfo.getId() == musicId) {
+                    musicInfo.setPlaying(true);
+                    toMovePosition = i;
+                } else {
+                    musicInfo.setPlaying(false);
+                }
+            }
+            notifyAdapterChange();
+        }
+    }
+
+    private void notifyAdapterChange() {
+        boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
+        if (musicListFragment != null) musicListFragment.notifyChange(isLikeList);
     }
 
     @Override

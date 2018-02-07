@@ -36,8 +36,8 @@ public class LikeListAdapter extends BaseAdapter {
         initLoader();
     }
 
-    public void notifyAdapter(List<MusicInfo> mMusicInfo){
-        this.mMusicInfo=mMusicInfo;
+    public void notifyAdapter(List<MusicInfo> mMusicInfo) {
+        this.mMusicInfo = mMusicInfo;
         notifyDataSetChanged();
     }
 

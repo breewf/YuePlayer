@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public class MusicPlayService extends Service {
 
     public int playListId;//当前播放歌曲在listView中的位置
     public int playListNumber;//listView中所有歌曲数目
-    public static List<MusicInfo> musicList;//歌曲列表
+    public static List<MusicInfo> musicList = new ArrayList<>();//歌曲列表
     private int saveMusicId;
 
 

@@ -53,7 +53,7 @@ public class LikeListFragment extends Fragment {
     public static List<Map<String, Object>> list_like;
     private Map<String, Object> map_like;
 
-    private LikeListAdapter adapter;
+    private LikeListAdapter likeAdapter;
 
     public LikeListFragment() {
         // Required empty public constructor
@@ -114,13 +114,10 @@ public class LikeListFragment extends Fragment {
                 SPUtil.saveSP(getActivity(),
                         Constant.MUSIC_SP,
                         "playListNumber", likeMusicList.size());
-                //保存歌曲id
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "musicId", likeMusicList.get(i).getId());
+
                 //播放
                 MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
-                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(),likeMusicList.get(i).getId());
+                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(), 0);
 
                 //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
@@ -167,16 +164,15 @@ public class LikeListFragment extends Fragment {
     }
 
     private void setAdapter() {
-        adapter = new LikeListAdapter(likeMusicList, getActivity(), ImageLoader.getInstance());
-        lv_like_music.setAdapter(adapter);
+        likeAdapter = new LikeListAdapter(likeMusicList, getActivity(), ImageLoader.getInstance());
+        lv_like_music.setAdapter(likeAdapter);
     }
 
     public void notifyAdapter() {
-        adapter.notifyAdapter(likeMusicList);
+        likeAdapter.notifyAdapter(likeMusicList);
     }
 
     private void initView() {
-
         lv_like_music = (ListView) getActivity().findViewById(R.id.lv_like_music);
         tv_like_remind = (TextView) getActivity().findViewById(R.id.tv_like_remind);
     }

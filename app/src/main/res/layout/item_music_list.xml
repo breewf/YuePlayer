@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/music_list_bg_selector_color1"
     android:padding="5dp">
 
@@ -28,6 +28,7 @@
             android:layout_alignBottom="@+id/iv_music"
             android:layout_alignLeft="@+id/tv_music_name"
             android:layout_marginBottom="6dp"
+            android:layout_marginRight="80dp"
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/gray_light"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_music"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="80dp"
             android:layout_marginTop="6dp"
             android:layout_toRightOf="@+id/iv_music"
             android:singleLine="true"
@@ -50,15 +52,15 @@
             android:id="@+id/vumeter"
             android:layout_width="40dp"
             android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
             vumeter:vumeter_backgroundColor="@color/white"
             vumeter:vumeter_blockNumber="6"
             vumeter:vumeter_speed="4"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
             vumeter:vumeter_startOff="true"
-            android:visibility="gone"
             vumeter:vumeter_stopSize="5dp"/>
 
     </RelativeLayout>
