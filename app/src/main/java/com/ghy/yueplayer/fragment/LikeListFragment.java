@@ -52,13 +52,11 @@ public class LikeListFragment extends Fragment {
     private Cursor c;
     public static List<Map<String, Object>> list_like;
     private Map<String, Object> map_like;
-
     private LikeListAdapter likeAdapter;
 
     public LikeListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,81 +83,69 @@ public class LikeListFragment extends Fragment {
     }
 
     private void setOnClickListener() {
-        lv_like_music.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        lv_like_music.setOnItemClickListener((adapterView, view, i, l) -> {
 
-                //喜欢列表
-                SPUtil.saveSP(getActivity(), Constant.MUSIC_SP, "isLikeList", true);
-                MusicPlayService.musicList = likeMusicList;
+            //喜欢列表
+            SPUtil.saveSP(getActivity(), Constant.MUSIC_SP, "isLikeList", true);
+            MusicPlayService.musicList = likeMusicList;
 
-                //保存当前正在播放的歌曲信息
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "musicName", likeMusicList.get(i).getTitle());
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "musicArtist", likeMusicList.get(i).getArtist());
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "musicAlbumUri", AlbumUri + File.separator + likeMusicList.get(i).getAlbumId());
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "musicUrl", likeMusicList.get(i).getUrl());
-                //保存当前播放歌曲在喜欢列表中的位置
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "playListId", i);
-                //保存喜欢列表中的总歌曲数目
-                SPUtil.saveSP(getActivity(),
-                        Constant.MUSIC_SP,
-                        "playListNumber", likeMusicList.size());
+            //保存当前正在播放的歌曲信息
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "musicName", likeMusicList.get(i).getTitle());
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "musicArtist", likeMusicList.get(i).getArtist());
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "musicAlbumUri", AlbumUri + File.separator + likeMusicList.get(i).getAlbumId());
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "musicUrl", likeMusicList.get(i).getUrl());
+            //保存当前播放歌曲在喜欢列表中的位置
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "playListId", i);
+            //保存喜欢列表中的总歌曲数目
+            SPUtil.saveSP(getActivity(),
+                    Constant.MUSIC_SP,
+                    "playListNumber", likeMusicList.size());
 
-                //播放
-                MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
-                        likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(), 0);
+            //播放
+            MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
+                    likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(), 0);
 
-                //启动音乐页面
+            //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
 //                startActivity(intent);
 
-            }
         });
 
-        lv_like_music.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, final View view, int i, long l) {
-                //取消喜欢
-                //动画1 item向内缩放
+        lv_like_music.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            //取消喜欢
+            //动画1 item向内缩放
+            view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
+                    R.anim.insert_like_item_scale_in));
+            //动画2 爱心图片向外缩放
+            MainActivity.MainInstance.loveAnim3();
+            //动画1 item向左侧消失
+            new Handler().postDelayed(() -> {
                 view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                        R.anim.insert_like_item_scale_in));
-                //动画2 爱心图片向外缩放
-                MainActivity.MainInstance.loveAnim3();
-                //动画1 item向左侧消失
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                                R.anim.delete_like_item_translate_to_left));
-                        //动画2 爱心图片向内缩放
-                        MainActivity.MainInstance.loveAnim4();
-                    }
-                }, 600);
+                        R.anim.delete_like_item_translate_to_left));
+                //动画2 爱心图片向内缩放
+                MainActivity.MainInstance.loveAnim4();
+            }, 600);
 
-                final String musicName = likeMusicList.get(i).getTitle();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        db.execSQL("delete from like_music_list where musicName=?",
-                                new Object[]{musicName});
-                        //重新查询设置adapter
-                        queryLikeListInfo();
-                        notifyAdapter();
-                        Toast.makeText(getActivity(), "取消喜欢成功", Toast.LENGTH_SHORT).show();
-                    }
-                }, 1600);
-                return true;
-            }
+            final String musicName = likeMusicList.get(i).getTitle();
+            new Handler().postDelayed(() -> {
+                db.execSQL("delete from like_music_list where musicName=?",
+                        new Object[]{musicName});
+                //重新查询设置adapter
+                queryLikeListInfo();
+                notifyAdapter();
+                Toast.makeText(getActivity(), "取消喜欢成功", Toast.LENGTH_SHORT).show();
+            }, 1600);
+            return true;
         });
     }
 
@@ -234,8 +220,7 @@ public class LikeListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LLFInstance != null) {
-            LLFInstance = null;
-        }
+        if (LLFInstance != null) LLFInstance = null;
     }
+
 }

@@ -17,11 +17,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -196,13 +194,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVDHLayout.setTouchDirectionListener(this);
         mVDHLayout.setTouchReleasedListener(this);
 
-        mPlayerImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mPlayerImageView.setOnClickListener(view -> {
 //                startPlayActivityTransIntent();
-                Intent intent = new Intent(MainActivity.this, MusicPlayActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this, MusicPlayActivity.class);
+            startActivity(intent);
         });
 
         music_info_layout.setOnClickListener(view -> {
@@ -252,22 +247,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             removeHandler();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
-                isOpenMusicNote();
-            } else {
-
+                openMusicNote();
             }
         }
         judgePlayRotationAlbum();
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
-        notifyAdapterChange();
     }
 
-    private void isOpenMusicNote() {
+    private void openMusicNote() {
         boolean isOpenMusicNote = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
         if (isOpenMusicNote) {
             handler.sendEmptyMessageDelayed(1, 1000);
+        }
+    }
+
+    private void closeMusicNote() {
+        boolean isOpenMusicNote = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
+        if (isOpenMusicNote) {
+            handler.removeMessages(1);
         }
     }
 
@@ -365,12 +364,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loveAnim2() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                favour_music.setImageResource(R.mipmap.note_btn_love);
-            }
-        }, 800);
+        new Handler().postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_love), 800);
     }
 
     /*
@@ -388,12 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loveAnim4() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                favour_music.setImageResource(R.mipmap.note_btn_loved_white);
-            }
-        }, 800);
+        new Handler().postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_loved_white), 800);
     }
 
     private void showDrawerLayout() {
@@ -410,30 +399,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void DrawerLayoutClick(final View view) {
 
         if (mDrawerLayout.isDrawerOpen(drawer_content)) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    int id = view.getId();
-                    switch (id) {
-                        case R.id.layout1:
-                            startActivity(OnLineMusicActivity.class);
-                            break;
-                        case R.id.layout2:
-                            startActivity(TimeActivity.class);
-                            break;
-                        case R.id.layout3:
-                            startActivity(AboutActivity.class);
-                            break;
-                        case R.id.layout4:
-                            startActivity(HelpActivity.class);
-                            break;
-                        case R.id.layout5:
-                            startActivity(SetActivity.class);
-                            break;
-                        case R.id.layout6:
-                            finish();
-                            break;
-                    }
+            new Handler().postDelayed(() -> {
+                int id = view.getId();
+                switch (id) {
+                    case R.id.layout1:
+                        startActivity(OnLineMusicActivity.class);
+                        break;
+                    case R.id.layout2:
+                        startActivity(TimeActivity.class);
+                        break;
+                    case R.id.layout3:
+                        startActivity(AboutActivity.class);
+                        break;
+                    case R.id.layout4:
+                        startActivity(HelpActivity.class);
+                        break;
+                    case R.id.layout5:
+                        startActivity(SetActivity.class);
+                        break;
+                    case R.id.layout6:
+                        finish();
+                        break;
                 }
             }, 400);
             mDrawerLayout.closeDrawer(drawer_content);
@@ -484,19 +470,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (handler != null) handler.removeCallbacksAndMessages(null);
-        EventBus.getDefault().unregister(this);
-        stopService();
-    }
-
     private void showToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
@@ -519,7 +492,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void touchDirection(int direction, int percent) {
         switch (direction) {
             case VDHLayout.DIRECTION_RIGHT:
-                Log.i(TAG, "右滑-->>" + percent + "%");
                 mPlayControlView.setVisibility(View.VISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_RIGHT, percent, isPlay);
                 if (percent >= 20) {
@@ -539,7 +511,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case VDHLayout.DIRECTION_LEFT:
-                Log.i(TAG, "左滑-->>" + percent + "%");
                 mPlayControlView.setVisibility(View.VISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_LEFT, percent, isPlay);
                 if (percent >= 20) {
@@ -567,7 +538,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case VDHLayout.DIRECTION_ORIGIN:
-                Log.i(TAG, "原点-->>" + percent + "%");
                 mPlayControlView.setVisibility(View.INVISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_ORIGIN, percent, isPlay);
                 break;
@@ -592,28 +562,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //左滑至最大值释放--播放/暂停
             if (MusicPlayService.MPSInstance == null) return;
             isPlay = MusicPlayService.MPSInstance.isPlay();
+            if (checkMusicIsNull()) return;
             if (isPlay) {
-                if (TextUtils.isEmpty(musicUrl)) {
-                    Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
-                handler.removeMessages(1);
+                closeMusicNote();
                 notifyAdapterChange();
             } else {
-                if (TextUtils.isEmpty(musicUrl)) {
-                    Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPSInstance.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
-                isOpenMusicNote();
+                openMusicNote();
                 notifyAdapterChange();
             }
         }
+    }
+
+    /**
+     * 要播放的音乐url是否为空
+     *
+     * @return
+     */
+    private boolean checkMusicIsNull() {
+        if (TextUtils.isEmpty(musicUrl)) {
+            Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -622,12 +598,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void judgePlayRotationAlbum() {
         if (isPlay) {
             if (rotationAnim != null) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        rotationAnim.resume();
-                    }
-                }, 800);
+                new Handler().postDelayed(() -> rotationAnim.resume(), 800);
             }
         }
     }
@@ -672,6 +643,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         if (rotationAnim != null) rotationAnim.pause();
+        closeMusicNote();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null) handler.removeCallbacksAndMessages(null);
+        EventBus.getDefault().unregister(this);
+        stopService();
     }
 
 }

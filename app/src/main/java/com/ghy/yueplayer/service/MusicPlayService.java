@@ -115,20 +115,17 @@ public class MusicPlayService extends Service {
             }
 
             //监听歌曲播放完毕
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    if (PlayFragment.PFInstance != null) {
-                        PlayFragment.PFInstance.MusicPlayOver();
-                    }
-                    //player置为空
-                    if (player != null) {
-                        player.release();
-                        player = null;
-                    }
-                    //播放下一曲
-                    playNext();
+            player.setOnCompletionListener(mediaPlayer -> {
+                if (PlayFragment.PFInstance != null) {
+                    PlayFragment.PFInstance.MusicPlayOver();
                 }
+                //player置为空
+                if (player != null) {
+                    player.release();
+                    player = null;
+                }
+                //播放下一曲
+                playNext();
             });
 
         } catch (IOException e) {
