@@ -98,7 +98,7 @@ public class MusicPlayService extends Service {
             SPUtil.saveSP(MusicPlayService.this, Constant.MUSIC_SP, "musicAllDuration", time);
 
             //设置通知
-            showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
+//            showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
 
             EventBus.getDefault().post(new UpdateTypeModel(UpdateType.MUSIC_PALY_CHANGE, musicId));
 

@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,15 +25,27 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.api.ApiHelper;
 import com.ghy.yueplayer.global.Constant;
+import com.ghy.yueplayer.lrcview.LrcView;
+import com.ghy.yueplayer.network.ApiRequestCallBackString;
 import com.ghy.yueplayer.service.MusicPlayService;
+import com.ghy.yueplayer.util.FileUtil;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.MarqueeTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,7 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayFragment extends Fragment implements View.OnClickListener {
+public class PlayFragment extends RxFragment implements View.OnClickListener {
 
 
     public PlayFragment() {
@@ -53,8 +68,13 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     * 加载动画使用
     * */
     private LinearLayout play_layout1;
-    private RelativeLayout play_layout2;
+    private LinearLayout play_layout2;
     private RelativeLayout play_layout3;
+
+    private FrameLayout lrc_layout;
+    private FrameLayout cover_layout;
+    private LrcView lrcView;
+    private TextView tv_down_lrc;
 
     private ImageView ivBack;
     private ImageView ivNeedle;
@@ -84,6 +104,11 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     String musicArtist;
     int musicId;
 
+    //歌词路径
+    private String lyricPath;
+    private String lyricName;
+    private String lrcText;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +121,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         PFInstance = this;
 
+        //创建歌词文件夹
+        lyricPath = FileUtil.createFilePath("Lyric");
+
         initView();
 
         initAnim();
@@ -103,6 +131,7 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         initData();
 
         setOnClickListener();
+
     }
 
     private void initAnim() {
@@ -160,8 +189,13 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
 
         //加载动画
         play_layout1 = (LinearLayout) getActivity().findViewById(R.id.play_layout1);
-        play_layout2 = (RelativeLayout) getActivity().findViewById(R.id.play_layout2);
+        play_layout2 = (LinearLayout) getActivity().findViewById(R.id.play_layout2);
         play_layout3 = (RelativeLayout) getActivity().findViewById(R.id.play_layout3);
+
+        lrc_layout = (FrameLayout) getActivity().findViewById(R.id.lrc_layout);
+        cover_layout = (FrameLayout) getActivity().findViewById(R.id.cover_layout);
+        lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
+        tv_down_lrc = (TextView) getActivity().findViewById(R.id.tv_down_lrc);
 
         play_layout1.startAnimation(AnimationUtils.loadAnimation(
                 getActivity(), R.anim.view_show_translate_from_right
@@ -173,7 +207,79 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 getActivity(), R.anim.control_view_show_translate_scale_from_bottom
         ));
 
+        cover_layout.setOnClickListener(view -> {
+            cover_layout.setVisibility(View.GONE);
+            lrc_layout.setVisibility(View.VISIBLE);
+        });
+
+        lrc_layout.setOnClickListener(view -> {
+            lrc_layout.setVisibility(View.GONE);
+            cover_layout.setVisibility(View.VISIBLE);
+        });
+
+        tv_down_lrc.setOnClickListener(view -> showDownLrcDialog());
+
+        if (MusicPlayService.player != null && MusicPlayService.player.isPlaying()) {
+            handler.post(runnable);
+        }
+
     }
+
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0://刷新进度条
+                    if (MusicPlayService.player != null) {
+                        mSeekBar.setMax(MusicPlayService.player.getDuration());
+                        mSeekBar.setProgress(MusicPlayService.player.getCurrentPosition());
+                    } else {
+                        mSeekBar.setMax(100);
+                        mSeekBar.setProgress(0);
+                    }
+                    handler.sendEmptyMessageDelayed(0, 200);
+                    break;
+                case 1://读取歌词成功
+                    if (TextUtils.isEmpty(lrcText)) {
+                        showToast("歌词信息读取失败");
+                        return;
+                    }
+                    lrcView.loadLrc(lrcText);
+                    lrcView.setOnPlayClickListener(time -> {
+                        if (time == -1) {
+                            lrc_layout.setVisibility(View.GONE);
+                            cover_layout.setVisibility(View.VISIBLE);
+                        } else {
+                            if (MusicPlayService.player == null) return true;
+                            MusicPlayService.player.seekTo((int) time);
+                            if (!MusicPlayService.player.isPlaying()) {
+                                MusicPlayService.player.start();
+                                handler.post(runnable);
+                            }
+                        }
+                        return true;
+                    });
+                    break;
+                case 2://写入歌词成功
+                    loadLrcFile();
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 歌词runnable
+     */
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (MusicPlayService.player == null) return;
+            if (MusicPlayService.player.isPlaying()) {
+                long time = MusicPlayService.player.getCurrentPosition();
+                lrcView.updateTime(time);
+            }
+            handler.postDelayed(this, 300);
+        }
+    };
 
     /*
     * 获取手机屏幕宽度
@@ -183,7 +289,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels; //当前分辨率宽度
     }
-
 
     /*
     * 加载歌曲播放数据方法
@@ -205,6 +310,14 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         musicId = SPUtil.getIntSP(getActivity(),
                 Constant.MUSIC_SP, "musicId");
 
+        String lrcArtistTemp;
+        lrcArtistTemp = musicArtist;
+        //  /storage/emulated/0/YuePlayer/Lyric/小时姑娘/孙悠然-望.lrc
+        if (lrcArtistTemp.contains("/")) {//防止文件名错误
+            lrcArtistTemp = lrcArtistTemp.substring(0, lrcArtistTemp.indexOf("/"));
+        }
+        //歌词的命名格式为：歌手名-歌曲名.lrc
+        lyricName = lrcArtistTemp + "-" + musicName + ".lrc";
 
         tvMusicName.setText(musicName.equals("") ? "未知歌曲" : musicName);
         tvSinger.setText(musicArtist.equals("") ? "未知艺术家" : musicArtist);
@@ -247,30 +360,93 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
                 if (MusicPlayService.player != null) {
                     MusicPlayService.player.seekTo(bar.getProgress());
                 }
+                lrcView.updateTime(bar.getProgress());
                 if (handler != null) handler.sendEmptyMessageDelayed(0, 200);
             }
         });
 
         playOrPause();
 
+        loadLrcFile();
     }
 
-    Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    if (MusicPlayService.player != null) {
-                        mSeekBar.setMax(MusicPlayService.player.getDuration());
-                        mSeekBar.setProgress(MusicPlayService.player.getCurrentPosition());
-                    } else {
-                        mSeekBar.setMax(100);
-                        mSeekBar.setProgress(0);
-                    }
-                    handler.sendEmptyMessageDelayed(0, 200);
-                    break;
+    /**
+     * 加载歌词
+     */
+    private void loadLrcFile() {
+        if (!TextUtils.isEmpty(lyricPath)) {
+            File lrcFile = new File(lyricPath + lyricName);
+            if (lrcFile.exists()) {
+                //加载本地歌词文件
+                tv_down_lrc.setVisibility(View.GONE);
+                initLyric(lrcFile);
+            } else {
+                tv_down_lrc.setVisibility(View.VISIBLE);
             }
+        } else {
+            tv_down_lrc.setVisibility(View.VISIBLE);
         }
-    };
+    }
+
+    private void initLyric(File musicFile) {
+        new Thread(() -> {
+            lrcText = FileUtil.readFile(musicFile.getAbsolutePath());
+            handler.sendEmptyMessage(1);
+        }).start();
+    }
+
+    private void showDownLrcDialog() {
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_down_lrc_tips, null);
+        EditText editText = view.findViewById(R.id.et_input_number);
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+        builder.theme(Theme.LIGHT);
+        builder.title("下载歌词");
+        builder.customView(view, false);
+        builder.positiveText("下载")
+                .positiveColorRes(R.color.red)
+                .onPositive((dialog, which) -> downLoadLrc(editText.getText().toString()));
+        builder.negativeText("取消")
+                .negativeColorRes(R.color.black_99)
+                .onNegative((dialog, which) -> dialog.dismiss());
+        builder.cancelable(true);
+        builder.canceledOnTouchOutside(false);
+        builder.show();
+    }
+
+    private void downLoadLrc(String musicId) {
+        if (TextUtils.isEmpty(musicId)) {
+            showToast("歌曲id不能为空");
+            return;
+        }
+
+        String requestUrl = "http://music.163.com/api/song/media?id=" + musicId;
+        LinkedHashMap<String, Object> requestParams = new LinkedHashMap<>();
+        ApiHelper.requestApi(this, requestParams, requestUrl, null,
+                new ApiRequestCallBackString() {
+                    @Override
+                    public void requestCallback(String s, boolean success) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            int code = jsonObject.optInt("code");
+                            int songStatus = jsonObject.optInt("songStatus");
+                            int lyricVersion = jsonObject.optInt("lyricVersion");
+                            String lyric = jsonObject.optString("lyric");
+                            if (code != 200) return;
+                            if (TextUtils.isEmpty(lyric)) return;
+                            //写文件
+                            new Thread(() -> {
+                                FileUtil.writeFile(lyric, lyricPath + lyricName);
+                                handler.sendEmptyMessage(2);
+                            }).start();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
 
     private void initLoader() {
         options = new DisplayImageOptions.Builder()
@@ -314,20 +490,19 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
     private void playOrPause() {
         if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
             handler.sendEmptyMessage(0);
-        } else {
-            handler.removeMessages(0);
-        }
-        //播放or暂停按钮显示
-        playOrPauseControlView();
-        //专辑封面旋转
-        albumAnimJudge();
-    }
-
-    private void albumAnimJudge() {
-        if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
+            iv_control_start_pause.setImageResource(R.mipmap.ic_pause);
             startAlbumAnim();
         } else {
+            handler.removeMessages(0);
+            iv_control_start_pause.setImageResource(R.mipmap.ic_play);
             stopAlbumAnim();
+        }
+
+        //歌词
+        if (MusicPlayService.player != null && MusicPlayService.player.isPlaying()) {
+            handler.post(runnable);
+        } else {
+            handler.removeCallbacks(runnable);
         }
     }
 
@@ -348,14 +523,6 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         isRotate = false;
     }
 
-    private void playOrPauseControlView() {
-        if (MusicPlayService.MPSInstance != null && MusicPlayService.MPSInstance.isPlay()) {
-            iv_control_start_pause.setImageResource(R.mipmap.ic_pause);
-        } else {
-            iv_control_start_pause.setImageResource(R.mipmap.ic_play);
-        }
-    }
-
     /*
     * 把歌曲总时长毫秒数转换为时间格式
     * */
@@ -372,15 +539,9 @@ public class PlayFragment extends Fragment implements View.OnClickListener {
         @Override
         public void run() {
             if (getActivity() == null) return;
-            getActivity().runOnUiThread(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            tv_time_duration.setText(getFormatTime(
-                                    MusicPlayService.MPSInstance.getCurrentDuration()));
-                            //播放进度
-//                            mSeekBar.setProgress(getSeekBarProgress());
-                        }
+            getActivity().runOnUiThread(() -> {
+                        tv_time_duration.setText(getFormatTime(
+                                MusicPlayService.MPSInstance.getCurrentDuration()));
                     }
             );
         }

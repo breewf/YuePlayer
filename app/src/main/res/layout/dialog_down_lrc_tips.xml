@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请输入歌曲id，使用网页版网易云音乐播放对应歌曲即可在地址栏中看到歌曲id"
+            android:textColor="@color/black_99"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/et_input_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:hint="请输入歌曲id"
+            android:inputType="number"
+            android:textColor="@color/red"
+            android:textColorHint="@color/red"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

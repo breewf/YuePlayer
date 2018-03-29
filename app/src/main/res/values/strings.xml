@@ -18,4 +18,6 @@
 
     <string name="net_work_disable">网络连接失败，请检查本机WIFI或移动数据</string>
 
+    <string name="lrc_label">暂无歌词</string>
+
 </resources>

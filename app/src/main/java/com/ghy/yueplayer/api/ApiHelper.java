@@ -15,6 +15,7 @@ import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -77,7 +78,8 @@ public class ApiHelper {
                                           BaseRequestCallBack requestCallBack, String requestMethod) {
         if (rxFragmentActivity == null && rxFragment == null) return;
         if (requestCallBack == null) return;
-        Observable<String> observable = getObservableMethod(requestParams, url, requestMethod);
+        LinkedHashMap<String, Object> requestParamsNew = new LinkedHashMap<>(requestParams);
+        Observable<String> observable = getObservableMethod(requestParamsNew, url, requestMethod);
         if (observable != null) {
             observable.compose(RetrofitManager.schedulersTransformer())
                     .compose(rxFragmentActivity == null ? rxFragment.bindToLifecycle() : rxFragmentActivity.bindToLifecycle())//绑定生命周期

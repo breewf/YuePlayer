@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -59,93 +60,143 @@
         android:layout_height="1px"
         android:background="@color/gray4"/>
 
-    <!-- 进度条，封面-->
-    <RelativeLayout
+    <!-- 进度条，封面，歌词控件-->
+
+    <LinearLayout
         android:id="@+id/play_layout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/seekArcContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <!--底盘-->
-            <RelativeLayout
-                android:layout_width="280dp"
-                android:layout_height="280dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@mipmap/ic_disc"
-                android:gravity="center">
+            <!--歌词控件-->
 
-                <!-- 专辑封面-->
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_music_album"
-                    android:layout_width="190dp"
-                    android:layout_height="190dp"
-                    android:src="@mipmap/default_artist"
-                    android:transitionName="@string/transition_album"/>
-
-            </RelativeLayout>
-
-            <!--唱针-->
-            <ImageView
-                android:id="@+id/iv_needle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="-10dp"
-                android:src="@mipmap/ic_needle"/>
-
-            <!-- 时间-->
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/lrc_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <com.ghy.yueplayer.lrcview.LrcView
+                    android:id="@+id/lrc_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    app:lrcAnimationDuration="1000"
+                    app:lrcCurrentTextColor="@color/white"
+                    app:lrcDividerHeight="24dp"
+                    app:lrcLabel="暂无歌词(@_@)"
+                    app:lrcNormalTextColor="@color/gray_bd"
+                    app:lrcPadding="30dp"
+                    app:lrcTextSize="16sp"
+                    app:lrcTimeTextColor="@color/gray_bd"
+                    app:lrcTimelineColor="@color/gray_bd80"
+                    app:lrcTimelineTextColor="@color/gray2"/>
 
                 <TextView
-                    android:id="@+id/tv_time_duration"
+                    android:id="@+id/tv_down_lrc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="-10dp"
-                    android:text="00:00"
-                    android:textColor="@color/gray1"
-                    android:textSize="10sp"/>
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="15dp"
+                    android:padding="10dp"
+                    android:text="点我下载(@_@)"
+                    android:textColor="@color/gray2"
+                    android:textSize="12sp"
+                    android:visibility="gone"/>
 
-                <SeekBar
-                    android:id="@+id/play_seek_bar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:maxHeight="2dp"
-                    android:minHeight="2dp"
-                    android:progressDrawable="@drawable/my_seek_bar_bg"
-                    android:thumb="@drawable/custom_seek_bar_control_selector"
-                    android:thumbOffset="0dp"/>
+            </FrameLayout>
 
-                <TextView
-                    android:id="@+id/tv_time_all"
+            <!--唱片、封面-->
+
+            <FrameLayout
+                android:id="@+id/cover_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--底盘-->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/ic_disc"
+                    android:gravity="center">
+
+                    <!-- 专辑封面-->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_music_album"
+                        android:layout_width="190dp"
+                        android:layout_height="190dp"
+                        android:src="@mipmap/default_artist"
+                        android:transitionName="@string/transition_album"/>
+
+                </RelativeLayout>
+
+                <!--唱针-->
+                <ImageView
+                    android:id="@+id/iv_needle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="-10dp"
-                    android:text="00:00"
-                    android:textColor="@color/gray1"
-                    android:textSize="10sp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="-10dp"
+                    android:src="@mipmap/ic_needle"/>
 
-            </LinearLayout>
+            </FrameLayout>
 
         </FrameLayout>
 
-    </RelativeLayout>
+        <!-- 时间-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_time_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="-10dp"
+                android:text="00:00"
+                android:textColor="@color/gray1"
+                android:textSize="10sp"/>
+
+            <SeekBar
+                android:id="@+id/play_seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxHeight="2dp"
+                android:minHeight="2dp"
+                android:progressDrawable="@drawable/my_seek_bar_bg"
+                android:thumb="@drawable/custom_seek_bar_control_selector"
+                android:thumbOffset="0dp"/>
+
+            <TextView
+                android:id="@+id/tv_time_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:text="00:00"
+                android:textColor="@color/gray1"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <!-- 播放控制，收藏-->
     <RelativeLayout

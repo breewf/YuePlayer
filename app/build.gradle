@@ -77,4 +77,7 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     //timber:日志调试,替代Log
     implementation 'com.jakewharton.timber:timber:4.6.0'
+    api('com.afollestad.material-dialogs:core:0.9.6.0') {
+        exclude group: 'com.android.support'//排除support依赖
+    }
 }

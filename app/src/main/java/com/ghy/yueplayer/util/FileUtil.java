@@ -3,7 +3,9 @@ package com.ghy.yueplayer.util;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -95,6 +97,49 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * 读取文件
+     *
+     * @param filePath 文件绝对路径
+     * @return
+     */
+    public static String readFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = null;
+        String line;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
+
+    private static void makeSureFolderExist(String path) {
+        File file_path = new File(path);
+        if (file_path.isFile()) {//若为文件，则直接删除文件
+            file_path.delete();
+        }
+        if (!file_path.exists()) {//创建目录
+            file_path.mkdirs();
         }
     }
 
