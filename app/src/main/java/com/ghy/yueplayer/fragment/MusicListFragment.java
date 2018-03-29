@@ -146,7 +146,7 @@ public class MusicListFragment extends Fragment {
                     "musicId", musicInfo.get(i).getId());
 
             //播放
-            MusicPlayService.MPSInstance.playMusic(musicInfo.get(i).getUrl(),
+            MusicPlayService.MPS.playMusic(musicInfo.get(i).getUrl(),
                     musicInfo.get(i).getTitle(), musicInfo.get(i).getArtist(), musicInfo.get(i).getId());
 
             //启动音乐页面

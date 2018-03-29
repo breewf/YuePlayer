@@ -9,15 +9,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请输入歌曲id，使用网页版网易云音乐播放对应歌曲即可在地址栏中看到歌曲id"
+            android:text="哪里可以获取歌曲id?
+            \n1.使用网易云音乐app，找到对应的歌曲，选择分享，选择复制链接，粘贴后在路径song/后的一串数字即为歌曲id~
+            \n2.使用网页版网易云音乐，点击歌曲名称进入歌曲页面，在歌曲页面浏览器地址栏中最后一串数字即为歌曲id~"
             android:textColor="@color/black_99"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
 
         <EditText
             android:id="@+id/et_input_number"

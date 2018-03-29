@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,7 +111,7 @@ public class LikeListFragment extends Fragment {
                     "playListNumber", likeMusicList.size());
 
             //播放
-            MusicPlayService.MPSInstance.playMusic(likeMusicList.get(i).getUrl(),
+            MusicPlayService.MPS.playMusic(likeMusicList.get(i).getUrl(),
                     likeMusicList.get(i).getTitle(), likeMusicList.get(i).getArtist(), 0);
 
             //启动音乐页面

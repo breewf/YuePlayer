@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         musicId = SPUtil.getIntSP(this,
                 Constant.MUSIC_SP, "musicId");
 
-        if (MusicPlayService.MPSInstance != null) {
-            isPlay = MusicPlayService.MPSInstance.isPlay();
+        if (MusicPlayService.MPS != null) {
+            isPlay = MusicPlayService.MPS.isPlay();
             removeHandler();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
@@ -454,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     * 停止音乐播放服务和统计服务
     * */
     private void stopService() {
-        if (MusicPlayService.MPSInstance != null) MusicPlayService.MPSInstance.stopSelf();
+        if (MusicPlayService.MPS != null) MusicPlayService.MPS.stopSelf();
         if (TimeService.TSInstance != null) TimeService.TSInstance.stopSelf();
     }
 
@@ -548,8 +548,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void touchReleased() {
         if (percentDirection == 1) {
             //右滑至最大值释放--切歌
-            if (MusicPlayService.MPSInstance != null) {
-                MusicPlayService.MPSInstance.playNext();
+            if (MusicPlayService.MPS != null) {
+                MusicPlayService.MPS.playNext();
 //                String toastString;
 //                if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
 //                    toastString = musicName;
@@ -560,18 +560,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else if (percentDirection == 2) {
             //左滑至最大值释放--播放/暂停
-            if (MusicPlayService.MPSInstance == null) return;
-            isPlay = MusicPlayService.MPSInstance.isPlay();
+            if (MusicPlayService.MPS == null) return;
+            isPlay = MusicPlayService.MPS.isPlay();
             if (checkMusicIsNull()) return;
             if (isPlay) {
-                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
-                isPlay = MusicPlayService.MPSInstance.isPlay();
+                MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
+                isPlay = MusicPlayService.MPS.isPlay();
                 if (rotationAnim != null) rotationAnim.pause();
                 closeMusicNote();
                 notifyAdapterChange();
             } else {
-                MusicPlayService.MPSInstance.playOrPause(musicUrl, musicName, musicArtist, musicId);
-                isPlay = MusicPlayService.MPSInstance.isPlay();
+                MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
+                isPlay = MusicPlayService.MPS.isPlay();
                 if (rotationAnim != null) rotationAnim.resume();
                 openMusicNote();
                 notifyAdapterChange();

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class MusicPlayActivity extends FragmentActivity {
 
     @SuppressLint("StaticFieldLeak")
-    public static MusicPlayActivity MPAInstance;
+    public static MusicPlayActivity MPA;
 
     View positionView;
     ImageView ivBg;
@@ -46,14 +46,13 @@ public class MusicPlayActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_play);
-        MPAInstance = this;
+        MPA = this;
 
         initView();
 
         initStatusBar();
 
         initViewPager();
-
     }
 
 
@@ -70,9 +69,7 @@ public class MusicPlayActivity extends FragmentActivity {
         }
     }
 
-
     private void initViewPager() {
-
         listFragments = new ArrayList<>();
         playFragment = new PlayFragment();
         listFragments.add(playFragment);
@@ -123,16 +120,16 @@ public class MusicPlayActivity extends FragmentActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        if (PlayFragment.PFInstance != null) {
-            PlayFragment.PFInstance.homeBackground();
+        if (PlayFragment.PF != null) {
+            PlayFragment.PF.homeBackground();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (PlayFragment.PFInstance != null) {
-            PlayFragment.PFInstance.fromBackgroundBack();
+        if (PlayFragment.PF != null) {
+            PlayFragment.PF.fromBackgroundBack();
         }
     }
 }

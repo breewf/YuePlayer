@@ -94,7 +94,7 @@ public class MusicListAdapter extends BaseAdapter {
         if (!isPlayLike) {
             if (musicInfo.isPlaying()) {
                 vumeter.setVisibility(View.VISIBLE);
-                if (MusicPlayService.MPSInstance.isPlay()) {
+                if (MusicPlayService.MPS.isPlay()) {
                     vumeter.resume(true);
                 } else {
                     vumeter.stop(true);

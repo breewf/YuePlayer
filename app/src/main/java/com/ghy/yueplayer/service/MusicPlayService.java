@@ -32,10 +32,11 @@ import java.util.List;
 import java.util.Random;
 
 public class MusicPlayService extends Service {
+
     public MusicPlayService() {
     }
 
-    public static MusicPlayService MPSInstance;
+    public static MusicPlayService MPS;
     public static MediaPlayer player;
     // 定义系统的均衡器
     public static Equalizer mEqualizer;
@@ -48,7 +49,6 @@ public class MusicPlayService extends Service {
     public int playListNumber;//listView中所有歌曲数目
     public static List<MusicInfo> musicList = new ArrayList<>();//歌曲列表
     private int saveMusicId;
-
 
     public static int time;//总时间
     public static int duration;//播放时间
@@ -70,15 +70,15 @@ public class MusicPlayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        MPSInstance = this;
+        MPS = this;
 
         return START_STICKY;
 //        return super.onStartCommand(intent, flags, startId);
     }
 
     /*
-    * 播放音乐，path参数播放使用，musicName参数通知使用，artist参数通知使用
-    * */
+     * 播放音乐，path参数播放使用，musicName参数通知使用，artist参数通知使用
+     * */
     public void playMusic(String path, String musicName, String artist, int musicId) {
         if (player != null) {
             player.release();
@@ -108,16 +108,16 @@ public class MusicPlayService extends Service {
             }
 
             //设置播放界面背景
-            if (MusicPlayActivity.MPAInstance != null) {
+            if (MusicPlayActivity.MPA != null) {
                 String musicAlbumUri = SPUtil.getStringSP(this,
                         Constant.MUSIC_SP, "musicAlbumUri");
-                MusicPlayActivity.MPAInstance.setPlayBackgroundImage(musicAlbumUri);
+                MusicPlayActivity.MPA.setPlayBackgroundImage(musicAlbumUri);
             }
 
             //监听歌曲播放完毕
             player.setOnCompletionListener(mediaPlayer -> {
-                if (PlayFragment.PFInstance != null) {
-                    PlayFragment.PFInstance.MusicPlayOver();
+                if (PlayFragment.PF != null) {
+                    PlayFragment.PF.MusicPlayOver();
                 }
                 //player置为空
                 if (player != null) {
@@ -179,15 +179,15 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 判断是播放还是暂停状态 true：播放 false:暂停
-    * */
+     * 判断是播放还是暂停状态 true：播放 false:暂停
+     * */
     public boolean isPlay() {
         return player != null && player.isPlaying();
     }
 
     /*
-    * 播放或暂停方法
-    * */
+     * 播放或暂停方法
+     * */
     public void playOrPause(String musicUrl, String musicName, String artist, int musicId) {
         if (player != null) {
             if (player.isPlaying()) {
@@ -202,16 +202,14 @@ public class MusicPlayService extends Service {
             } else {
                 playMusic(musicUrl, musicName, artist, musicId);
                 //重新加载播放界面数据
-                if (PlayFragment.PFInstance != null) {
-                    PlayFragment.PFInstance.initData();
-                }
+                if (PlayFragment.PF != null) PlayFragment.PF.initData();
             }
         }
     }
 
     /*
-    * 停止播放方法
-    * */
+     * 停止播放方法
+     * */
     public void stopPlay() {
         if (player != null) {
             player.release();
@@ -220,8 +218,8 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 下一曲方法
-    * */
+     * 下一曲方法
+     * */
     public void playNext() {
         if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayNext();
@@ -266,15 +264,14 @@ public class MusicPlayService extends Service {
         saveMusicInfoSP(nextMusicName, nextMusicArtist, nextMusicAlbumUri, nextMusicUrl, nextMusicId);
 
         playMusic(nextMusicUrl, nextMusicName, nextMusicArtist, saveMusicId);
+
         //重新加载播放界面数据
-        if (PlayFragment.PFInstance != null) {
-            PlayFragment.PFInstance.initData();
-        }
+        if (PlayFragment.PF != null) PlayFragment.PF.initData();
     }
 
     /*
-    * 获取列表循环下一首歌在列表中的位置
-    * */
+     * 获取列表循环下一首歌在列表中的位置
+     * */
     private int getDefaultNextMusicId() {
         int nextMusicId = playListId + 1;
         if (nextMusicId >= playListNumber) {
@@ -284,23 +281,23 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 获取随机播放下一首歌在列表中的位置
-    * */
+     * 获取随机播放下一首歌在列表中的位置
+     * */
     private int getRandomNextMusicId() {
         return RandomNumber();
     }
 
     /*
-    * 生成一个随机数
-    * */
+     * 生成一个随机数
+     * */
     private int RandomNumber() {
         Random random = new Random();
         return random.nextInt(playListNumber);
     }
 
     /*
-    * 保存上一曲、下一曲 歌曲的相关信息
-    * */
+     * 保存上一曲、下一曲 歌曲的相关信息
+     * */
     private void saveMusicInfoSP(String musicName, String musicArtist,
                                  String musicAlbumUri, String musicUrl,
                                  int musicId) {
@@ -326,8 +323,8 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 上一曲方法
-    * */
+     * 上一曲方法
+     * */
     public void playPre() {
         if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayPre();
@@ -356,16 +353,15 @@ public class MusicPlayService extends Service {
         saveMusicInfoSP(preMusicName, preMusicArtist, preMusicAlbumUri, preMusicUrl, preMusicId);
 
         playMusic(preMusicUrl, preMusicName, preMusicArtist, saveMusicId);
+
         //重新加载播放界面数据
-        if (PlayFragment.PFInstance != null) {
-            PlayFragment.PFInstance.initData();
-        }
+        if (PlayFragment.PF != null) PlayFragment.PF.initData();
     }
 
 
     /*
-    * 快进快退到指定位置播放
-    * */
+     * 快进快退到指定位置播放
+     * */
     public void seekPositionPlay(int position) {
         if (player != null) {
             player.seekTo(position);
@@ -375,8 +371,8 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 获取当前播放时长
-    * */
+     * 获取当前播放时长
+     * */
     public int getCurrentDuration() {
         if (player != null) {
             duration = player.getCurrentPosition();
@@ -387,8 +383,8 @@ public class MusicPlayService extends Service {
     }
 
     /*
-    * 显示后台运行通知
-    * */
+     * 显示后台运行通知
+     * */
     private void showNotification(String tickerText, String title, String content) {
         if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
