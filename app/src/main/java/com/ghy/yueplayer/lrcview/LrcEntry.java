@@ -115,7 +115,7 @@ class LrcEntry implements Comparable<LrcEntry> {
 
         line = line.trim();
 //        Matcher lineMatcher = Pattern.compile("((\\[\\d\\d:\\d\\d\\.\\d\\d\\])+)(.+)").matcher(line);
-        Matcher lineMatcher = Pattern.compile("((\\[\\d\\d:\\d\\d\\.(\\d{2}|\\d{3})\\])+)(.+)").matcher(line);
+        Matcher lineMatcher = Pattern.compile("((\\[\\d\\d:\\d\\d\\.(\\d{2}|\\d{3})])+)(.+)").matcher(line);
         if (!lineMatcher.matches()) {
             return null;
         }
@@ -126,13 +126,22 @@ class LrcEntry implements Comparable<LrcEntry> {
         List<LrcEntry> entryList = new ArrayList<>();
 
 //        Matcher timeMatcher = Pattern.compile("\\[(\\d\\d):(\\d\\d)\\.(\\d\\d)\\]").matcher(times);
-        Matcher timeMatcher = Pattern.compile("\\[(\\d\\d):(\\d\\d)\\.(\\d{2}|\\d{3})\\]").matcher(times);
+        Matcher timeMatcher = Pattern.compile("\\[(\\d\\d):(\\d\\d)\\.(\\d{2}|\\d{3})]").matcher(times);
         while (timeMatcher.find()) {
-            long min = Long.parseLong(timeMatcher.group(1));
-            long sec = Long.parseLong(timeMatcher.group(2));
-            long mil = Long.parseLong(timeMatcher.group(3));
-            long time = min * DateUtils.MINUTE_IN_MILLIS + sec * DateUtils.SECOND_IN_MILLIS + mil * 10;
-            entryList.add(new LrcEntry(time, text));
+            try {
+                long min = Long.parseLong(timeMatcher.group(1));
+                long sec = Long.parseLong(timeMatcher.group(2));
+                long mil = Long.parseLong(timeMatcher.group(3));
+                long time;
+                if (timeMatcher.group(3).length() == 3) {//毫秒，如果是3位就不乘10
+                    time = min * DateUtils.MINUTE_IN_MILLIS + sec * DateUtils.SECOND_IN_MILLIS + mil;
+                } else {//毫秒，如果是2位就乘10
+                    time = min * DateUtils.MINUTE_IN_MILLIS + sec * DateUtils.SECOND_IN_MILLIS + mil * 10;
+                }
+                entryList.add(new LrcEntry(time, text));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
         }
         return entryList;
     }

@@ -8,8 +8,8 @@ android {
         applicationId "com.ghy.yueplayer"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 6
-        versionName "2.4"
+        versionCode 7
+        versionName "2.5"
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
     }
