@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 刷新界面播放状态及专辑封面
      */
     public void refreshPlayMusicData() {
-        if (!isOnResume) return;
         //从本地共享文件参数获取数据
         musicName = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicName");
@@ -248,6 +247,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         musicId = SPUtil.getIntSP(this,
                 Constant.MUSIC_SP, "musicId");
 
+        mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
+        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
+        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
+
+        if (!isOnResume) return;
+
         if (MusicPlayService.MPS != null) {
             isPlay = MusicPlayService.MPS.isPlay();
             removeHandler();
@@ -256,9 +261,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openMusicNote();
             }
         }
-        mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
-        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
-        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
         judgePlayRotationAlbum();
     }
 
