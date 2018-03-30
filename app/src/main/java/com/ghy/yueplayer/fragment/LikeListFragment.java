@@ -37,7 +37,7 @@ import java.util.Map;
 public class LikeListFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
-    public static LikeListFragment LLFInstance;
+    public static LikeListFragment LLF;
 
     private ListView lv_like_music;
     private TextView tv_like_remind;
@@ -67,7 +67,7 @@ public class LikeListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LLFInstance = this;
+        LLF = this;
         initView();
 
         //数据库操作
@@ -126,13 +126,13 @@ public class LikeListFragment extends Fragment {
             view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
                     R.anim.insert_like_item_scale_in));
             //动画2 爱心图片向外缩放
-            MainActivity.MainInstance.loveAnim3();
+            MainActivity.MA.loveAnim3();
             //动画1 item向左侧消失
             new Handler().postDelayed(() -> {
                 view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
                         R.anim.delete_like_item_translate_to_left));
                 //动画2 爱心图片向内缩放
-                MainActivity.MainInstance.loveAnim4();
+                MainActivity.MA.loveAnim4();
             }, 600);
 
             final String musicName = likeMusicList.get(i).getTitle();
@@ -219,7 +219,7 @@ public class LikeListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LLFInstance != null) LLFInstance = null;
+        if (LLF != null) LLF = null;
     }
 
 }

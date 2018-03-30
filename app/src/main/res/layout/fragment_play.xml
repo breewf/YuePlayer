@@ -181,6 +181,7 @@
                 android:layout_weight="1"
                 android:maxHeight="2dp"
                 android:minHeight="2dp"
+                android:transitionName="@string/transition_progress"
                 android:progressDrawable="@drawable/my_seek_bar_bg"
                 android:thumb="@drawable/custom_seek_bar_control_selector"
                 android:thumbOffset="0dp"/>

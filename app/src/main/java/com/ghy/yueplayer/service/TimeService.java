@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimeService extends Service {
-    public static TimeService TSInstance;
+    public static TimeService TS;
 
     private Timer timer;
     private CountPlayTimerTask timerTask;
@@ -29,7 +29,7 @@ public class TimeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        TSInstance = this;
+        TS = this;
         timeThis=0;
         startTimeCount();
         return START_STICKY;

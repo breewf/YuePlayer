@@ -36,7 +36,7 @@ import java.util.Map;
 public class MusicListFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
-    public static MusicListFragment MLFInstance;
+    public static MusicListFragment MLF;
     ListView lv_music;
     MusicListAdapter musicListAdapter;
 
@@ -62,7 +62,7 @@ public class MusicListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MLFInstance = this;
+        MLF = this;
         initView();
 
         //扫描音乐并设置adapter
@@ -161,13 +161,13 @@ public class MusicListFragment extends Fragment {
             view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
                     R.anim.insert_like_item_scale_in));
             //动画2 爱心图片向外缩放
-            MainActivity.MainInstance.loveAnim1();
+            MainActivity.MA.loveAnim1();
             //动画1 item向外缩放
             new Handler().postDelayed(() -> {
                 view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
                         R.anim.insert_like_item_scale_out));
                 //动画2 爱心图片向内缩放
-                MainActivity.MainInstance.loveAnim2();
+                MainActivity.MA.loveAnim2();
             }, 600);
 
             //插入歌曲信息到喜欢列表数据库
@@ -214,8 +214,8 @@ public class MusicListFragment extends Fragment {
         db.insert("like_music_list", null, cv);
         showToast("添加喜欢成功");
         //重新查询数据库并更新喜欢列表界面
-        LikeListFragment.LLFInstance.queryLikeListInfo();
-        LikeListFragment.LLFInstance.notifyAdapter();
+        LikeListFragment.LLF.queryLikeListInfo();
+        LikeListFragment.LLF.notifyAdapter();
     }
 
     private void showToast(String s) {
@@ -228,6 +228,12 @@ public class MusicListFragment extends Fragment {
 
     public void fastClick(int toMovePosition) {
         if (lv_music != null) lv_music.smoothScrollToPositionFromTop(toMovePosition, 0);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        notifyChange(false);
     }
 
     @Override

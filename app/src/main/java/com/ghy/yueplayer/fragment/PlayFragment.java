@@ -9,6 +9,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.support.v4.app.Fragment;
@@ -105,6 +106,7 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     String musicUrl;
     String musicName;
     String musicArtist;
+    String musicAlbumUri;
     int musicId;
 
     //歌词路径
@@ -144,8 +146,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         rotationAnim.setDuration(16000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
-        rotationAnim.start();
-        rotationAnim.pause();
+//        rotationAnim.start();
+//        rotationAnim.pause();
 
         needleAnimationOn = ObjectAnimator.ofFloat(ivNeedle, "rotation", -25, 0);
         ivNeedle.setPivotX(0);
@@ -205,12 +207,12 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         play_layout1.startAnimation(AnimationUtils.loadAnimation(
                 getActivity(), R.anim.view_show_translate_from_right
         ));
-        play_layout2.startAnimation(AnimationUtils.loadAnimation(
-                getActivity(), R.anim.view_show_scale_from_center
-        ));
-        play_layout3.startAnimation(AnimationUtils.loadAnimation(
-                getActivity(), R.anim.control_view_show_translate_scale_from_bottom
-        ));
+//        play_layout2.startAnimation(AnimationUtils.loadAnimation(
+//                getActivity(), R.anim.view_show_scale_from_center
+//        ));
+//        play_layout3.startAnimation(AnimationUtils.loadAnimation(
+//                getActivity(), R.anim.control_view_show_translate_scale_from_bottom
+//        ));
 
         cover_layout.setOnClickListener(view -> setLrcViewVisibility());
 
@@ -313,6 +315,10 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         }
     }
 
+    public static class UI {
+        static final Handler HANDLER = new Handler(Looper.getMainLooper());
+    }
+
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -389,7 +395,7 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                 Constant.MUSIC_SP, "musicName");
         musicArtist = SPUtil.getStringSP(getActivity(),
                 Constant.MUSIC_SP, "musicArtist");
-        String musicAlbumUri = SPUtil.getStringSP(getActivity(),
+        musicAlbumUri = SPUtil.getStringSP(getActivity(),
                 Constant.MUSIC_SP, "musicAlbumUri");
         musicUrl = SPUtil.getStringSP(getActivity(),
                 Constant.MUSIC_SP, "musicUrl");
@@ -563,7 +569,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
             MusicPlayOver();
             MusicPlayService.MPS.playNext();
         } else if (view == ivBack) {
-            getActivity().finish();
+            clearAlbumAnim();
+            getActivity().onBackPressed();
         }
     }
 
@@ -596,19 +603,29 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     }
 
     private void startAlbumAnim() {
-//        Animation rotateAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.image_rotate);
-//        LinearInterpolator lin = new LinearInterpolator();//匀速转动
-//        rotateAnim.setInterpolator(lin);
-//        iv_music_album.startAnimation(rotateAnim);
-        if (rotationAnim != null) rotationAnim.resume();
+        if (rotationAnim != null) {
+            if (!rotationAnim.isRunning()) {
+                UI.HANDLER.postDelayed(() -> rotationAnim.start(), 800);
+            } else {
+                rotationAnim.resume();
+            }
+        }
         if (needleAnimationOn != null) needleAnimationOn.start();
         isRotate = true;
     }
 
     private void stopAlbumAnim() {
-//        iv_music_album.clearAnimation();
         if (rotationAnim != null) rotationAnim.pause();
         if (needleAnimationOff != null) needleAnimationOff.start();
+        isRotate = false;
+    }
+
+    private void clearAlbumAnim() {
+        if (rotationAnim != null) {
+            rotationAnim.start();//重置
+            rotationAnim.pause();//暂停
+            rotationAnim.cancel();//取消
+        }
         isRotate = false;
     }
 
@@ -664,27 +681,32 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         }
     }
 
+    private void showToast(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    public void backPressed() {
+        clearAlbumAnim();
+    }
+
     /*
      * 按Home键进入后台
      * */
     public void homeBackground() {
-        new Handler().postDelayed(() -> {
+        UI.HANDLER.postDelayed(() -> {
             if (isRotate) {
                 stopAlbumAnim();
             }
         }, 600);
         //进入后台取消常亮
-        if (wakeLock != null) {
-            wakeLock.release();
-            wakeLock = null;
-        }
+        screenLightOffAllTime();
     }
 
     /*
      * 从后台返回
      * */
     public void fromBackgroundBack() {
-        new Handler().postDelayed(() -> {
+        UI.HANDLER.postDelayed(() -> {
             if (!isRotate) {
                 if (MusicPlayService.MPS.isPlay()) {
                     startAlbumAnim();
@@ -702,9 +724,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         }
         if (PF != null) PF = null;
         if (handler != null) handler.removeCallbacksAndMessages(null);
+        if (UI.HANDLER != null) UI.HANDLER.removeCallbacksAndMessages(null);
+        screenLightOffAllTime();
     }
 
-    private void showToast(String s) {
-        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-    }
 }

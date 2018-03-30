@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.view.View;
 
 import com.ghy.yueplayer.R;
 
@@ -165,6 +170,44 @@ public class AnimUtils {
         Activity mActivity = (Activity) context;
         mActivity.finish();
         mActivity.overridePendingTransition(R.anim.left_to_current, R.anim.curent_to_right);
+    }
+
+    /**
+     * 转场动画
+     *
+     * @param context           activity
+     * @param intent            intent
+     * @param sharedElement     共享view
+     * @param sharedElementName 共享view的name,和目标activity的目标view要有相同的sharedElementName
+     */
+    public static void makeSceneTransitionAnimation(Context context, Intent intent,
+                                                    View sharedElement, String sharedElementName) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElement.setTransitionName(sharedElementName);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,
+                    sharedElement, sharedElementName);
+            ActivityCompat.startActivity(context, intent, options.toBundle());
+        } else {
+            AnimUtils.toLeftAnim(context, intent);
+        }
+    }
+
+    /**
+     * 转场动画
+     *
+     * @param context        activity
+     * @param intent         intent
+     * @param sharedElements 共享view集
+     */
+    public static void makeSceneTransitionAnimationPair(Context context, Intent intent,
+                                                        Pair<View, String>... sharedElements) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (Activity) context, sharedElements);
+            ActivityCompat.startActivity(context, intent, options.toBundle());
+        } else {
+            AnimUtils.toLeftAnim(context, intent);
+        }
     }
 
     /**

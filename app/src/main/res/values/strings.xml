@@ -15,6 +15,7 @@
     <string name="transition_album">transition_album</string>
     <string name="transition_title">transition_title</string>
     <string name="transition_artist">transition_artist</string>
+    <string name="transition_progress">transition_progress</string>
 
     <string name="net_work_disable">网络连接失败，请检查本机WIFI或移动数据</string>
 

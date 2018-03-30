@@ -103,8 +103,8 @@ public class MusicPlayService extends Service {
             EventBus.getDefault().post(new UpdateTypeModel(UpdateType.MUSIC_PALY_CHANGE, musicId));
 
             //刷新主界面播放状态及专辑封面
-            if (MainActivity.MainInstance != null) {
-                MainActivity.MainInstance.refreshPlayMusicData();
+            if (MainActivity.MA != null) {
+                MainActivity.MA.refreshPlayMusicData();
             }
 
             //设置播放界面背景

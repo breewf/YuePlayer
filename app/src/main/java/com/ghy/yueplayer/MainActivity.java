@@ -4,12 +4,10 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
@@ -48,6 +46,7 @@ import com.ghy.yueplayer.main.PlayControlView;
 import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
+import com.ghy.yueplayer.util.AnimUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = "MainActivity";
 
     @SuppressLint("StaticFieldLeak")
-    public static MainActivity MainInstance;
+    public static MainActivity MA;
     ViewPager viewPager_main;
     ArrayList<Fragment> listFragments;
     MyPlayerAdapter playerAdapter;
@@ -101,11 +100,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String musicAlbumUri;
     int musicId;
 
+    boolean isOnResume;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainInstance = this;
+        MA = this;
         EventBus.getDefault().register(this);
 
         //启动音乐服务
@@ -124,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setOnclickListener();
 
         refreshPlayMusicData();
-
     }
 
     private void initLoader() {
@@ -195,9 +195,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVDHLayout.setTouchReleasedListener(this);
 
         mPlayerImageView.setOnClickListener(view -> {
-//                startPlayActivityTransIntent();
             Intent intent = new Intent(MainActivity.this, MusicPlayActivity.class);
-            startActivity(intent);
+//            startActivity(intent);
+//            Pair pair1 = new Pair(tvMusicTitle, getString(R.string.transition_title));
+//            Pair pair2 = new Pair(tvMusicArtist, getString(R.string.transition_artist));
+            Pair pair3 = new Pair(mProgressbar, getString(R.string.transition_progress));
+            Pair pair4 = new Pair(mPlayerImageView, getString(R.string.transition_album));
+            AnimUtils.makeSceneTransitionAnimationPair(this, intent,
+                    pair3, pair4);
         });
 
         music_info_layout.setOnClickListener(view -> {
@@ -213,8 +218,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotationAnim.setDuration(10000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
-        rotationAnim.start();
-        rotationAnim.pause();
+//        rotationAnim.start();
+//        rotationAnim.pause();
     }
 
     public synchronized boolean isFastClick() {
@@ -230,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 刷新界面播放状态及专辑封面
      */
     public void refreshPlayMusicData() {
+        if (!isOnResume) return;
         //从本地共享文件参数获取数据
         musicName = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicName");
@@ -250,10 +256,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openMusicNote();
             }
         }
-        judgePlayRotationAlbum();
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
+        judgePlayRotationAlbum();
     }
 
     private void openMusicNote() {
@@ -268,6 +274,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isOpenMusicNote) {
             handler.removeMessages(1);
         }
+    }
+
+    public static class UI {
+        static final Handler HANDLER = new Handler(Looper.getMainLooper());
     }
 
     Handler handler = new Handler() {
@@ -364,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loveAnim2() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
-        new Handler().postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_love), 800);
+        UI.HANDLER.postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_love), 800);
     }
 
     /*
@@ -382,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loveAnim4() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
-        new Handler().postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_loved_white), 800);
+        UI.HANDLER.postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_loved_white), 800);
     }
 
     private void showDrawerLayout() {
@@ -399,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void DrawerLayoutClick(final View view) {
 
         if (mDrawerLayout.isDrawerOpen(drawer_content)) {
-            new Handler().postDelayed(() -> {
+            UI.HANDLER.postDelayed(() -> {
                 int id = view.getId();
                 switch (id) {
                     case R.id.layout1:
@@ -432,30 +442,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    /**
-     * 转场动画
-     */
-    private void startPlayActivityTransIntent() {
-        Intent intent = new Intent(this, MusicPlayActivity.class);
-        intent.putExtra("key", "value");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptionsCompat options =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-//                            new Pair(mPlayerImageView, getString(R.string.transition_album)),
-                            new Pair(tvMusicTitle, getString(R.string.transition_title)),
-                            new Pair(tvMusicArtist, getString(R.string.transition_artist)));
-            ActivityCompat.startActivity(this, intent, options.toBundle());
-        } else {
-            startActivity(intent);
-        }
-    }
-
     /*
     * 停止音乐播放服务和统计服务
     * */
     private void stopService() {
         if (MusicPlayService.MPS != null) MusicPlayService.MPS.stopSelf();
-        if (TimeService.TSInstance != null) TimeService.TSInstance.stopSelf();
+        if (TimeService.TS != null) TimeService.TS.stopSelf();
     }
 
     @Override
@@ -566,13 +558,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isPlay) {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
-                if (rotationAnim != null) rotationAnim.pause();
+                stopAlbumAnim();
                 closeMusicNote();
                 notifyAdapterChange();
             } else {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
-                if (rotationAnim != null) rotationAnim.resume();
+                startAlbumAnim();
                 openMusicNote();
                 notifyAdapterChange();
             }
@@ -597,9 +589,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void judgePlayRotationAlbum() {
         if (isPlay) {
-            if (rotationAnim != null) {
-                new Handler().postDelayed(() -> rotationAnim.resume(), 800);
+            resetAlbumAnim();
+            startAlbumAnim();
+        }
+    }
+
+    private void startAlbumAnim() {
+        if (rotationAnim != null) {
+            if (!rotationAnim.isRunning()) {
+                UI.HANDLER.postDelayed(() -> rotationAnim.start(), 800);
+            } else {
+                UI.HANDLER.postDelayed(() -> rotationAnim.resume(), 800);
             }
+        }
+    }
+
+    private void stopAlbumAnim() {
+        if (rotationAnim != null) rotationAnim.pause();
+    }
+
+    private void resetAlbumAnim() {
+        if (rotationAnim != null) {
+            rotationAnim.start();//重置
+            rotationAnim.pause();//暂停
         }
     }
 
@@ -636,20 +648,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        isOnResume = true;
         refreshPlayMusicData();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (rotationAnim != null) rotationAnim.pause();
+        isOnResume = false;
+        stopAlbumAnim();
         closeMusicNote();
+        UI.HANDLER.postDelayed(this::resetAlbumAnim, 400);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (handler != null) handler.removeCallbacksAndMessages(null);
+        if (UI.HANDLER != null) UI.HANDLER.removeCallbacksAndMessages(null);
         EventBus.getDefault().unregister(this);
         stopService();
     }

@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -48,13 +49,30 @@ public class MusicPlayActivity extends FragmentActivity {
         setContentView(R.layout.activity_music_play);
         MPA = this;
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition();
+        }
+
         initView();
 
         initStatusBar();
 
         initViewPager();
-    }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            viewPager.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            viewPager.getViewTreeObserver().removeOnPreDrawListener(this);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                startPostponedEnterTransition();
+                            }
+                            return true;
+                        }
+                    });
+        }
+    }
 
     private void initView() {
         positionView = findViewById(R.id.position_view);
@@ -114,9 +132,19 @@ public class MusicPlayActivity extends FragmentActivity {
         }
     }
 
-    /*
-    * 按home键进入后台
-    * */
+    @Override
+    public void onBackPressed() {
+        if (PlayFragment.PF != null) {
+            PlayFragment.PF.backPressed();
+        }
+//        new Handler().postDelayed(this::onBackPressedFinish, 300);
+        super.onBackPressed();
+    }
+
+    public void onBackPressedFinish() {
+        super.onBackPressed();
+    }
+
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
