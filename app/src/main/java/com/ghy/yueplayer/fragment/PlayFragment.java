@@ -685,6 +685,14 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
+    public boolean isLyricVisibility() {
+        if (lrc_layout.getVisibility() == View.VISIBLE) {
+            setLrcViewInvisibility();
+            return true;
+        }
+        return false;
+    }
+
     public void backPressed() {
         clearAlbumAnim();
     }

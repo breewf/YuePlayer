@@ -135,13 +135,12 @@ public class MusicPlayActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (PlayFragment.PF != null) {
-            PlayFragment.PF.backPressed();
+            if (PlayFragment.PF.isLyricVisibility()) {
+                return;
+            } else {
+                PlayFragment.PF.backPressed();
+            }
         }
-//        new Handler().postDelayed(this::onBackPressedFinish, 300);
-        super.onBackPressed();
-    }
-
-    public void onBackPressedFinish() {
         super.onBackPressed();
     }
 
