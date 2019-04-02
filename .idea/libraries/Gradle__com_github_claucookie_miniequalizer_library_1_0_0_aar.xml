@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.claucookie.miniequalizer:library:1.0.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.0.aar/b807f4688849a18c7f277ed4724506fd/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.0.aar/b807f4688849a18c7f277ed4724506fd/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.claucookie.miniequalizer/library/1.0.0/34fa4d21cffecdcfc39510bd25b11f1f5dbb15e5/library-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

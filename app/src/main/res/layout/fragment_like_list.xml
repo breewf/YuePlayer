@@ -4,15 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.ghy.yueplayer.fragment.LikeListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ListView
         android:id="@+id/lv_like_music"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:divider="@color/gray5"
         android:dividerHeight="1px"
+        android:gravity="center"
         android:listSelector="@android:color/transparent"/>
 
     <TextView
@@ -20,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="喜欢列表"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="gone"/>

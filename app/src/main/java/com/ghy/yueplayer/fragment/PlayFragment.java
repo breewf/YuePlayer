@@ -319,7 +319,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         static final Handler HANDLER = new Handler(Looper.getMainLooper());
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0://刷新进度条
@@ -353,6 +355,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                 case 2://写入歌词成功
                     //加载歌词
                     loadLrcFile();
+                    break;
+                default:
                     break;
             }
         }
@@ -569,8 +573,10 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
             MusicPlayOver();
             MusicPlayService.MPS.playNext();
         } else if (view == ivBack) {
-            clearAlbumAnim();
-            getActivity().onBackPressed();
+            if (!isLyricVisibility()) {
+                clearAlbumAnim();
+                getActivity().onBackPressed();
+            }
         }
     }
 

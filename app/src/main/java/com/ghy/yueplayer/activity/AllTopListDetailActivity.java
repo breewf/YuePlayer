@@ -58,7 +58,7 @@ public class AllTopListDetailActivity extends BaseActivity {
         requestParams.put("size", "100");
         getAPiService().getOnLineListInfo(url, requestParams)
                 .compose(RetrofitManager.schedulersTransformer())
-                .compose(this.bindToLifecycle())//绑定生命周期
+                .compose(this.bindToLifecycle())
                 .subscribe(new EntityObserverNoBase<OnLineListInfo>(AllTopListDetailActivity.this, null) {
                     @Override
                     public void requestCallback(OnLineListInfo onLineListInfo, String msg, int code, boolean success) {
@@ -80,6 +80,8 @@ public class AllTopListDetailActivity extends BaseActivity {
                                 String songId = onLineListInfo.getSong_list().get(i).getSong_id();
                                 String musicPath = APIS.BASE_URL_BAI_DU_MUSIC + "?method="
                                         + APIS.BAI_DU_METHOD_PLAY + "&songid=" + songId;
+
+                                Toast.makeText(AllTopListDetailActivity.this, R.string.for_fun, Toast.LENGTH_SHORT).show();
                             });
                         } else {
                             Log.i("onLineMusic", "获取榜单出错-->>" + msg);

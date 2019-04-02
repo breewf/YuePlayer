@@ -186,7 +186,7 @@ public class MusicListFragment extends Fragment {
                     }
                 }
                 if (haveLike) {
-                    showToast("已经添加到喜欢列表啦");
+                    showToast(getString(R.string.add_like_yes));
                     haveLike = false;
                 } else {
                     //该歌曲还没有添加到喜欢列表，插入数据
@@ -212,7 +212,7 @@ public class MusicListFragment extends Fragment {
         cv.put("musicAlbumId", musicAlbumId);
         cv.put("musicUrl", musicUrl);
         db.insert("like_music_list", null, cv);
-        showToast("添加喜欢成功");
+        showToast(getString(R.string.add_like_list));
         //重新查询数据库并更新喜欢列表界面
         LikeListFragment.LLF.queryLikeListInfo();
         LikeListFragment.LLF.notifyAdapter();
@@ -223,11 +223,15 @@ public class MusicListFragment extends Fragment {
     }
 
     public void notifyChange(boolean isPalyLike) {
-        if (musicListAdapter != null) musicListAdapter.notifyDataSetChanged(isPalyLike);
+        if (musicListAdapter != null) {
+            musicListAdapter.notifyDataSetChanged(isPalyLike);
+        }
     }
 
     public void fastClick(int toMovePosition) {
-        if (lv_music != null) lv_music.smoothScrollToPositionFromTop(toMovePosition, 0);
+        if (lv_music != null) {
+            lv_music.smoothScrollToPositionFromTop(toMovePosition, 0);
+        }
     }
 
     @Override

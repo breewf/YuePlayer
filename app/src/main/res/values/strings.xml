@@ -19,6 +19,17 @@
 
     <string name="net_work_disable">网络连接失败，请检查本机WIFI或移动数据</string>
 
-    <string name="lrc_label">暂无歌词</string>
+    <string name="lrc_label">没有歌词呢~</string>
+    <string name="open_menu">点我打开菜单哦~</string>
+    <string name="say_hello">嗨~~你好呀~</string>
+    <string name="music_mine_list">我的音乐列表</string>
+    <string name="music_like_list">我的喜欢列表</string>
+    <string name="for_fun">FOR FUN ~</string>
+    <string name="no_lrc">木有歌词呢(@_@)</string>
+    <string name="down_lrc">戳我下载(*^_^*)</string>
+    <string name="no_like_tips">呜呜呜(ಥ _ ಥ)~\n\n您还没有添加喜欢的歌曲~\n\n长按音乐列表中的歌曲试试看~</string>
+    <string name="add_like_list">嘻~添加到喜欢啦~(*^_^*)</string>
+    <string name="remove_like_list">呃~你好像不喜欢我了~O__O</string>
+    <string name="add_like_yes">大大~这首歌已经喜欢啦~^_^</string>
 
 </resources>

@@ -135,6 +135,8 @@ public class LikeListFragment extends Fragment {
                 MainActivity.MA.loveAnim4();
             }, 600);
 
+            Toast.makeText(getActivity(), R.string.remove_like_list, Toast.LENGTH_SHORT).show();
+
             final String musicName = likeMusicList.get(i).getTitle();
             new Handler().postDelayed(() -> {
                 db.execSQL("delete from like_music_list where musicName=?",
@@ -142,7 +144,6 @@ public class LikeListFragment extends Fragment {
                 //重新查询设置adapter
                 queryLikeListInfo();
                 notifyAdapter();
-                Toast.makeText(getActivity(), "取消喜欢成功", Toast.LENGTH_SHORT).show();
             }, 1600);
             return true;
         });
@@ -163,8 +164,8 @@ public class LikeListFragment extends Fragment {
     }
 
     /*
-   * 查询数据库操作
-   * */
+     * 查询数据库操作
+     * */
     public void queryLikeListInfo() {
 
         lv_like_music.setVisibility(View.VISIBLE);
@@ -212,14 +213,16 @@ public class LikeListFragment extends Fragment {
         } else {
             lv_like_music.setVisibility(View.GONE);
             tv_like_remind.setVisibility(View.VISIBLE);
-            tv_like_remind.setText("没有喜欢的歌曲");
+            tv_like_remind.setText(R.string.no_like_tips);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LLF != null) LLF = null;
+        if (LLF != null) {
+            LLF = null;
+        }
     }
 
 }

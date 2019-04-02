@@ -46,6 +46,7 @@ import com.ghy.yueplayer.main.PlayControlView;
 import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
+import com.ghy.yueplayer.util.AnimHelper;
 import com.ghy.yueplayer.util.AnimUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint("StaticFieldLeak")
     public static MainActivity MA;
-    ViewPager viewPager_main;
+    ViewPager mViewPagerMain;
     ArrayList<Fragment> listFragments;
     MyPlayerAdapter playerAdapter;
     MusicListFragment musicListFragment;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView local_music, favour_music;
     private ImageView app_icon;
     private HeroTextView tv_app_name;
+    private HeroTextView tv_app_text;
     private TextView tvMusicTitle;
     private TextView tvMusicArtist;
     private ProgressBar mProgressbar;
@@ -143,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listFragments.add(musicListFragment);
         listFragments.add(likeListFragment);
         playerAdapter = new MyPlayerAdapter(getSupportFragmentManager(), listFragments);
-        viewPager_main.setAdapter(playerAdapter);
-        viewPager_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPagerMain.setAdapter(playerAdapter);
+        mViewPagerMain.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -169,25 +171,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        viewPager_main = (ViewPager) findViewById(R.id.viewPager_main);
+        mViewPagerMain = findViewById(R.id.viewPager_main);
 
-        local_music = (ImageView) findViewById(R.id.local_music);
-        favour_music = (ImageView) findViewById(R.id.favour_music);
-        app_icon = (ImageView) findViewById(R.id.app_icon);
-        tv_app_name = (HeroTextView) findViewById(R.id.tv_app_name);
-        tvMusicTitle = (TextView) findViewById(R.id.tv_music_title);
-        tvMusicArtist = (TextView) findViewById(R.id.tv_music_artist);
-        mProgressbar = (ProgressBar) findViewById(R.id.main_seek_bar);
+        local_music = findViewById(R.id.local_music);
+        favour_music = findViewById(R.id.favour_music);
+        app_icon = findViewById(R.id.app_icon);
+        tv_app_name = findViewById(R.id.tv_app_name);
+        tv_app_text = findViewById(R.id.tv_app_text);
+        tvMusicTitle = findViewById(R.id.tv_music_title);
+        tvMusicArtist = findViewById(R.id.tv_music_artist);
+        mProgressbar = findViewById(R.id.main_seek_bar);
 
-        mMusicNoteViewLayout = (MusicNoteViewLayout) findViewById(R.id.note_layout);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer_content = (RelativeLayout) findViewById(R.id.drawer_content);
+        mMusicNoteViewLayout = findViewById(R.id.note_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        drawer_content = findViewById(R.id.drawer_content);
 
-        mVDHLayout = (VDHLayout) findViewById(R.id.vdh_layout);
-        mPlayerImageView = (ImageView) findViewById(R.id.iv_play);
-        mPlayControlView = (PlayControlView) findViewById(R.id.play_control_view);
-        music_info_layout = (LinearLayout) findViewById(R.id.music_info_layout);
-        mTvPlayTip = (TextView) findViewById(R.id.tv_play_tip);
+        mVDHLayout = findViewById(R.id.vdh_layout);
+        mPlayerImageView = findViewById(R.id.iv_play);
+        mPlayControlView = findViewById(R.id.play_control_view);
+        music_info_layout = findViewById(R.id.music_info_layout);
+        mTvPlayTip = findViewById(R.id.tv_play_tip);
         mPlayControlView.setVisibility(View.INVISIBLE);
         mTvPlayTip.setVisibility(View.INVISIBLE);
 
@@ -207,11 +210,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         music_info_layout.setOnClickListener(view -> {
             if (isFastClick()) {
+                AnimHelper.shakeAnimCycle(music_info_layout);
                 boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
                 if (!isLikeList) {
-                    if (musicListFragment != null) musicListFragment.fastClick(toMovePosition);
+                    if (musicListFragment != null) {
+                        musicListFragment.fastClick(toMovePosition);
+                    }
                 }
             }
+        });
+
+        tv_app_text.setOnClickListener(view -> {
+            if (isFastClick()) {
+                AnimHelper.shakeAnimCycle(tv_app_text);
+            }
+        });
+        tv_app_text.setOnLongClickListener(v -> {
+            showToast(getString(R.string.say_hello));
+            return false;
         });
 
         rotationAnim = ObjectAnimator.ofFloat(mPlayerImageView, "rotation", 0f, 360f);
@@ -251,7 +267,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
         tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
 
-        if (!isOnResume) return;
+        if (!isOnResume) {
+            return;
+        }
 
         if (MusicPlayService.MPS != null) {
             isPlay = MusicPlayService.MPS.isPlay();
@@ -282,7 +300,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         static final Handler HANDLER = new Handler(Looper.getMainLooper());
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
@@ -298,6 +318,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 1:
                     mMusicNoteViewLayout.addMusicNote();//添加一个音符
                     handler.sendEmptyMessageDelayed(1, 1000);
+                    break;
+                default:
                     break;
             }
         }
@@ -347,11 +369,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == local_music) {
-            viewPager_main.setCurrentItem(0);
+            mViewPagerMain.setCurrentItem(0);
             favour_music.setImageResource(R.mipmap.note_btn_love);
             local_music.setImageResource(R.mipmap.icon_music_selected);
         } else if (view == favour_music) {
-            viewPager_main.setCurrentItem(1);
+            mViewPagerMain.setCurrentItem(1);
             favour_music.setImageResource(R.mipmap.note_btn_loved_white);
             local_music.setImageResource(R.mipmap.icon_music_unselected);
         } else if (view == app_icon) {
@@ -362,8 +384,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 添加到喜欢列表：向外缩放到1.4倍大小
-    * */
+     * 添加到喜欢列表：向外缩放到1.4倍大小
+     * */
     public void loveAnim1() {
         favour_music.setImageResource(R.mipmap.note_btn_loved_white);
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
@@ -371,8 +393,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 添加到喜欢列表：向内缩放恢复到原大小
-    * */
+     * 添加到喜欢列表：向内缩放恢复到原大小
+     * */
     public void loveAnim2() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
@@ -380,8 +402,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 喜欢列表删除：向外缩放到1.4倍大小
-    * */
+     * 喜欢列表删除：向外缩放到1.4倍大小
+     * */
     public void loveAnim3() {
         favour_music.setImageResource(R.mipmap.note_btn_love);
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
@@ -389,8 +411,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 喜欢列表删除：向内缩放恢复到原大小
-    * */
+     * 喜欢列表删除：向内缩放恢复到原大小
+     * */
     public void loveAnim4() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
@@ -406,8 +428,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 侧滑菜单点击事件
-    * */
+     * 侧滑菜单点击事件
+     * */
     public void DrawerLayoutClick(final View view) {
 
         if (mDrawerLayout.isDrawerOpen(drawer_content)) {
@@ -432,6 +454,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.layout6:
                         finish();
                         break;
+                    default:
+                        break;
                 }
             }, 400);
             mDrawerLayout.closeDrawer(drawer_content);
@@ -445,18 +469,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*
-    * 停止音乐播放服务和统计服务
-    * */
+     * 停止音乐播放服务和统计服务
+     * */
     private void stopService() {
-        if (MusicPlayService.MPS != null) MusicPlayService.MPS.stopSelf();
-        if (TimeService.TS != null) TimeService.TS.stopSelf();
+        if (MusicPlayService.MPS != null) {
+            MusicPlayService.MPS.stopSelf();
+        }
+        if (TimeService.TS != null) {
+            TimeService.TS.stopSelf();
+        }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         /*
-        * 按返回键不销毁activity
-        * */
+         * 按返回键不销毁activity
+         * */
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
             return true;
@@ -471,13 +499,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onLongClick(View view) {
         if (view == app_icon) {
-            showToast("点我打开菜单哦");
+            showToast(getString(R.string.open_menu));
         } else if (view == tv_app_name) {
-            showToast("听见好音乐~");
+            showToast(getString(R.string.say_hello));
         } else if (view == local_music) {
-            showToast("我的音乐列表");
+            showToast(getString(R.string.music_mine_list));
         } else if (view == favour_music) {
-            showToast("我的喜欢列表");
+            showToast(getString(R.string.music_like_list));
         }
         return true;
     }
@@ -489,7 +517,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPlayControlView.setVisibility(View.VISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_RIGHT, percent, isPlay);
                 if (percent >= 20) {
-                    if (mPlayControlView.getAlpha() != 1f) mPlayControlView.setAlpha(1f);
+                    if (mPlayControlView.getAlpha() != 1f) {
+                        mPlayControlView.setAlpha(1f);
+                    }
                     mTvPlayTip.setVisibility(View.VISIBLE);
                     mTvPlayTip.setText("滑动切歌");
                     mTvPlayTip.setAlpha(percent * 0.01f);
@@ -508,7 +538,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPlayControlView.setVisibility(View.VISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_LEFT, percent, isPlay);
                 if (percent >= 20) {
-                    if (mPlayControlView.getAlpha() != 1f) mPlayControlView.setAlpha(1f);
+                    if (mPlayControlView.getAlpha() != 1f) {
+                        mPlayControlView.setAlpha(1f);
+                    }
                     mTvPlayTip.setVisibility(View.VISIBLE);
                     if (isPlay) {
                         mTvPlayTip.setText("滑动暂停");
@@ -535,6 +567,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mPlayControlView.setVisibility(View.INVISIBLE);
                 mPlayControlView.setSlidePercent(VDHLayout.DIRECTION_ORIGIN, percent, isPlay);
                 break;
+            default:
+                break;
         }
     }
 
@@ -554,9 +588,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else if (percentDirection == 2) {
             //左滑至最大值释放--播放/暂停
-            if (MusicPlayService.MPS == null) return;
+            if (MusicPlayService.MPS == null) {
+                return;
+            }
             isPlay = MusicPlayService.MPS.isPlay();
-            if (checkMusicIsNull()) return;
+            if (checkMusicIsNull()) {
+                return;
+            }
             if (isPlay) {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
@@ -607,7 +645,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void stopAlbumAnim() {
-        if (rotationAnim != null) rotationAnim.pause();
+        if (rotationAnim != null) {
+            rotationAnim.pause();
+        }
     }
 
     private void resetAlbumAnim() {
@@ -623,6 +663,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case MUSIC_PALY_CHANGE://切换播放歌曲
                 int musicId = updateTypeModel.dataInt;
                 refreshPlayingMusic(musicId);
+                break;
+            default:
                 break;
         }
     }
@@ -644,7 +686,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void notifyAdapterChange() {
         boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
-        if (musicListFragment != null) musicListFragment.notifyChange(isLikeList);
+        if (musicListFragment != null) {
+            musicListFragment.notifyChange(isLikeList);
+        }
     }
 
     @Override
@@ -666,8 +710,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (handler != null) handler.removeCallbacksAndMessages(null);
-        if (UI.HANDLER != null) UI.HANDLER.removeCallbacksAndMessages(null);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        UI.HANDLER.removeCallbacksAndMessages(null);
         EventBus.getDefault().unregister(this);
         stopService();
     }

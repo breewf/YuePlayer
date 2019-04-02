@@ -92,7 +92,7 @@
                     app:lrcAnimationDuration="1000"
                     app:lrcCurrentTextColor="@color/white"
                     app:lrcDividerHeight="24dp"
-                    app:lrcLabel="暂无歌词(@_@)"
+                    app:lrcLabel="@string/no_lrc"
                     app:lrcNormalTextColor="@color/gray_bd"
                     app:lrcPadding="30dp"
                     app:lrcTextSize="16sp"
@@ -107,7 +107,7 @@
                     android:layout_gravity="bottom|right"
                     android:layout_marginRight="15dp"
                     android:padding="10dp"
-                    android:text="点我下载(@_@)"
+                    android:text="@string/down_lrc"
                     android:textColor="@color/gray2"
                     android:textSize="12sp"
                     android:visibility="gone"/>
