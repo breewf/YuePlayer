@@ -50,6 +50,7 @@ import com.ghy.yueplayer.util.AnimHelper;
 import com.ghy.yueplayer.util.AnimUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
+import com.john.waveview.WaveView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private HeroTextView tv_app_text;
     private TextView tvMusicTitle;
     private TextView tvMusicArtist;
+    private WaveView wave_view;
     private ProgressBar mProgressbar;
 
     private DrawerLayout mDrawerLayout;
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_app_text = findViewById(R.id.tv_app_text);
         tvMusicTitle = findViewById(R.id.tv_music_title);
         tvMusicArtist = findViewById(R.id.tv_music_artist);
+        wave_view = findViewById(R.id.wave_view);
         mProgressbar = findViewById(R.id.main_seek_bar);
 
         mMusicNoteViewLayout = findViewById(R.id.note_layout);
@@ -264,8 +267,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Constant.MUSIC_SP, "musicId");
 
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
-        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "未知歌曲" : musicName);
-        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "未知艺术家" : musicArtist);
+        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "UNKNOWN" : musicName);
+        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "UNKNOWN" : musicArtist);
 
         if (!isOnResume) {
             return;
@@ -309,6 +312,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (MusicPlayService.player != null) {
                         mProgressbar.setMax(MusicPlayService.player.getDuration());
                         mProgressbar.setProgress(MusicPlayService.player.getCurrentPosition());
+
+                        if (wave_view != null) {
+                            wave_view.setProgress((int) (MusicPlayService.player.getCurrentPosition() / (float) MusicPlayService.player.getDuration() * 100) + 5);
+                        }
                     } else {
                         mProgressbar.setMax(100);
                         mProgressbar.setProgress(0);

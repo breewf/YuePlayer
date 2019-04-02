@@ -59,13 +59,14 @@
 
                             <com.ghy.yueplayer.view.HeroTextView
                                 android:id="@+id/tv_app_text"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
+                                android:gravity="left|center"
                                 android:text="YuePlayer"
                                 android:textColor="@color/gray_light"
-                                android:textSize="20dp"/>
+                                android:textSize="20dp"
+                                android:visibility="visible"/>
 
                         </LinearLayout>
 
@@ -86,31 +87,50 @@
                                 android:id="@+id/tv_music_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
                                 android:layout_marginTop="5dp"
+                                android:layout_marginEnd="10dp"
                                 android:ellipsize="end"
-                                android:gravity="right"
-                                android:maxLines="1"
+                                android:gravity="right|center"
+                                android:maxLines="2"
                                 android:text="未知歌曲"
                                 android:textColor="@color/gray_light"
-                                android:textSize="12dp"/>
+                                android:textSize="14dp"/>
 
                             <TextView
                                 android:id="@+id/tv_music_artist"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="10dp"
                                 android:ellipsize="end"
-                                android:gravity="right"
+                                android:gravity="center|right"
                                 android:maxLines="1"
                                 android:text="未知艺术家"
-                                android:textColor="@color/gray_light"
-                                android:textSize="10dp"/>
+                                android:textColor="@color/black_99"
+                                android:textSize="12dp"
+                                android:visibility="gone"/>
 
                         </LinearLayout>
 
                     </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom">
+
+                    <com.john.waveview.WaveView
+                        android:id="@+id/wave_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/trans"
+                        app:above_wave_color="@color/trans30"
+                        app:blow_wave_color="@color/trans40"
+                        app:progress="0"
+                        app:wave_height="little"
+                        app:wave_hz="slow"
+                        app:wave_length="middle"/>
 
                 </FrameLayout>
 
@@ -181,10 +201,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|bottom"
                         android:background="@drawable/bg_black_gradient_angle"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
                         android:paddingTop="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
                         android:text="松手暂停"
                         android:textColor="@color/black"
                         android:textSize="12sp"/>

@@ -70,4 +70,10 @@
     <color name="lrc_timeline_color">#809E9E9E</color>
     <color name="lrc_time_text_color">#809E9E9E</color>
 
+    <color name="trans">#00000000</color>
+    <color name="trans30">#1E000000</color>
+    <color name="trans70">#B3000000</color>
+    <color name="trans40">#66000000</color>
+    <color name="trans50">#7F000000</color>
+
 </resources>
