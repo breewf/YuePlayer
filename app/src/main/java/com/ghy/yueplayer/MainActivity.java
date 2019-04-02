@@ -379,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view == app_icon) {
             showDrawerLayout();
         } else if (view == tv_app_name) {
-//            showToast("欢迎您使用YuePlayer");
+            showToast(getString(R.string.click_app_name));
         }
     }
 
@@ -618,7 +618,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private boolean checkMusicIsNull() {
         if (TextUtils.isEmpty(musicUrl)) {
-            Toast.makeText(this, "请选择一首歌曲播放", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.song_url_null, Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;

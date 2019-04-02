@@ -7,8 +7,8 @@ import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,6 +24,7 @@ public class MusicFxActivity extends AppCompatActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
+    LinearLayout title_layout;
 
     private TextView tvBottom1;
     private TextView tvBottom2;
@@ -78,14 +79,35 @@ public class MusicFxActivity extends AppCompatActivity {
     }
 
     private void initToolBar() {
-        app_icon_back = (ImageView) findViewById(R.id.app_icon_back);
-        tv_activity_name = (TextView) findViewById(R.id.tv_activity_name);
+        app_icon_back = findViewById(R.id.app_icon_back);
+        tv_activity_name = findViewById(R.id.tv_activity_name);
+        title_layout = findViewById(R.id.title_layout);
         tv_activity_name.setText("MusicFx");
-        app_icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+        app_icon_back.setOnClickListener(view -> finish());
+
+        // 长按恢复默认值
+        title_layout.setOnLongClickListener(v -> {
+            if (mEqualizer == null) {
+                return false;
             }
+            short minEQLevel = mEqualizer.getBandLevelRange()[0];
+            short maxEQLevel = mEqualizer.getBandLevelRange()[1];
+            for (short brand = 0; brand < 5; brand++) {
+                saveEQUALIZER(brand, -10000);
+                if (verticalSeekBars[brand] != null) {
+                    int bandLevel = getEQUALIZER(brand);
+                    verticalSeekBars[brand].setProgress(bandLevel == -10000 ? maxEQLevel : bandLevel + maxEQLevel);
+                    mEqualizer.setBandLevel(brand, (short) (verticalSeekBars[brand].getProgress() + minEQLevel));
+                }
+            }
+            if (mSeekBarBass != null) {
+                mSeekBarBass.setProgress(0);
+                PreferManager.setInt(PreferManager.BASS, mSeekBarBass.getProgress());
+                if (mBass != null) {
+                    mBass.setStrength((short) mSeekBarBass.getProgress());
+                }
+            }
+            return false;
         });
     }
 
@@ -107,7 +129,9 @@ public class MusicFxActivity extends AppCompatActivity {
         // 获取均衡控制器支持的所有频率
         short brands = mEqualizer.getNumberOfBands();
         for (short i = 0; i < brands; i++) {
-            if (i > 4) return;
+            if (i > 4) {
+                return;
+            }
             tvBottom[i].setText("" + (mEqualizer.getCenterFreq(i) / 1000) + "Hz");
             int maxValue = maxEQLevel - minEQLevel;
             verticalSeekBars[i].setMax(maxValue);
@@ -115,7 +139,9 @@ public class MusicFxActivity extends AppCompatActivity {
             verticalSeekBars[i].setProgress(bandLevel == -10000 ? maxEQLevel : bandLevel + maxEQLevel);
             bandLevel = bandLevel == -10000 ? 0 : bandLevel;
 //            verticalSeekBars[i].setProgress(mEqualizer.getBandLevel(i));
-            if (mEqualizer != null) mEqualizer.setBandLevel(i, (short) bandLevel);
+            if (mEqualizer != null) {
+                mEqualizer.setBandLevel(i, (short) bandLevel);
+            }
             final short brand = i;
             // 为SeekBar的拖动事件设置事件监听器
             verticalSeekBars[i].setOnSeekBarChangeListener(new SeekBar
@@ -136,7 +162,9 @@ public class MusicFxActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     saveEQUALIZER(brand, (seekBar.getProgress() + minEQLevel));
-                    if (mEqualizer == null) return;
+                    if (mEqualizer == null) {
+                        return;
+                    }
                     mEqualizer.setBandLevel(brand,
                             (short) (seekBar.getProgress() + minEQLevel));
                     Log.i("musicFx", "brand--onStopTrackingTouch-->>" + brand + "--level-->>" + (short) (seekBar.getProgress() + minEQLevel));
@@ -191,7 +219,9 @@ public class MusicFxActivity extends AppCompatActivity {
         mSeekBarBass.setMax(1000);
         int bassLevel = PreferManager.getInt(PreferManager.BASS, 0);
         mSeekBarBass.setProgress(bassLevel);
-        if (mBass != null) mBass.setStrength((short) bassLevel);
+        if (mBass != null) {
+            mBass.setStrength((short) bassLevel);
+        }
         // 为SeekBar的拖动事件设置事件监听器
         mSeekBarBass.setOnSeekBarChangeListener(new SeekBar
                 .OnSeekBarChangeListener() {
@@ -210,7 +240,9 @@ public class MusicFxActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 PreferManager.setInt(PreferManager.BASS, seekBar.getProgress());
-                if (mBass == null) return;
+                if (mBass == null) {
+                    return;
+                }
                 mBass.setStrength((short) seekBar.getProgress());
                 Log.i("musicFx", "bass--onStopTrackingTouch-->>" + (short) seekBar.getProgress());
             }

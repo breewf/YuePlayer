@@ -24,16 +24,32 @@
                 android:layout_height="wrap_content"
                 android:text="音效调节功能需要插入耳机"
                 android:textColor="@color/gray4"
-                android:visibility="gone"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/title_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="均衡器"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="均衡器"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="  (长按我可恢复默认~)"
+                    android:textColor="@color/gray4"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/equalizer_layout"
@@ -232,7 +248,7 @@
                 android:layout_marginTop="20dp"
                 android:text="重低音"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
 
             <SeekBar
                 android:id="@+id/seek_bass"

@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.MainActivity;
@@ -136,7 +137,9 @@ public class MusicPlayService extends Service {
     private void setupEqualizer() {
         // 以MediaPlayer的AudioSessionId创建Equalizer
         // 相当于设置Equalizer负责控制该MediaPlayer
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         mEqualizer = new Equalizer(0, player.getAudioSessionId());
         // 启用均衡控制效果
         mEqualizer.setEnabled(true);
@@ -154,7 +157,9 @@ public class MusicPlayService extends Service {
     private void setupBassBoost() {
         // 以MediaPlayer的AudioSessionId创建BassBoost
         // 相当于设置BassBoost负责控制该MediaPlayer
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         mBass = new BassBoost(0, player.getAudioSessionId());
         // 设置启用重低音效果
         mBass.setEnabled(true);
@@ -197,12 +202,14 @@ public class MusicPlayService extends Service {
             }
         } else {
             //播放上次记忆的歌曲
-            if (musicUrl.equals("")) {
-                showToast("没有正在播放的歌曲");
+            if (TextUtils.isEmpty(musicUrl)) {
+                showToast(getString(R.string.song_no_playing));
             } else {
                 playMusic(musicUrl, musicName, artist, musicId);
                 //重新加载播放界面数据
-                if (PlayFragment.PF != null) PlayFragment.PF.initData();
+                if (PlayFragment.PF != null) {
+                    PlayFragment.PF.initData();
+                }
             }
         }
     }
@@ -224,7 +231,7 @@ public class MusicPlayService extends Service {
         if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayNext();
         } else {
-            showToast("没有发现歌曲");
+            showToast(getString(R.string.song_not_found));
         }
     }
 
@@ -252,6 +259,8 @@ public class MusicPlayService extends Service {
                 //单曲循环模式
                 nextMusicId = playListId;
                 break;
+            default:
+                break;
         }
 
         //保存下一首歌曲相关信息，加载界面使用
@@ -266,7 +275,9 @@ public class MusicPlayService extends Service {
         playMusic(nextMusicUrl, nextMusicName, nextMusicArtist, saveMusicId);
 
         //重新加载播放界面数据
-        if (PlayFragment.PF != null) PlayFragment.PF.initData();
+        if (PlayFragment.PF != null) {
+            PlayFragment.PF.initData();
+        }
     }
 
     /*
@@ -329,7 +340,7 @@ public class MusicPlayService extends Service {
         if (musicList != null && musicList.size() != 0) {
             haveMusicAndPlayPre();
         } else {
-            showToast("没有发现歌曲");
+            showToast(getString(R.string.song_not_found));
         }
 
     }
@@ -355,7 +366,9 @@ public class MusicPlayService extends Service {
         playMusic(preMusicUrl, preMusicName, preMusicArtist, saveMusicId);
 
         //重新加载播放界面数据
-        if (PlayFragment.PF != null) PlayFragment.PF.initData();
+        if (PlayFragment.PF != null) {
+            PlayFragment.PF.initData();
+        }
     }
 
 
@@ -366,7 +379,7 @@ public class MusicPlayService extends Service {
         if (player != null) {
             player.seekTo(position);
         } else {
-            showToast("没有正在播放的歌曲");
+            showToast(getString(R.string.song_no_playing));
         }
     }
 
