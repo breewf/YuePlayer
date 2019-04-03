@@ -12,6 +12,7 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.view.HeroTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Timer;
@@ -22,10 +23,10 @@ public class TimeActivity extends AppCompatActivity {
     ImageView app_icon_back;
     TextView tv_activity_name;
 
-    TextView tv_time_this;
-    TextView tv_time_this_hour;
-    TextView tv_time_all_use;
-    TextView tv_time_all_hour;
+    HeroTextView tv_time_this;
+    HeroTextView tv_time_this_hour;
+    HeroTextView tv_time_all_use;
+    HeroTextView tv_time_all_hour;
     TextView tv_nick;
 
     Timer timer;
@@ -43,61 +44,61 @@ public class TimeActivity extends AppCompatActivity {
 
     private void initData() {
 
-        if (timer==null){
-            timer=new Timer();
-            timerTask=new CountTimerTask();
-            timer.schedule(timerTask,0,1000);
+        if (timer == null) {
+            timer = new Timer();
+            timerTask = new CountTimerTask();
+            timer.schedule(timerTask, 0, 1000);
         }
 
-        int timeAll= SPUtil.getIntSP(this, Constant.MUSIC_SP,"useTimeAll");
-        if (timeAll==-1){
-            timeAll=0;
+        int timeAll = SPUtil.getIntSP(this, Constant.MUSIC_SP, "useTimeAll");
+        if (timeAll == -1) {
+            timeAll = 0;
         }
         tv_time_all_use.setText(getTime2(timeAll));
 
-        if (timeAll>=360000){
+        if (timeAll >= 360000) {
             //100个小时以上
             tv_nick.setText("无人能及");
-        }else if (timeAll>=180000 && timeAll<360000){
+        } else if (timeAll >= 180000 && timeAll < 360000) {
             //50个小时-100个小时
             tv_nick.setText("居高临下");
-        }else if (timeAll>=144000 && timeAll<180000){
+        } else if (timeAll >= 144000 && timeAll < 180000) {
             //40个小时-50个小时
             tv_nick.setText("音乐王者");
-        }else if (timeAll>=108000 && timeAll<144000){
+        } else if (timeAll >= 108000 && timeAll < 144000) {
             //30个小时-40个小时
             tv_nick.setText("音乐狂人");
-        }else if (timeAll>=72000 && timeAll<108000){
+        } else if (timeAll >= 72000 && timeAll < 108000) {
             //20个小时-30个小时
             tv_nick.setText("音乐发烧");
-        }else if (timeAll>=36000 && timeAll<72000){
+        } else if (timeAll >= 36000 && timeAll < 72000) {
             //10个小时-20个小时
             tv_nick.setText("音乐达人");
-        }else if (timeAll>=18000 && timeAll<36000){
+        } else if (timeAll >= 18000 && timeAll < 36000) {
             //5个小时-10个小时
             tv_nick.setText("爱上音乐");
-        }else if (timeAll>=14400 && timeAll<18000){
+        } else if (timeAll >= 14400 && timeAll < 18000) {
             //4个小时-5个小时
             tv_nick.setText("喜欢音乐");
-        }else if (timeAll>=10800 && timeAll<14400){
+        } else if (timeAll >= 10800 && timeAll < 14400) {
             //3个小时-4个小时
             tv_nick.setText("悦听粉丝");
-        }else if (timeAll>=7200 && timeAll<10800){
+        } else if (timeAll >= 7200 && timeAll < 10800) {
             //2个小时-3个小时
             tv_nick.setText("悦听粉丝");
-        }else if (timeAll>=3600 && timeAll<7200){
+        } else if (timeAll >= 3600 && timeAll < 7200) {
             //1个小时-2个小时
             tv_nick.setText("我喜欢听");
-        }else if (timeAll>=1800 && timeAll<3600){
+        } else if (timeAll >= 1800 && timeAll < 3600) {
             //30分钟-1个小时
             tv_nick.setText("随便听听");
-        }else if (timeAll<1800){
+        } else if (timeAll < 1800) {
             //30分钟以下
             tv_nick.setText("初入茅庐");
         }
     }
 
-    class CountTimerTask extends TimerTask{
+    class CountTimerTask extends TimerTask {
 
         @Override
         public void run() {
@@ -112,17 +113,17 @@ public class TimeActivity extends AppCompatActivity {
 
     private void initView() {
 
-        tv_time_this= (TextView) findViewById(R.id.tv_time_this);
-        tv_time_this_hour= (TextView) findViewById(R.id.tv_time_this_hour);
-        tv_time_all_use= (TextView) findViewById(R.id.tv_time_all_use);
-        tv_time_all_hour= (TextView) findViewById(R.id.tv_time_all_hour);
-        tv_nick= (TextView) findViewById(R.id.tv_nick);
+        tv_time_this = findViewById(R.id.tv_time_this);
+        tv_time_this_hour = findViewById(R.id.tv_time_this_hour);
+        tv_time_all_use = findViewById(R.id.tv_time_all_use);
+        tv_time_all_hour = findViewById(R.id.tv_time_all_hour);
+        tv_nick = findViewById(R.id.tv_nick);
 
     }
 
     private void initToolBar() {
-        app_icon_back= (ImageView) findViewById(R.id.app_icon_back);
-        tv_activity_name= (TextView) findViewById(R.id.tv_activity_name);
+        app_icon_back = (ImageView) findViewById(R.id.app_icon_back);
+        tv_activity_name = (TextView) findViewById(R.id.tv_activity_name);
         tv_activity_name.setText("Time");
         app_icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,18 +133,26 @@ public class TimeActivity extends AppCompatActivity {
         });
     }
 
-    private String getTime(int timeSecond){
-        int hour=timeSecond/3600;//获得小时
-        tv_time_this_hour.setText(hour==0?"00:":hour+":");
-        int time=timeSecond%3600;//获得分秒
-        return getFormatTime(time*1000);//单位为毫秒，time单位是秒
+    private String getTime(int timeSecond) {
+        int hour = timeSecond / 3600;//获得小时
+        String hourStr = "";
+        if (String.valueOf(hour).length() == 1) {
+            hourStr = "0" + hour;
+        }
+        tv_time_this_hour.setText(hourStr + ":");
+        int time = timeSecond % 3600;//获得分秒
+        return getFormatTime(time * 1000);//单位为毫秒，time单位是秒
     }
 
-    private String getTime2(int timeSecond){
-        int hour=timeSecond/3600;//获得小时
-        tv_time_all_hour.setText(hour==0?"00:":hour+":");
-        int time=timeSecond%3600;//获得分秒
-        return getFormatTime(time*1000);//单位为毫秒，time单位是秒
+    private String getTime2(int timeSecond) {
+        int hour = timeSecond / 3600;//获得小时
+        String hourStr = "";
+        if (String.valueOf(hour).length() == 1) {
+            hourStr = "0" + hour;
+        }
+        tv_time_all_hour.setText(hourStr + ":");
+        int time = timeSecond % 3600;//获得分秒
+        return getFormatTime(time * 1000);//单位为毫秒，time单位是秒
     }
 
     private String getFormatTime(int time) {
@@ -155,9 +164,9 @@ public class TimeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timer!=null){
+        if (timer != null) {
             timer.cancel();
-            timer=null;
+            timer = null;
         }
     }
 

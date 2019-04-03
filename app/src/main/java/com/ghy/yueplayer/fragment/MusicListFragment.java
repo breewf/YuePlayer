@@ -122,6 +122,10 @@ public class MusicListFragment extends Fragment {
         //音乐列表点击事件
         lv_music.setOnItemClickListener((adapterView, view, i, l) -> {
 
+            if (getActivity() == null) {
+                return;
+            }
+
             //普通列表
             SPUtil.saveSP(getActivity(), Constant.MUSIC_SP, "isLikeList", false);
             MusicPlayService.musicList = musicInfo;

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,7 +30,10 @@ public class MusicListAdapter extends BaseAdapter {
     private List<MusicInfo> mMusicInfo;
     private Context mContext;
     private ImageLoader mImageLoader;
-    private boolean isPlayLike;//是否在播放喜欢列表
+    /**
+     * 是否在播放喜欢列表
+     */
+    private boolean isPlayLike;
 
     private static String mArtworkUri = "content://media/external/audio/albumart";
     private DisplayImageOptions options;
@@ -106,8 +111,11 @@ public class MusicListAdapter extends BaseAdapter {
             vumeter.setVisibility(View.GONE);
         }
 
-        //加载动画
-//        view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
+        // 加载动画
+        boolean isOpenListAnim = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
+        if (isOpenListAnim) {
+            view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
+        }
 
         return view;
     }

@@ -123,6 +123,17 @@
             android:textColor="@color/gray2"
             android:textSize="16sp"/>
 
+        <RadioButton
+            android:id="@+id/radioButton_open_list_anim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:padding="10dp"
+            android:text="开启音乐列表动画"
+            android:textColor="@color/gray2"
+            android:textSize="16sp"/>
+
     </LinearLayout>
 
 </LinearLayout>

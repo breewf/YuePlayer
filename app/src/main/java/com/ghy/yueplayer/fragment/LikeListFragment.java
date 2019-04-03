@@ -84,6 +84,10 @@ public class LikeListFragment extends Fragment {
     private void setOnClickListener() {
         lv_like_music.setOnItemClickListener((adapterView, view, i, l) -> {
 
+            if (getActivity() == null) {
+                return;
+            }
+
             //喜欢列表
             SPUtil.saveSP(getActivity(), Constant.MUSIC_SP, "isLikeList", true);
             MusicPlayService.musicList = likeMusicList;

@@ -227,4 +227,19 @@ public class AnimHelper {
         animSet.start();
     }
 
+    /**
+     * 移除喜欢列表--缩放动画
+     *
+     * @param view
+     */
+    public static void disLikeScaleXYAnim(View view) {
+        ObjectAnimator scanX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.60f, 1.0f);
+        ObjectAnimator scanY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.60f, 1.0f);
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.play(scanX).with(scanY);
+        animSet.setDuration(900);
+        animSet.start();
+    }
+
 }

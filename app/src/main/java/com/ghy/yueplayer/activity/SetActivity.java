@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,6 +28,7 @@ public class SetActivity extends Activity {
     RadioButton radioButton3;
     RadioButton radioButtonAlbumColor;
     RadioButton radioButtonMusicNote;
+    RadioButton radioButtonListAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +39,22 @@ public class SetActivity extends Activity {
     }
 
     private void initToolBar() {
-        app_icon_back = (ImageView) findViewById(R.id.app_icon_back);
-        tv_activity_name = (TextView) findViewById(R.id.tv_activity_name);
+        app_icon_back = findViewById(R.id.app_icon_back);
+        tv_activity_name = findViewById(R.id.tv_activity_name);
         tv_activity_name.setText("Set");
-        app_icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        app_icon_back.setOnClickListener(view -> finish());
     }
 
     private void initView() {
 
-        tv_fx = (TextView) findViewById(R.id.tv_fx);
-        set_group = (RadioGroup) findViewById(R.id.set_group);
-        radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
-        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
-        radioButton3 = (RadioButton) findViewById(R.id.radioButton3);
-        radioButtonAlbumColor = (RadioButton) findViewById(R.id.radioButton_color_test);
-        radioButtonMusicNote = (RadioButton) findViewById(R.id.radioButton_note_test);
+        tv_fx = findViewById(R.id.tv_fx);
+        set_group = findViewById(R.id.set_group);
+        radioButton1 = findViewById(R.id.radioButton1);
+        radioButton2 = findViewById(R.id.radioButton2);
+        radioButton3 = findViewById(R.id.radioButton3);
+        radioButtonAlbumColor = findViewById(R.id.radioButton_color_test);
+        radioButtonMusicNote = findViewById(R.id.radioButton_note_test);
+        radioButtonListAnim = findViewById(R.id.radioButton_open_list_anim);
 
         tv_fx.setOnClickListener(view -> startActivity(new Intent(this, MusicFxActivity.class)));
 
@@ -81,26 +77,24 @@ public class SetActivity extends Activity {
                 //单曲循环
                 radioButton3.setChecked(true);
                 break;
+            default:
+                break;
         }
 
-        set_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int radioButtonId = radioGroup.getCheckedRadioButtonId();
-                RadioButton rb = (RadioButton) findViewById(radioButtonId);
-                Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
-
-                int playMode = -1;
-                if (rb.getText().equals("列表循环")) {
-                    playMode = 1;
-                } else if (rb.getText().equals("随机播放")) {
-                    playMode = 2;
-                } else if (rb.getText().equals("单曲循环")) {
-                    playMode = 3;
-                }
-                //保存设置项
-                SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode", playMode);
+        set_group.setOnCheckedChangeListener((radioGroup, i) -> {
+            int radioButtonId = radioGroup.getCheckedRadioButtonId();
+            RadioButton rb = findViewById(radioButtonId);
+            Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
+            int playMode1 = -1;
+            if (rb.getText().equals("列表循环")) {
+                playMode1 = 1;
+            } else if (rb.getText().equals("随机播放")) {
+                playMode1 = 2;
+            } else if (rb.getText().equals("单曲循环")) {
+                playMode1 = 3;
             }
+            //保存设置项
+            SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode", playMode1);
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
@@ -109,17 +103,14 @@ public class SetActivity extends Activity {
         } else {
             radioButtonAlbumColor.setChecked(false);
         }
-        radioButtonAlbumColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isCheck = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
-                if (isCheck) {
-                    radioButtonAlbumColor.setChecked(false);
-                    PreferManager.setBoolean(PreferManager.ALBUM_COLOR, false);
-                } else {
-                    radioButtonAlbumColor.setChecked(true);
-                    PreferManager.setBoolean(PreferManager.ALBUM_COLOR, true);
-                }
+        radioButtonAlbumColor.setOnClickListener(view -> {
+            boolean isCheck = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
+            if (isCheck) {
+                radioButtonAlbumColor.setChecked(false);
+                PreferManager.setBoolean(PreferManager.ALBUM_COLOR, false);
+            } else {
+                radioButtonAlbumColor.setChecked(true);
+                PreferManager.setBoolean(PreferManager.ALBUM_COLOR, true);
             }
         });
 
@@ -129,17 +120,31 @@ public class SetActivity extends Activity {
         } else {
             radioButtonMusicNote.setChecked(false);
         }
-        radioButtonMusicNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isCheck = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
-                if (isCheck) {
-                    radioButtonMusicNote.setChecked(false);
-                    PreferManager.setBoolean(PreferManager.MUSIC_NOTE, false);
-                } else {
-                    radioButtonMusicNote.setChecked(true);
-                    PreferManager.setBoolean(PreferManager.MUSIC_NOTE, true);
-                }
+        radioButtonMusicNote.setOnClickListener(view -> {
+            boolean isCheck = PreferManager.getBoolean(PreferManager.MUSIC_NOTE, false);
+            if (isCheck) {
+                radioButtonMusicNote.setChecked(false);
+                PreferManager.setBoolean(PreferManager.MUSIC_NOTE, false);
+            } else {
+                radioButtonMusicNote.setChecked(true);
+                PreferManager.setBoolean(PreferManager.MUSIC_NOTE, true);
+            }
+        });
+
+        boolean isOpenListAnim = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
+        if (isOpenListAnim) {
+            radioButtonListAnim.setChecked(true);
+        } else {
+            radioButtonListAnim.setChecked(false);
+        }
+        radioButtonListAnim.setOnClickListener(view -> {
+            boolean isCheck = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
+            if (isCheck) {
+                radioButtonListAnim.setChecked(false);
+                PreferManager.setBoolean(PreferManager.LIST_ANIM, false);
+            } else {
+                radioButtonListAnim.setChecked(true);
+                PreferManager.setBoolean(PreferManager.LIST_ANIM, true);
             }
         });
     }

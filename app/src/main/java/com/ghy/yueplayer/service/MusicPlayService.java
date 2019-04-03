@@ -81,6 +81,11 @@ public class MusicPlayService extends Service {
      * 播放音乐，path参数播放使用，musicName参数通知使用，artist参数通知使用
      * */
     public void playMusic(String path, String musicName, String artist, int musicId) {
+        if (MPS != null && MPS.isPlay() &&
+                musicId == PreferManager.getInt(PreferManager.PLAYING_ID, -1)) {
+            // 同一首歌曲,return
+            return;
+        }
         if (player != null) {
             player.release();
             player = null;
@@ -94,38 +99,40 @@ public class MusicPlayService extends Service {
             player.setDataSource(path);
             player.prepare();
             player.start();
-            time = player.getDuration();//获取歌曲时长，毫秒
-            //保存歌曲总时长
+            PreferManager.setInt(PreferManager.PLAYING_ID, musicId);
+            // 获取歌曲时长，毫秒
+            time = player.getDuration();
+            // 保存歌曲总时长
             SPUtil.saveSP(MusicPlayService.this, Constant.MUSIC_SP, "musicAllDuration", time);
 
-            //设置通知
+            // 设置通知
 //            showNotification("播放歌曲：" + musicName, "YuePlayer", "正在播放：" + artist + " - " + musicName);
 
             EventBus.getDefault().post(new UpdateTypeModel(UpdateType.MUSIC_PALY_CHANGE, musicId));
 
-            //刷新主界面播放状态及专辑封面
+            // 刷新主界面播放状态及专辑封面
             if (MainActivity.MA != null) {
                 MainActivity.MA.refreshPlayMusicData();
             }
 
-            //设置播放界面背景
+            // 设置播放界面背景
             if (MusicPlayActivity.MPA != null) {
                 String musicAlbumUri = SPUtil.getStringSP(this,
                         Constant.MUSIC_SP, "musicAlbumUri");
                 MusicPlayActivity.MPA.setPlayBackgroundImage(musicAlbumUri);
             }
 
-            //监听歌曲播放完毕
+            // 监听歌曲播放完毕
             player.setOnCompletionListener(mediaPlayer -> {
                 if (PlayFragment.PF != null) {
                     PlayFragment.PF.MusicPlayOver();
                 }
-                //player置为空
+                // player置为空
                 if (player != null) {
                     player.release();
                     player = null;
                 }
-                //播放下一曲
+                // 播放下一曲
                 playNext();
             });
 

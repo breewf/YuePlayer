@@ -25,6 +25,13 @@ public class PreferManager {
     public static final String EQUALIZER5 = "equalizer5";//均衡器数值
     public static final String BASS = "bass";//重低音数值
 
+    public static final String LIST_ANIM = "list_anim";
+
+    /**
+     * 正在播放的歌曲id
+     */
+    public static final String PLAYING_ID = "playing_id";
+
 
     @SuppressLint("StaticFieldLeak")
     private static SecuritySharedPreference sp;//使用加密的SharedPreference
