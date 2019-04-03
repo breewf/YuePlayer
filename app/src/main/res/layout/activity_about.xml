@@ -23,16 +23,24 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@mipmap/icon_app_white_big" />
+                android:src="@mipmap/icon_app_white_big"/>
 
             <com.ghy.yueplayer.view.HeroTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
                 android:layout_marginTop="20dp"
                 android:text="YuePlayer"
                 android:textColor="@color/white"
-                android:textSize="54sp" />
+                android:textSize="54sp"/>
+
+            <com.ghy.yueplayer.view.HeroTextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="VERSION"
+                android:textColor="@color/white"
+                android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -51,16 +59,17 @@
             android:layout_marginTop="20dp"
             android:text="A simple Local Music Player"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
-        <TextView
+        <com.ghy.yueplayer.view.HeroTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:text="Copyright © 2015 GHY. All rights reserved."
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
+
     </LinearLayout>
 
 </LinearLayout>

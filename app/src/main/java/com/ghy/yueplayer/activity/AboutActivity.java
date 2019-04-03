@@ -12,12 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.util.AppUtils;
 
 public class AboutActivity extends AppCompatActivity {
 
 
     ImageView app_icon_back;
     TextView tv_activity_name;
+    TextView tv_version;
     RelativeLayout layout_yue;
     boolean isAnim = false;
 
@@ -32,8 +34,9 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void initToolBar() {
-        app_icon_back = (ImageView) findViewById(R.id.app_icon_back);
-        tv_activity_name = (TextView) findViewById(R.id.tv_activity_name);
+        app_icon_back = findViewById(R.id.app_icon_back);
+        tv_activity_name = findViewById(R.id.tv_activity_name);
+        tv_version = findViewById(R.id.tv_version);
         tv_activity_name.setText("About");
         app_icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +44,8 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        tv_version.setText("VERSION : V" + AppUtils.getVersionName(this));
     }
 
     private void initView() {
@@ -51,7 +56,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!isAnim) {
-                    isAnim=true;
+                    isAnim = true;
                     layout_yue.startAnimation(AnimationUtils.loadAnimation(
                             AboutActivity.this, R.anim.yue_hide_scale_rotate_from_center
                     ));
@@ -66,12 +71,12 @@ public class AboutActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    isAnim=false;
+                                    isAnim = false;
                                 }
-                            },1000);
+                            }, 1000);
                         }
                     }, 2000);
-                }else {
+                } else {
                     //do nothing...
                 }
             }
