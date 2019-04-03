@@ -89,6 +89,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.iml
+.idea/workspace.xml
 .idea/
 .gradle/
 build/

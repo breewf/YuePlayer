@@ -25,6 +25,8 @@ import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.MediaUtil;
 import com.ghy.yueplayer.util.SPUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.io.File;
 import java.util.List;
@@ -64,9 +66,14 @@ public class MusicListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         MLF = this;
         initView();
-
-        //扫描音乐并设置adapter
-        scanMusic();
+        AndPermission.with(getActivity())
+                .runtime()
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                .onGranted(data -> {
+                    // 扫描音乐并设置adapter
+                    scanMusic();
+                })
+                .onDenied(data -> showToast(getString(R.string.storage_tips))).start();
     }
 
     private void scanMusic() {

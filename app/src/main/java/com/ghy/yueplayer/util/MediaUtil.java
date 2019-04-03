@@ -56,7 +56,9 @@ public class MediaUtil {
             }
         }
         try {
-            if (cursor != null) cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return list;
