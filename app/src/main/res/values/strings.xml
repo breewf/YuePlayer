@@ -36,5 +36,7 @@
     <string name="song_not_found">客官~没有发现音乐呀~</string>
     <string name="song_no_playing">客官~没有正在播放的音乐~</string>
     <string name="storage_tips">大大~需要您给与权限才能扫描到音乐呢=￣ω￣=</string>
+    <string name="come_from_wang_yi">来自@网易云音乐</string>
+    <string name="come_from_share">分享</string>
 
 </resources>

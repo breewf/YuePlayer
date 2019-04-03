@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.MemoryInfo;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +27,6 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 import android.view.Window;
@@ -44,6 +45,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 /**
@@ -871,6 +874,8 @@ public class AppUtils {
                             break;
                         case XmlPullParser.END_TAG:
                             break;
+                        default:
+                            break;
                     }
                     event = parser.next();
                 }
@@ -893,6 +898,46 @@ public class AppUtils {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metric);
         return metric.widthPixels;
+    }
+
+    /**
+     * 获取剪贴板内容
+     *
+     * @param context
+     * @return
+     */
+    public static String getClipboardContent(Context context) {
+        if (context == null) {
+            return null;
+        }
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+        if (cm == null) {
+            return null;
+        }
+        ClipData data = cm.getPrimaryClip();
+        if (data == null) {
+            return null;
+        }
+        ClipData.Item item = data.getItemAt(0);
+        return item == null || item.getText() == null ? null : item.getText().toString();
+    }
+
+    /**
+     * 清除剪贴板内容
+     *
+     * @param context
+     * @return
+     */
+    public static void clearClipboardContent(Context context) {
+        if (context == null) {
+            return;
+        }
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (cm == null) {
+            return;
+        }
+        ClipData mClipData = ClipData.newPlainText("clip", "");
+        cm.setPrimaryClip(mClipData);
     }
 
 }

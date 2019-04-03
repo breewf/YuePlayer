@@ -37,6 +37,7 @@ import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.lrcview.LrcView;
 import com.ghy.yueplayer.network.ApiRequestCallBackString;
 import com.ghy.yueplayer.service.MusicPlayService;
+import com.ghy.yueplayer.util.AppUtils;
 import com.ghy.yueplayer.util.FileUtil;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.MarqueeTextView;
@@ -172,6 +173,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     }
 
     private void initView() {
+        if (getActivity() == null) {
+            return;
+        }
         ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
         ivNeedle = (ImageView) getActivity().findViewById(R.id.iv_needle);
         tvMusicName = (MarqueeTextView) getActivity().findViewById(R.id.tvMusicName);
@@ -345,7 +349,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                         if (time == -1) {
                             setLrcViewInvisibility();
                         } else {
-                            if (MusicPlayService.player == null) return true;
+                            if (MusicPlayService.player == null) {
+                                return true;
+                            }
                             MusicPlayService.player.seekTo((int) time);
                             playOrPause();
                         }
@@ -368,7 +374,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if (MusicPlayService.player == null) return;
+            if (MusicPlayService.player == null) {
+                return;
+            }
             if (MusicPlayService.player.isPlaying()) {
                 long time = MusicPlayService.player.getCurrentPosition();
                 lrcView.updateTime(time);
@@ -448,7 +456,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 
             @Override
             public void onStartTrackingTouch(SeekBar bar) {
-                if (handler != null) handler.removeMessages(0);
+                if (handler != null) {
+                    handler.removeMessages(0);
+                }
             }
 
             @Override
@@ -495,19 +505,19 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 
     private void showDownLrcDialog() {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_down_lrc_tips, null);
-        EditText editText = view.findViewById(R.id.et_input_number);
+        if (getActivity() == null) {
+            return;
+        }
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_down_lrc_tips2, null);
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
         builder.theme(Theme.LIGHT);
         builder.title("下载歌词");
         builder.customView(view, false);
-        builder.positiveText("下载")
+        builder.positiveText("我知道啦")
                 .positiveColorRes(R.color.red)
-                .onPositive((dialog, which) -> downLoadLrc(editText.getText().toString()));
-        builder.negativeText("取消")
-                .negativeColorRes(R.color.black_99)
-                .onNegative((dialog, which) -> dialog.dismiss());
+                .onPositive((dialog, which) -> dialog.dismiss());
         builder.cancelable(true);
         builder.canceledOnTouchOutside(false);
         builder.show();
@@ -531,8 +541,12 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                             int songStatus = jsonObject.optInt("songStatus");
                             int lyricVersion = jsonObject.optInt("lyricVersion");
                             String lyric = jsonObject.optString("lyric");
-                            if (code != 200) return;
-                            if (TextUtils.isEmpty(lyric)) return;
+                            if (code != 200) {
+                                return;
+                            }
+                            if (TextUtils.isEmpty(lyric)) {
+                                return;
+                            }
                             //写文件
                             new Thread(() -> {
                                 FileUtil.writeFile(lyric, lyricPath + lyricName);
@@ -575,7 +589,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         } else if (view == ivBack) {
             if (!isLyricVisibility()) {
                 clearAlbumAnim();
-                getActivity().onBackPressed();
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
             }
         }
     }
@@ -616,13 +632,19 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                 rotationAnim.resume();
             }
         }
-        if (needleAnimationOn != null) needleAnimationOn.start();
+        if (needleAnimationOn != null) {
+            needleAnimationOn.start();
+        }
         isRotate = true;
     }
 
     private void stopAlbumAnim() {
-        if (rotationAnim != null) rotationAnim.pause();
-        if (needleAnimationOff != null) needleAnimationOff.start();
+        if (rotationAnim != null) {
+            rotationAnim.pause();
+        }
+        if (needleAnimationOff != null) {
+            needleAnimationOff.start();
+        }
         isRotate = false;
     }
 
@@ -650,11 +672,11 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 
         @Override
         public void run() {
-            if (getActivity() == null) return;
-            getActivity().runOnUiThread(() -> {
-                        tv_time_duration.setText(getFormatTime(
-                                MusicPlayService.MPS.getCurrentDuration()));
-                    }
+            if (getActivity() == null || tv_time_duration == null) {
+                return;
+            }
+            getActivity().runOnUiThread(() -> tv_time_duration.setText(getFormatTime(
+                    MusicPlayService.MPS.getCurrentDuration()))
             );
         }
     }
@@ -730,15 +752,68 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // 获取剪贴板
+        String clipContent = AppUtils.getClipboardContent(getActivity());
+        if (TextUtils.isEmpty(clipContent)) {
+            return;
+        }
+        new Handler().postDelayed(() -> {
+            if (getActivity() == null || getActivity().isDestroyed()) {
+                return;
+            }
+            // 分享阿兰的单曲《离兮 (电影《风语咒》守护版主题曲)》: http://music.163.com/song/1296550039/?userid=57575547 (来自@网易云音乐)
+            if (clipContent.startsWith(getString(R.string.come_from_share)) &&
+                    clipContent.contains(getString(R.string.come_from_wang_yi))) {
+
+                // 分享阿兰的单曲《离兮 (电影《风语咒》守护版主题曲)》: http://music.163.com/song/1296550039/
+                String[] splitClip = clipContent.split("\\?");
+
+                // ://music.163.com/song/1296550039/
+                String[] splitUrl = splitClip[0].split("http");
+
+                if (splitUrl.length < 2) {
+                    return;
+                }
+
+                // /1296550039/
+                String[] splitSong = splitUrl[1].split("song");
+                if (splitSong.length < 2) {
+                    return;
+                }
+
+                // 1296550039
+                String musicId = splitSong[1].replaceAll("/", "");
+
+                if (TextUtils.isEmpty(musicId)) {
+                    return;
+                }
+
+                downLoadLrc(musicId);
+
+                // 使用后丢弃
+                AppUtils.clearClipboardContent(getActivity());
+
+            }
+        }, 500);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
-        if (PF != null) PF = null;
-        if (handler != null) handler.removeCallbacksAndMessages(null);
-        if (UI.HANDLER != null) UI.HANDLER.removeCallbacksAndMessages(null);
+        if (PF != null) {
+            PF = null;
+        }
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        UI.HANDLER.removeCallbacksAndMessages(null);
         screenLightOffAllTime();
     }
 
