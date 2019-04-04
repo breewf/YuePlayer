@@ -23,9 +23,14 @@ public class SetActivity extends Activity {
     TextView tv_fx;
 
     RadioGroup set_group;
+    RadioGroup anim_group;
     RadioButton radioButton1;
     RadioButton radioButton2;
     RadioButton radioButton3;
+    RadioButton anim1;
+    RadioButton anim2;
+    RadioButton anim3;
+    RadioButton rb_fx;
     RadioButton radioButtonAlbumColor;
     RadioButton radioButtonMusicNote;
     RadioButton radioButtonListAnim;
@@ -49,14 +54,20 @@ public class SetActivity extends Activity {
 
         tv_fx = findViewById(R.id.tv_fx);
         set_group = findViewById(R.id.set_group);
+        anim_group = findViewById(R.id.anim_group);
         radioButton1 = findViewById(R.id.radioButton1);
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
+        anim1 = findViewById(R.id.anim1);
+        anim2 = findViewById(R.id.anim2);
+        anim3 = findViewById(R.id.anim3);
+        rb_fx = findViewById(R.id.rb_fx);
         radioButtonAlbumColor = findViewById(R.id.radioButton_color_test);
         radioButtonMusicNote = findViewById(R.id.radioButton_note_test);
         radioButtonListAnim = findViewById(R.id.radioButton_open_list_anim);
 
         tv_fx.setOnClickListener(view -> startActivity(new Intent(this, MusicFxActivity.class)));
+        rb_fx.setOnClickListener(view -> startActivity(new Intent(this, MusicFxActivity.class)));
 
         //获取保存的播放模式
         int playMode = SPUtil.getIntSP(this, Constant.MUSIC_SP, "playMode");
@@ -81,6 +92,23 @@ public class SetActivity extends Activity {
                 break;
         }
 
+        int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
+        switch (animMode) {
+            case -1:
+            case 1:
+                //未设置过，默认
+                anim1.setChecked(true);
+                break;
+            case 2:
+                anim2.setChecked(true);
+                break;
+            case 3:
+                anim3.setChecked(true);
+                break;
+            default:
+                break;
+        }
+
         set_group.setOnCheckedChangeListener((radioGroup, i) -> {
             int radioButtonId = radioGroup.getCheckedRadioButtonId();
             RadioButton rb = findViewById(radioButtonId);
@@ -95,6 +123,28 @@ public class SetActivity extends Activity {
             }
             //保存设置项
             SPUtil.saveSP(SetActivity.this, Constant.MUSIC_SP, "playMode", playMode1);
+        });
+
+        anim_group.setOnCheckedChangeListener((radioGroup, i) -> {
+            int radioButtonId = radioGroup.getCheckedRadioButtonId();
+            RadioButton rb = findViewById(radioButtonId);
+            Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
+            int animModeSet = -1;
+            switch (radioButtonId) {
+                case R.id.anim1:
+                    animModeSet = 1;
+                    break;
+                case R.id.anim2:
+                    animModeSet = 2;
+                    break;
+                case R.id.anim3:
+                    animModeSet = 3;
+                    break;
+                default:
+                    break;
+
+            }
+            PreferManager.setInt(PreferManager.MAIN_BOTTOM_ANIM, animModeSet);
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
@@ -151,8 +201,6 @@ public class SetActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_set, menu);
         return true;
     }
 

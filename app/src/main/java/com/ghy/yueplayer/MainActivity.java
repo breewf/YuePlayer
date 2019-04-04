@@ -77,12 +77,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private HeroTextView tv_app_name;
     private HeroTextView tv_app_text;
     private TextView tvMusicTitle;
-    private TextView tvMusicArtist;
     private WaveView wave_view;
     private ProgressBar mProgressbar;
 
     private DrawerLayout mDrawerLayout;
-    private RelativeLayout drawer_content;//侧滑菜单布局
+    /**
+     * 侧滑菜单布局
+     */
+    private RelativeLayout drawer_content;
 
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
@@ -90,11 +92,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
     private LinearLayout music_info_layout;
-    private int percentDirection = 0;//0:未达到最大值，1:右滑至最大值，2:左滑至最大值
+
+    /**
+     * 0:未达到最大值，1:右滑至最大值，2:左滑至最大值
+     */
+    private int percentDirection = 0;
     private ObjectAnimator rotationAnim;
     private boolean isPlay = false;
     private long lastClickTime;
-    private int toMovePosition = 0;
+    private int toMovePosition;
+
     private com.nostra13.universalimageloader.core.ImageLoader mImageLoader;
     private DisplayImageOptions options;
 
@@ -181,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_app_name = findViewById(R.id.tv_app_name);
         tv_app_text = findViewById(R.id.tv_app_text);
         tvMusicTitle = findViewById(R.id.tv_music_title);
-        tvMusicArtist = findViewById(R.id.tv_music_artist);
         wave_view = findViewById(R.id.wave_view);
         mProgressbar = findViewById(R.id.main_seek_bar);
 
@@ -268,7 +274,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
         tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "UNKNOWN" : musicName);
-        tvMusicArtist.setText(TextUtils.isEmpty(musicArtist) ? "UNKNOWN" : musicArtist);
 
         if (!isOnResume) {
             return;
@@ -353,8 +358,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -390,36 +393,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*
+    /**
      * 添加到喜欢列表：向外缩放到1.4倍大小
-     * */
+     */
     public void loveAnim1() {
         favour_music.setImageResource(R.mipmap.note_btn_loved_white);
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_out));
     }
 
-    /*
+    /**
      * 添加到喜欢列表：向内缩放恢复到原大小
-     * */
+     */
     public void loveAnim2() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
         UI.HANDLER.postDelayed(() -> favour_music.setImageResource(R.mipmap.note_btn_love), 800);
     }
 
-    /*
+    /**
      * 喜欢列表删除：向外缩放到1.4倍大小
-     * */
+     */
     public void loveAnim3() {
         favour_music.setImageResource(R.mipmap.note_btn_love);
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_out));
     }
 
-    /*
+    /**
      * 喜欢列表删除：向内缩放恢复到原大小
-     * */
+     */
     public void loveAnim4() {
         favour_music.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,
                 R.anim.insert_like_love_img_scale_in));
@@ -434,9 +437,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*
+    /**
      * 侧滑菜单点击事件
-     * */
+     *
+     * @param view
+     */
     public void DrawerLayoutClick(final View view) {
 
         if (mDrawerLayout.isDrawerOpen(drawer_content)) {
@@ -475,9 +480,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    /*
+    /**
      * 停止音乐播放服务和统计服务
-     * */
+     */
     private void stopService() {
         if (MusicPlayService.MPS != null) {
             MusicPlayService.MPS.stopSelf();
@@ -582,19 +587,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void touchReleased() {
         if (percentDirection == 1) {
-            //右滑至最大值释放--切歌
+            // 右滑至最大值释放--切歌
             if (MusicPlayService.MPS != null) {
                 MusicPlayService.MPS.playNext();
-//                String toastString;
-//                if (TextUtils.isEmpty(musicArtist) || musicArtist.contains("unknown")) {
-//                    toastString = musicName;
-//                } else {
-//                    toastString = musicArtist + "-" + musicName;
-//                }
-//                Toast.makeText(this, toastString, Toast.LENGTH_SHORT).show();
             }
         } else if (percentDirection == 2) {
-            //左滑至最大值释放--播放/暂停
+            // 左滑至最大值释放--播放/暂停
             if (MusicPlayService.MPS == null) {
                 return;
             }
@@ -667,7 +665,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Subscribe
     public void onEvent(UpdateTypeModel updateTypeModel) {
         switch (updateTypeModel.updateType) {
-            case MUSIC_PALY_CHANGE://切换播放歌曲
+            // 切换播放歌曲
+            case MUSIC_PALY_CHANGE:
                 int musicId = updateTypeModel.dataInt;
                 refreshPlayingMusic(musicId);
                 break;

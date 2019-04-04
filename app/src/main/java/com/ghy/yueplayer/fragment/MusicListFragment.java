@@ -233,9 +233,9 @@ public class MusicListFragment extends Fragment {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
-    public void notifyChange(boolean isPalyLike) {
+    public void notifyChange(boolean isPlayLike) {
         if (musicListAdapter != null) {
-            musicListAdapter.notifyDataSetChanged(isPalyLike);
+            musicListAdapter.notifyDataSetChanged(isPlayLike);
         }
     }
 
@@ -248,7 +248,7 @@ public class MusicListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        notifyChange(false);
+//        notifyChange(false);
     }
 
     @Override

@@ -80,13 +80,12 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1.5"
-                            android:gravity="center|right"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/tv_music_title"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:ellipsize="end"
@@ -95,19 +94,6 @@
                                 android:text="未知歌曲"
                                 android:textColor="@color/gray_light"
                                 android:textSize="14dp"/>
-
-                            <TextView
-                                android:id="@+id/tv_music_artist"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:ellipsize="end"
-                                android:gravity="center|right"
-                                android:maxLines="1"
-                                android:text="未知艺术家"
-                                android:textColor="@color/black_99"
-                                android:textSize="12dp"
-                                android:visibility="gone"/>
 
                         </LinearLayout>
 

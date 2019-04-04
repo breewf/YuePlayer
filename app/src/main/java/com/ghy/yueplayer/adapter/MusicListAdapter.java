@@ -1,5 +1,6 @@
 package com.ghy.yueplayer.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,8 @@ import java.util.List;
 import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
 /**
- * Created by GHY on 2015/8/6.
+ * @author GHY
+ * @date 2015/8/6
  */
 public class MusicListAdapter extends BaseAdapter {
 
@@ -74,47 +76,48 @@ public class MusicListAdapter extends BaseAdapter {
     }
 
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_music_list, null);
+
+            // 加载动画
+            boolean isOpenListAnim = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
+            if (isOpenListAnim) {
+                view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
+            }
         }
 
-        ImageView iv_music = ViewHolder.getView(view, R.id.iv_music);
-        TextView tv_music_name = ViewHolder.getView(view, R.id.tv_music_name);
-        TextView tv_music_artist = ViewHolder.getView(view, R.id.tv_music_artist);
-        VuMeterView vumeter = ViewHolder.getView(view, R.id.vumeter);
+        ImageView ivMusic = ViewHolder.getView(view, R.id.iv_music);
+        TextView tvMusicName = ViewHolder.getView(view, R.id.tv_music_name);
+        TextView tvMusicArtist = ViewHolder.getView(view, R.id.tv_music_artist);
+        VuMeterView vuMeterView = ViewHolder.getView(view, R.id.vumeter);
 
         MusicInfo musicInfo = mMusicInfo.get(i);
 
         //歌曲名
-        tv_music_name.setText(musicInfo.getTitle());
+        tvMusicName.setText(musicInfo.getTitle());
         //歌手名
-        tv_music_artist.setText(musicInfo.getArtist());
+        tvMusicArtist.setText(musicInfo.getArtist());
 
         //专辑封面
         String uri = mArtworkUri + File.separator + musicInfo.getAlbumId();
-        mImageLoader.displayImage(uri, iv_music, options);
+        mImageLoader.displayImage(uri, ivMusic, options);
 
         if (!isPlayLike) {
             if (musicInfo.isPlaying()) {
-                vumeter.setVisibility(View.VISIBLE);
+                vuMeterView.setVisibility(View.VISIBLE);
                 if (MusicPlayService.MPS.isPlay()) {
-                    vumeter.resume(true);
+                    vuMeterView.resume(true);
                 } else {
-                    vumeter.stop(true);
+                    vuMeterView.stop(true);
                 }
             } else {
-                vumeter.setVisibility(View.GONE);
+                vuMeterView.setVisibility(View.GONE);
             }
         } else {
-            vumeter.setVisibility(View.GONE);
-        }
-
-        // 加载动画
-        boolean isOpenListAnim = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
-        if (isOpenListAnim) {
-            view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
+            vuMeterView.setVisibility(View.GONE);
         }
 
         return view;

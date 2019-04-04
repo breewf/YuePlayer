@@ -44,7 +44,10 @@ public class LikeListFragment extends Fragment {
 
     private static String AlbumUri = "content://media/external/audio/albumart";
 
-    public static List<MusicInfo> likeMusicList;//喜欢歌曲列表
+    /**
+     * 喜欢歌曲列表
+     */
+    public static List<MusicInfo> likeMusicList;
 
     private DBHelper helper;
     private SQLiteDatabase db;

@@ -7,133 +7,203 @@
 
     <include layout="@layout/toolbar"/>
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="播放模式"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray2"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <RadioGroup
-            android:id="@+id/set_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="列表循环"
+                android:text="播放模式"
                 android:textColor="@color/gray2"
                 android:textSize="16sp"/>
 
-            <RadioButton
-                android:id="@+id/radioButton2"
+            <View
                 android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray4"/>
+
+            <RadioGroup
+                android:id="@+id/set_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="列表循环"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="随机播放"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="单曲循环"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="随机播放"
+                android:text="播放器底部动画"
                 android:textColor="@color/gray2"
                 android:textSize="16sp"/>
 
-            <RadioButton
-                android:id="@+id/radioButton3"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="单曲循环"
+                android:background="@color/gray4"/>
+
+            <RadioGroup
+                android:id="@+id/anim_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/anim1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="没有动画"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/anim2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="自由移动"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/anim3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="贪吃蛇蛇"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="设置项"
                 android:textColor="@color/gray2"
                 android:textSize="16sp"/>
 
-        </RadioGroup>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray4"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="设置项"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tv_fx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="音效调节"
+                android:textColor="@color/gray3"
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray2"/>
+            <RadioButton
+                android:id="@+id/rb_fx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="音效调节"
+                android:textColor="@color/gray3"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:id="@+id/tv_fx"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="音效调节"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="实验室"
+                android:textColor="@color/gray2"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="实验室"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray4"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray2"/>
+            <RadioButton
+                android:id="@+id/radioButton_color_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:padding="10dp"
+                android:text="专辑封面背景虚化"
+                android:textColor="@color/gray3"
+                android:textSize="16sp"/>
 
-        <RadioButton
-            android:id="@+id/radioButton_color_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:checked="false"
-            android:padding="10dp"
-            android:text="专辑封面背景虚化"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/radioButton_note_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:padding="10dp"
+                android:text="开启播放音乐音符"
+                android:textColor="@color/gray3"
+                android:textSize="16sp"/>
 
-        <RadioButton
-            android:id="@+id/radioButton_note_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:checked="false"
-            android:padding="10dp"
-            android:text="开启播放音乐音符"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/radioButton_open_list_anim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:padding="10dp"
+                android:text="开启音乐列表动画"
+                android:textColor="@color/gray3"
+                android:textSize="16sp"
+                android:visibility="visible"/>
 
-        <RadioButton
-            android:id="@+id/radioButton_open_list_anim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:checked="false"
-            android:padding="10dp"
-            android:text="开启音乐列表动画"
-            android:textColor="@color/gray2"
-            android:textSize="16sp"/>
+        </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

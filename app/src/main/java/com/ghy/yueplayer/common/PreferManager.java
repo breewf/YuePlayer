@@ -7,25 +7,53 @@ import com.ghy.yueplayer.common.securitysp.SecuritySharedPreference;
 
 
 /**
- * Desc:   SharedPreferences 管理类
+ * Desc:SharedPreferences
+ *
+ * @author huxiuwang
  */
 public class PreferManager {
 
-    public static final String SCREEN_WIDTH = "screen_width";//屏幕宽度
-    public static final String SCREEN_HEIGHT = "screen_height";//屏幕高度
-    public static final String STATUS_BAR_HEIGHT = "status_bar_height";//状态栏宽度
-    public static final String IMEI_CODE = "imei";//IMEI号
+    /**
+     * 屏幕宽度
+     */
+    public static final String SCREEN_WIDTH = "screen_width";
+    /**
+     * 屏幕高度
+     */
+    public static final String SCREEN_HEIGHT = "screen_height";
+    /**
+     * 状态栏宽度
+     */
+    public static final String STATUS_BAR_HEIGHT = "status_bar_height";
+    /**
+     * IMEI号
+     */
+    public static final String IMEI_CODE = "imei";
 
-    public static final String ALBUM_COLOR = "album_color";//专辑图背景虚化
-    public static final String MUSIC_NOTE = "music_note";//音乐音符
-    public static final String EQUALIZER1 = "equalizer1";//均衡器数值
-    public static final String EQUALIZER2 = "equalizer2";//均衡器数值
-    public static final String EQUALIZER3 = "equalizer3";//均衡器数值
-    public static final String EQUALIZER4 = "equalizer4";//均衡器数值
-    public static final String EQUALIZER5 = "equalizer5";//均衡器数值
-    public static final String BASS = "bass";//重低音数值
+    /**
+     * 专辑图背景虚化
+     */
+    public static final String ALBUM_COLOR = "album_color";
+    /**
+     * 音乐音符
+     */
+    public static final String MUSIC_NOTE = "music_note";
+    /**
+     * 均衡器数值
+     */
+    public static final String EQUALIZER1 = "equalizer1";
+    public static final String EQUALIZER2 = "equalizer2";
+    public static final String EQUALIZER3 = "equalizer3";
+    public static final String EQUALIZER4 = "equalizer4";
+    public static final String EQUALIZER5 = "equalizer5";
+    /**
+     * 重低音数值
+     */
+    public static final String BASS = "bass";
 
     public static final String LIST_ANIM = "list_anim";
+
+    public static final String MAIN_BOTTOM_ANIM = "main_bottom_anim";
 
     /**
      * 正在播放的歌曲id
@@ -34,7 +62,7 @@ public class PreferManager {
 
 
     @SuppressLint("StaticFieldLeak")
-    private static SecuritySharedPreference sp;//使用加密的SharedPreference
+    private static SecuritySharedPreference sp;
     private static SecuritySharedPreference.SecurityEditor edit;
 
     @SuppressLint("CommitPrefEdits")
