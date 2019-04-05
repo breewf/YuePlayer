@@ -51,6 +51,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/yue_layout"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -117,6 +118,16 @@
                         app:wave_height="little"
                         app:wave_hz="slow"
                         app:wave_length="middle"/>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/anim_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                 </FrameLayout>
 

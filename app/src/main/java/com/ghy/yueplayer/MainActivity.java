@@ -3,24 +3,29 @@ package com.ghy.yueplayer;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -48,16 +53,22 @@ import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.util.AnimHelper;
 import com.ghy.yueplayer.util.AnimUtils;
+import com.ghy.yueplayer.util.AppUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
 import com.john.waveview.WaveView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
@@ -91,7 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mPlayerImageView;
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
-    private LinearLayout music_info_layout;
+
+    private FrameLayout mAnimLayout;
+    private LinearLayout mYueLayout;
+    private LinearLayout mMusicInfoLayout;
 
     /**
      * 0:未达到最大值，1:右滑至最大值，2:左滑至最大值
@@ -113,11 +127,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean isOnResume;
 
+    private Context mContext;
+
+    /**
+     * YUE PLAYER
+     */
+    private String[] mYueSnakeStr = {"Y", "U", "E", "P", "L", "A", "Y", "E", "R"};
+
+    /**
+     * YUE PLAYER
+     */
+    private View[] mYueSnakeAnimView = new HeroTextView[9];
+
+    private ScheduledExecutorService scheduledExecutorService;
+    private TimerTask mCountTimeTimerTask;
+
+    private int mYueAnimWidth;
+    private int mYueAnimHeight;
+
+    /**
+     * 节拍器
+     */
+    private int mSnakeMetronome;
+
+    private int mStepW;
+
+    private int[] iW = new int[9];
+    private int[] iW2 = new int[9];
+    private int[] iW3 = new int[9];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MA = this;
+        mContext = this;
         EventBus.getDefault().register(this);
 
         //启动音乐服务
@@ -136,6 +180,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setOnclickListener();
 
         refreshPlayMusicData();
+
+        mYueAnimWidth = AppUtils.getScreenWidth(this);
+        mYueAnimHeight = AppUtils.dip2px(this, 50);
+        Log.i("SnakeAnim", "mYueAnimWidth-->>" + mYueAnimWidth);
+        Log.i("SnakeAnim", "mYueAnimHeight-->>" + mYueAnimHeight);
     }
 
     private void initLoader() {
@@ -198,7 +247,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mVDHLayout = findViewById(R.id.vdh_layout);
         mPlayerImageView = findViewById(R.id.iv_play);
         mPlayControlView = findViewById(R.id.play_control_view);
-        music_info_layout = findViewById(R.id.music_info_layout);
+        mAnimLayout = findViewById(R.id.anim_layout);
+        mYueLayout = findViewById(R.id.yue_layout);
+        mMusicInfoLayout = findViewById(R.id.music_info_layout);
         mTvPlayTip = findViewById(R.id.tv_play_tip);
         mPlayControlView.setVisibility(View.INVISIBLE);
         mTvPlayTip.setVisibility(View.INVISIBLE);
@@ -217,9 +268,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     pair3, pair4);
         });
 
-        music_info_layout.setOnClickListener(view -> {
+        mMusicInfoLayout.setOnClickListener(view -> {
             if (isFastClick()) {
-                AnimHelper.shakeAnimCycle(music_info_layout);
+                AnimHelper.shakeAnimCycle(mMusicInfoLayout);
                 boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
                 if (!isLikeList) {
                     if (musicListFragment != null) {
@@ -282,9 +333,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (MusicPlayService.MPS != null) {
             isPlay = MusicPlayService.MPS.isPlay();
             removeHandler();
+            notifyAdapterChange();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
                 openMusicNote();
+
+                if (PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1) == 3) {
+                    startYueAnimTimerTask();
+                }
+            } else {
+                if (PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1) == 3) {
+                    stopYueAnimTimerTask();
+                }
             }
         }
         judgePlayRotationAlbum();
@@ -606,12 +666,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 stopAlbumAnim();
                 closeMusicNote();
                 notifyAdapterChange();
+
+                if (PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1) == 3) {
+                    stopYueAnimTimerTask();
+                }
             } else {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
                 startAlbumAnim();
                 openMusicNote();
                 notifyAdapterChange();
+
+                if (PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1) == 3) {
+                    startYueAnimTimerTask();
+                }
             }
         }
     }
@@ -697,11 +765,186 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 底部 YUE PLAYER 动画
+     *
+     * @param isOnResume isOnResume
+     */
+    private void refreshYueAnim(Context context, boolean isOnResume) {
+
+        int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
+        // 无动画
+        if (animMode <= 1) {
+            resetBottomStatus();
+            // clear
+            stopYueAnimTimerTask();
+            mSnakeMetronome = 0;
+            iW = new int[9];
+            iW2 = new int[9];
+            iW3 = new int[9];
+            return;
+        } else {
+            if (!isOnResume) {
+                stopYueAnimTimerTask();
+            }
+        }
+
+        // 有动画
+        if (mAnimLayout.getVisibility() == View.VISIBLE) {
+            if (MusicPlayService.MPS.isPlay()) {
+                startYueAnimTimerTask();
+            }
+            return;
+        }
+
+        setBottomStatusAnim();
+
+        if (animMode == 3) {
+            mAnimLayout.removeAllViews();
+            // 添加view
+            for (int i = 0; i < mYueSnakeStr.length; i++) {
+                HeroTextView heroTextView = new HeroTextView(context);
+                heroTextView.setText(mYueSnakeStr[i]);
+                heroTextView.setTextSize(16);
+                heroTextView.setTextColor(ContextCompat.getColor(context, R.color.gray_light));
+                heroTextView.setVisibility(View.INVISIBLE);
+                heroTextView.setGravity(Gravity.CENTER);
+//                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+//                                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                        AppUtils.dip2px(mContext, 18), AppUtils.dip2px(mContext, 18));
+                heroTextView.setLayoutParams(params);
+                mYueSnakeAnimView[i] = heroTextView;
+                mAnimLayout.addView(heroTextView);
+            }
+        }
+    }
+
+    /**
+     * 底部状态为默认
+     */
+    private void resetBottomStatus() {
+        if (mAnimLayout != null && mAnimLayout.getVisibility() != View.GONE) {
+            mAnimLayout.setVisibility(View.GONE);
+        }
+        if (mYueLayout != null && mYueLayout.getVisibility() != View.VISIBLE) {
+            mYueLayout.setVisibility(View.VISIBLE);
+            AnimHelper.fadeIn(mYueLayout, 1000);
+        }
+        if (mMusicInfoLayout != null && mMusicInfoLayout.getVisibility() != View.VISIBLE) {
+            mMusicInfoLayout.setVisibility(View.VISIBLE);
+            AnimHelper.fadeIn(mMusicInfoLayout, 1000);
+        }
+    }
+
+    /**
+     * 底部状态为动画
+     */
+    private void setBottomStatusAnim() {
+        if (mAnimLayout != null && mAnimLayout.getVisibility() != View.VISIBLE) {
+            mAnimLayout.setVisibility(View.VISIBLE);
+            AnimHelper.fadeIn(mAnimLayout, 1000);
+        }
+        if (mYueLayout != null && mYueLayout.getVisibility() != View.GONE) {
+            mYueLayout.setVisibility(View.GONE);
+        }
+        if (mMusicInfoLayout != null && mMusicInfoLayout.getVisibility() != View.GONE) {
+            mMusicInfoLayout.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * TimerTask
+     */
+    private void startYueAnimTimerTask() {
+        createExecutorService();
+        if (mCountTimeTimerTask == null) {
+            mCountTimeTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+                    runOnUiThread(() -> {
+                        for (int i = 0; i <= mSnakeMetronome; i++) {
+
+                            if (mYueSnakeAnimView[i].getTranslationX() == 0 && mYueSnakeAnimView[i].getTranslationY() == 0) {
+                                if (mYueSnakeAnimView[i].getVisibility() != View.VISIBLE) {
+                                    mYueSnakeAnimView[i].setVisibility(View.VISIBLE);
+                                }
+                            }
+
+                            if (mYueSnakeAnimView[i].getTranslationY() == 0) {
+                                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
+                                int oneStepX = mYueAnimWidth / (mStepW);
+                                if (iW[i] != 0) {
+                                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() + oneStepX);
+                                }
+                                iW[i]++;
+                                if (iW[i] == mStepW + 1) {
+                                    mYueSnakeAnimView[i].setTranslationX(mYueAnimWidth);
+                                    int transY = mYueAnimHeight / 2 - mYueSnakeAnimView[i].getHeight() / 2;
+                                    mYueSnakeAnimView[i].setTranslationY(transY);
+                                    iW[i] = 0;
+                                }
+                            }
+
+                            if (mYueSnakeAnimView[i].getTranslationY() == mYueAnimHeight / 2 - mYueSnakeAnimView[i].getHeight() / 2) {
+                                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
+                                int oneStepX = mYueAnimWidth / (mStepW);
+                                if (iW2[i] != 0) {
+                                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() - oneStepX);
+                                }
+                                iW2[i]++;
+                                if (iW2[i] == mStepW + 2) {
+                                    mYueSnakeAnimView[i].setTranslationX(-oneStepX);
+                                    mYueSnakeAnimView[i].setTranslationY(mYueAnimHeight - mYueSnakeAnimView[i].getHeight());
+                                    iW2[i] = 0;
+                                }
+                            }
+
+                            if (mYueSnakeAnimView[i].getTranslationY() == mYueAnimHeight - mYueSnakeAnimView[i].getHeight()) {
+                                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
+                                int oneStepX = mYueAnimWidth / (mStepW);
+                                if (iW3[i] != 0) {
+                                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() + oneStepX);
+                                }
+                                iW3[i]++;
+                                if (iW3[i] == mStepW + 2) {
+                                    mYueSnakeAnimView[i].setTranslationX(0);
+                                    mYueSnakeAnimView[i].setTranslationY(0);
+                                    mYueSnakeAnimView[i].setVisibility(View.INVISIBLE);
+                                    iW3[i] = 0;
+                                }
+                            }
+                        }
+
+                        mSnakeMetronome++;
+                        if (mSnakeMetronome > mYueSnakeStr.length - 1) {
+                            mSnakeMetronome = mYueSnakeStr.length - 1;
+                        }
+                    });
+                }
+            };
+            scheduledExecutorService.scheduleAtFixedRate(mCountTimeTimerTask,
+                    500, 150, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    private void createExecutorService() {
+        if (scheduledExecutorService == null) {
+            scheduledExecutorService = new ScheduledThreadPoolExecutor(3,
+                    new BasicThreadFactory.Builder().namingPattern("scheduled-pool-%d").daemon(true).build());
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         isOnResume = true;
         refreshPlayMusicData();
+
+        refreshYueAnim(this, true);
     }
 
     @Override
@@ -711,6 +954,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stopAlbumAnim();
         closeMusicNote();
         UI.HANDLER.postDelayed(this::resetAlbumAnim, 400);
+
+        refreshYueAnim(this, false);
     }
 
     @Override
@@ -722,6 +967,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UI.HANDLER.removeCallbacksAndMessages(null);
         EventBus.getDefault().unregister(this);
         stopService();
+    }
+
+    private void cancelCountTimeTask() {
+        if (mCountTimeTimerTask != null) {
+            mCountTimeTimerTask.cancel();
+            mCountTimeTimerTask = null;
+        }
+    }
+
+    private void stopYueAnimTimerTask() {
+        cancelCountTimeTask();
+        if (scheduledExecutorService != null) {
+            scheduledExecutorService.shutdown();
+            scheduledExecutorService = null;
+        }
     }
 
 }

@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="自由移动"
+                    android:text="是折线哦"
                     android:textColor="@color/gray3"
                     android:textSize="16sp"/>
 
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="贪吃蛇蛇"
+                    android:text="贪吃蛇啊"
                     android:textColor="@color/gray3"
                     android:textSize="16sp"/>
 
