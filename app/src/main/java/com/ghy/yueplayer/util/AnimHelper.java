@@ -1,5 +1,6 @@
 package com.ghy.yueplayer.util;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -11,6 +12,8 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+
+import com.ghy.yueplayer.common.SimpleAnimationListener;
 
 
 /**
@@ -228,17 +231,25 @@ public class AnimHelper {
     }
 
     /**
-     * 移除喜欢列表--缩放动画
+     * icon缩放动画
      *
      * @param view
      */
-    public static void disLikeScaleXYAnim(View view) {
-        ObjectAnimator scanX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.60f, 1.0f);
-        ObjectAnimator scanY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.60f, 1.0f);
+    public static void breathIconScanAnim(View view) {
+        ObjectAnimator scanX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.88f, 1.0f, 0.92f, 1.0f);
+        ObjectAnimator scanY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.88f, 1.0f, 0.92f, 1.0f);
         AnimatorSet animSet = new AnimatorSet();
-        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animSet.play(scanX).with(scanY);
-        animSet.setDuration(900);
+        animSet.setDuration(5000);
+        animSet.setStartDelay(5000);
+        animSet.addListener(new SimpleAnimationListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                animSet.start();
+            }
+        });
         animSet.start();
     }
 

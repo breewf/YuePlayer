@@ -3,6 +3,7 @@ package com.ghy.yueplayer;
 import android.app.Application;
 
 import com.ghy.yueplayer.common.PreferManager;
+import com.ghy.yueplayer.constant.Global;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -26,6 +27,12 @@ public class PlayerApplication extends Application {
         mInstance = this;
         initImageLoader();
         PreferManager.init(this);
+
+        initGlobalConfig();
+    }
+
+    private void initGlobalConfig() {
+        Global.setYueAnimType(PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1));
     }
 
     private void initImageLoader() {

@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="播放器底部动画"
+                android:text="Y U E 动画"
                 android:textColor="@color/gray2"
                 android:textSize="16sp"/>
 
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="是折线哦"
+                    android:text="晃晃漂流"
                     android:textColor="@color/gray3"
                     android:textSize="16sp"/>
 

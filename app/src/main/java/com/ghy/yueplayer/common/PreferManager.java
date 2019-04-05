@@ -53,7 +53,14 @@ public class PreferManager {
 
     public static final String LIST_ANIM = "list_anim";
 
+    /**
+     * YUE 动画
+     */
     public static final String MAIN_BOTTOM_ANIM = "main_bottom_anim";
+    /**
+     * 上一个动画类型--用于动画的暂停、恢复操作
+     */
+    public static final String MAIN_LAST_ANIM = "main_last_anim";
 
     /**
      * 正在播放的歌曲id

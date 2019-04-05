@@ -11,8 +11,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.common.PreferManager;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.util.SPUtil;
 
@@ -136,15 +138,19 @@ public class SetActivity extends Activity {
                     break;
                 case R.id.anim2:
                     animModeSet = 2;
+                    setAnimModeChange();
                     break;
                 case R.id.anim3:
                     animModeSet = 3;
+                    setAnimModeChange();
                     break;
                 default:
                     break;
 
             }
+            PreferManager.setInt(PreferManager.MAIN_LAST_ANIM, PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1));
             PreferManager.setInt(PreferManager.MAIN_BOTTOM_ANIM, animModeSet);
+            Global.setYueAnimType(animModeSet);
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);
@@ -197,6 +203,12 @@ public class SetActivity extends Activity {
                 PreferManager.setBoolean(PreferManager.LIST_ANIM, true);
             }
         });
+    }
+
+    private void setAnimModeChange() {
+        if (MainActivity.MA != null) {
+            MainActivity.MA.setYueAnimLayoutGone();
+        }
     }
 
     @Override
