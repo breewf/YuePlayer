@@ -26,12 +26,16 @@ public class SetActivity extends Activity {
 
     RadioGroup set_group;
     RadioGroup anim_group;
+    RadioGroup circle_group;
     RadioButton radioButton1;
     RadioButton radioButton2;
     RadioButton radioButton3;
     RadioButton anim1;
     RadioButton anim2;
     RadioButton anim3;
+    RadioButton c_anim1;
+    RadioButton c_anim2;
+    RadioButton c_anim3;
     RadioButton rb_fx;
     RadioButton radioButtonAlbumColor;
     RadioButton radioButtonMusicNote;
@@ -57,12 +61,16 @@ public class SetActivity extends Activity {
         tv_fx = findViewById(R.id.tv_fx);
         set_group = findViewById(R.id.set_group);
         anim_group = findViewById(R.id.anim_group);
+        circle_group = findViewById(R.id.circle_group);
         radioButton1 = findViewById(R.id.radioButton1);
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
         anim1 = findViewById(R.id.anim1);
         anim2 = findViewById(R.id.anim2);
         anim3 = findViewById(R.id.anim3);
+        c_anim1 = findViewById(R.id.c_anim1);
+        c_anim2 = findViewById(R.id.c_anim2);
+        c_anim3 = findViewById(R.id.c_anim3);
         rb_fx = findViewById(R.id.rb_fx);
         radioButtonAlbumColor = findViewById(R.id.radioButton_color_test);
         radioButtonMusicNote = findViewById(R.id.radioButton_note_test);
@@ -111,6 +119,23 @@ public class SetActivity extends Activity {
                 break;
         }
 
+        int animCMode = PreferManager.getInt(PreferManager.MAIN_CIRCLE_ANIM, -1);
+        switch (animCMode) {
+            case -1:
+            case 1:
+                //未设置过，默认
+                c_anim1.setChecked(true);
+                break;
+            case 2:
+                c_anim2.setChecked(true);
+                break;
+            case 3:
+                c_anim3.setChecked(true);
+                break;
+            default:
+                break;
+        }
+
         set_group.setOnCheckedChangeListener((radioGroup, i) -> {
             int radioButtonId = radioGroup.getCheckedRadioButtonId();
             RadioButton rb = findViewById(radioButtonId);
@@ -151,6 +176,29 @@ public class SetActivity extends Activity {
             PreferManager.setInt(PreferManager.MAIN_LAST_ANIM, PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1));
             PreferManager.setInt(PreferManager.MAIN_BOTTOM_ANIM, animModeSet);
             Global.setYueAnimType(animModeSet);
+        });
+
+        circle_group.setOnCheckedChangeListener((radioGroup, i) -> {
+            int radioButtonId = radioGroup.getCheckedRadioButtonId();
+            RadioButton rb = findViewById(radioButtonId);
+//            Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(SetActivity.this, "敬请期待哦~", Toast.LENGTH_SHORT).show();
+            int animModeSet = -1;
+            switch (radioButtonId) {
+                case R.id.c_anim1:
+                    animModeSet = 1;
+                    break;
+                case R.id.c_anim2:
+                    animModeSet = 2;
+                    break;
+                case R.id.c_anim3:
+                    animModeSet = 3;
+                    break;
+                default:
+                    break;
+
+            }
+            PreferManager.setInt(PreferManager.MAIN_CIRCLE_ANIM, animModeSet);
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);

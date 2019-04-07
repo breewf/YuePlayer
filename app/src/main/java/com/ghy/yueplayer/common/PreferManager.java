@@ -63,6 +63,11 @@ public class PreferManager {
     public static final String MAIN_LAST_ANIM = "main_last_anim";
 
     /**
+     * CIRCLE 动画
+     */
+    public static final String MAIN_CIRCLE_ANIM = "main_circle_anim";
+
+    /**
      * 正在播放的歌曲id
      */
     public static final String PLAYING_ID = "playing_id";

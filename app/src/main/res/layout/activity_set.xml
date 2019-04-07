@@ -122,6 +122,57 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CIRCLE 动画"
+                android:textColor="@color/gray2"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray4"/>
+
+            <RadioGroup
+                android:id="@+id/circle_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/c_anim1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="没有动画"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/c_anim2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="弹弹球吧"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+                <RadioButton
+                    android:id="@+id/c_anim3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="是个轮子"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="设置项"
                 android:textColor="@color/gray2"
@@ -200,7 +251,7 @@
                 android:text="开启音乐列表动画"
                 android:textColor="@color/gray3"
                 android:textSize="16sp"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
         </LinearLayout>
 

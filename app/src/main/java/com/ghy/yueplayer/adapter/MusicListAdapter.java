@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.MusicInfo;
-import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -81,12 +80,8 @@ public class MusicListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_music_list, null);
-
             // 加载动画
-            boolean isOpenListAnim = PreferManager.getBoolean(PreferManager.LIST_ANIM, false);
-            if (isOpenListAnim) {
-                view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
-            }
+            view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.view_show_translate_scale_from_left));
         }
 
         ImageView ivMusic = ViewHolder.getView(view, R.id.iv_music);
