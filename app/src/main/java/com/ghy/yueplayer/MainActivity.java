@@ -951,6 +951,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setYueAnimManager(boolean isStart) {
         if (isStart) {
             int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
+
+            if (animMode != 2) {
+                mShakeRotation = null;
+                mShakeTransX = null;
+            }
+
             if (animMode == 3) {
                 startYueAnimTimerTask();
             } else if (animMode == 2) {
