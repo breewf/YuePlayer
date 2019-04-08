@@ -87,8 +87,8 @@
                     android:id="@+id/lrc_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     app:lrcAnimationDuration="1000"
                     app:lrcCurrentTextColor="@color/white"
                     app:lrcDividerHeight="24dp"
@@ -158,10 +158,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -178,13 +178,14 @@
                 android:id="@+id/play_seek_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:maxHeight="2dp"
                 android:minHeight="2dp"
-                android:transitionName="@string/transition_progress"
                 android:progressDrawable="@drawable/my_seek_bar_bg"
                 android:thumb="@drawable/custom_seek_bar_control_selector"
-                android:thumbOffset="0dp"/>
+                android:thumbOffset="0dp"
+                android:transitionName="@string/transition_progress"/>
 
             <TextView
                 android:id="@+id/tv_time_all"
@@ -204,8 +205,8 @@
         android:id="@+id/play_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"

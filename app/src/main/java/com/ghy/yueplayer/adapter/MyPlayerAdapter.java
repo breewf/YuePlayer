@@ -7,7 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 /**
- * Created by GHY on 2015/8/6.
+ * @author HY
+ * @date 2015/8/6
  */
 public class MyPlayerAdapter extends FragmentPagerAdapter {
 

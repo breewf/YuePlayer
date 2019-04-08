@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="弹弹球吧"
+                    android:text="弹弹弹球"
                     android:textColor="@color/gray3"
                     android:textSize="16sp"/>
 

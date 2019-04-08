@@ -118,7 +118,7 @@ public class YueAnimManager {
      */
     public void refreshYueAnim(Context context, boolean isOnResume) {
 
-        int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
+        int animMode = Global.getYueAnimType();
         // 无动画
         if (animMode <= 1) {
             resetBottomStatus();
@@ -194,8 +194,8 @@ public class YueAnimManager {
      * @param isStart true开始动画 false停止动画
      */
     public void setYueAnimManager(boolean isStart) {
+        int animMode = Global.getYueAnimType();
         if (isStart) {
-            int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
 
             if (animMode != 2) {
                 mShakeRotation = null;
@@ -208,7 +208,6 @@ public class YueAnimManager {
                 startShakeAnim();
             }
         } else {
-            int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
             if (animMode == 3) {
                 stopYueAnimTimerTask();
             } else if (animMode == 2) {
@@ -387,7 +386,7 @@ public class YueAnimManager {
      * @param progress
      */
     public void setYueShakeTransAnim(int progress) {
-        if (Global.mYueAnimType != Const.YUE_ANIM_TYPE_2) {
+        if (Global.getYueAnimType() != Const.YUE_ANIM_TYPE_2) {
             return;
         }
         if (mShakeTextView == null) {

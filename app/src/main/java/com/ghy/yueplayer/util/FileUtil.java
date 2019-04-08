@@ -10,45 +10,61 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by GHY on 2015/5/18.
+ * @author HY
+ * @date 2015/5/18
  * 文件管理工具类
  */
 public class FileUtil {
 
-    private static String YuePlayerRootPath = null;//YuePlayer文件夹根目录
-    private static String FolderPath = null;//YuePlayer文件夹子目录
+    /**
+     * YuePlayer文件夹根目录
+     */
+    private static String YuePlayerRootPath = null;
+    /**
+     * YuePlayer文件夹子目录
+     */
+    private static String FolderPath = null;
 
-    /*
-    * 创建文件夹
-    * */
+    /**
+     * 创建文件夹
+     *
+     * @param filePath
+     * @return
+     */
     public static String createFilePath(String filePath) {
         if (getSDCardRoot() != null) {
-            File dirFile = new File(createRootPath() + filePath);// SDCard/.../YuePlayer/filePath
+            // SDCard/.../YuePlayer/filePath
+            File dirFile = new File(createRootPath() + filePath);
             if (!dirFile.exists()) {
                 dirFile.mkdirs();
             }
-            FolderPath = dirFile + File.separator;// SDCard/.../YuePlayer/filePath/
+            // SDCard/.../YuePlayer/filePath/
+            FolderPath = dirFile + File.separator;
             return FolderPath;
         } else {
             return null;
         }
     }
 
-    /*
-    * 创建一个YuePlayer根目录
-    * */
+    /**
+     * 创建一个YuePlayer根目录
+     *
+     * @return
+     */
     private static String createRootPath() {
-        File rootFile = new File(getSDCardRoot() + "YuePlayer");// SDCard/.../YuePlayer
+        // SDCard/.../YuePlayer
+        File rootFile = new File(getSDCardRoot() + "YuePlayer");
         if (!rootFile.exists()) {
             rootFile.mkdirs();
         }
-        YuePlayerRootPath = rootFile + File.separator;// SDCard/.../YuePlayer/
+        // SDCard/.../YuePlayer/
+        YuePlayerRootPath = rootFile + File.separator;
         return YuePlayerRootPath;
     }
 
-    /*
-    * 创建文件，参数为：保存路径和文件名
-    * */
+    /**
+     * 创建文件，参数为：保存路径和文件名
+     */
     public static File createFile(String path, String fileName) {
         File file = null;
         if (createFilePath(path) != null) {
@@ -81,7 +97,9 @@ public class FileUtil {
      */
     public static boolean writeFile(String content, String absPath) {
         File file = new File(absPath);
-        if (file.exists()) file.delete();
+        if (file.exists()) {
+            file.delete();
+        }
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(file.getAbsoluteFile(), false);
@@ -125,7 +143,9 @@ public class FileUtil {
             e.printStackTrace();
         } finally {
             try {
-                if (br != null) br.close();
+                if (br != null) {
+                    br.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -134,19 +154,19 @@ public class FileUtil {
     }
 
     private static void makeSureFolderExist(String path) {
-        File file_path = new File(path);
-        if (file_path.isFile()) {//若为文件，则直接删除文件
-            file_path.delete();
+        File filePath = new File(path);
+        if (filePath.isFile()) {
+            filePath.delete();
         }
-        if (!file_path.exists()) {//创建目录
-            file_path.mkdirs();
+        if (!filePath.exists()) {
+            filePath.mkdirs();
         }
     }
 
-    /*
-    * 升级时需要获取apk安装包的大小
-    * 把apk安装包放到手机SD卡根目录下，执行此方法，查看log获取
-    * */
+    /**
+     * 升级时需要获取apk安装包的大小
+     * 把apk安装包放到手机SD卡根目录下，执行此方法，查看log获取
+     */
     public static void getYueDuApkSize() {
         String path = Environment.getExternalStorageDirectory() + File.separator + "YueDu1.1.apk";
 

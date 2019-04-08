@@ -17,13 +17,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eaf82661-863a-4393-8c33-6d82518b17e1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/PreferManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/PreferManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/SimpleAnimationListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/listener/SimpleAnimationListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/main/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/main/ImageLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/MyPlayerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/MyPlayerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/service/MusicPlayService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_drawer_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_drawer_layout.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,41 +66,41 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="4" />
+          <entry key="class" value="5" />
           <entry key="gitignore" value="9" />
           <entry key="gradle" value="3" />
-          <entry key="java" value="127" />
-          <entry key="png" value="1" />
+          <entry key="java" value="151" />
+          <entry key="png" value="2" />
           <entry key="properties" value="1" />
-          <entry key="xml" value="45" />
+          <entry key="xml" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="4" />
+          <entry key="CLASS" value="5" />
           <entry key="Groovy" value="3" />
-          <entry key="Image" value="1" />
-          <entry key="JAVA" value="127" />
+          <entry key="Image" value="2" />
+          <entry key="JAVA" value="151" />
           <entry key="PLAIN_TEXT" value="9" />
           <entry key="Properties" value="1" />
-          <entry key="XML" value="45" />
+          <entry key="XML" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="29" />
+          <entry key="dummy" value="35" />
           <entry key="gitignore" value="18" />
           <entry key="gradle" value="44" />
-          <entry key="java" value="9395" />
-          <entry key="xml" value="1058" />
+          <entry key="java" value="10180" />
+          <entry key="xml" value="1086" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="44" />
-          <entry key="JAVA" value="9395" />
-          <entry key="PLAIN_TEXT" value="47" />
-          <entry key="XML" value="1058" />
+          <entry key="JAVA" value="10180" />
+          <entry key="PLAIN_TEXT" value="53" />
+          <entry key="XML" value="1086" />
         </counts>
       </usages-collector>
     </session>
@@ -107,14 +116,51 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="744" column="49" lean-forward="true" selection-start-line="744" selection-start-column="49" selection-end-line="744" selection-end-column="49" />
+            <state relative-caret-position="243">
+              <caret line="763" column="35" lean-forward="true" selection-start-line="763" selection-start-column="35" selection-end-line="763" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="257">
+              <caret line="156" column="39" selection-start-line="156" selection-start-column="39" selection-end-line="156" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="17" column="30" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#677#678#0" expanded="true" />
+                <element signature="e#711#712#0" expanded="true" />
+                <element signature="e#761#762#0" expanded="true" />
+                <element signature="e#801#802#0" expanded="true" />
+                <element signature="e#3013#3265#0" expanded="true" />
+                <element signature="e#3264#3265#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-70">
+              <caret line="182" column="57" lean-forward="true" selection-start-line="182" selection-start-column="57" selection-end-line="182" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -122,27 +168,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="439" column="49" lean-forward="true" selection-start-line="439" selection-start-column="49" selection-end-line="439" selection-end-column="49" />
+            <state relative-caret-position="210">
+              <caret line="196" column="38" selection-start-line="196" selection-start-column="38" selection-end-line="196" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7564#7857#0" expanded="true" />
-                <element signature="e#7856#7857#0" expanded="true" />
-                <element signature="e#8668#8961#0" expanded="true" />
-                <element signature="e#8960#8961#0" expanded="true" />
-                <element signature="e#9466#10113#0" expanded="true" />
-                <element signature="e#10112#10113#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3564">
-              <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -2433,14 +2463,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/component/wavesidebar/WaveSideBar.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_music_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/OnLineMusicListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/AllTopListDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/TopListFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_like_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicFxActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_music_fx.xml" />
@@ -2460,7 +2487,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/anim/delete_like_item_translate_to_left.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AppUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_down_lrc_tips2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/anim/view_show_translate_scale_from_top.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/AboutActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml" />
@@ -2471,17 +2497,23 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Const.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/MusicListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/PreferManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/main/ImageLoader.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/MyPlayerAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/FileUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" />
       </list>
     </option>
   </component>
@@ -2720,7 +2752,7 @@
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="Set&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java&#10;Anim&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java&#10;Music&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/adapter/MusicListAdapter.java&#10;AnimH&#9;PSI&#9;JAVA://com.ghy.yueplayer.util.AnimHelper&#10;App&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java&#10;string&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/values/strings.xml&#10;Ani&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java&#10;main&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;MAin&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;Main&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;About&#9;PSI&#9;JAVA://com.ghy.yueplayer.activity.AboutActivity&#10;Play&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java&#10;Appu&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AppUtils.java&#10;ins&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/anim/insert_like_item_scale_in.xml&#10;LIKE&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/fragment/LikeListFragment.java&#10;Time&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/activity/TimeActivity.java&#10;Onlin&#9;PSI&#9;JAVA://com.ghy.yueplayer.adapter.OnLineMusicListAdapter" />
+    <property name="SearchEverywhereHistoryKey" value="set&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_set.xml&#10;Set&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java&#10;Glo&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/constant/Global.java&#10;Yue&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java&#10;Pla&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/fragment_play.xml&#10;Anim&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java&#10;Music&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/adapter/MusicListAdapter.java&#10;AnimH&#9;PSI&#9;JAVA://com.ghy.yueplayer.util.AnimHelper&#10;App&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java&#10;string&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/values/strings.xml&#10;Ani&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java&#10;main&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;MAin&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;Main&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/layout/activity_main.xml&#10;About&#9;PSI&#9;JAVA://com.ghy.yueplayer.activity.AboutActivity&#10;Play&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java&#10;Appu&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/util/AppUtils.java&#10;ins&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/res/anim/insert_like_item_scale_in.xml&#10;LIKE&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/fragment/LikeListFragment.java&#10;Time&#9;FILE&#9;file:///Users/huxiuwang/AndroidProjectsGithub/YuePlayer/app/src/main/java/com/ghy/yueplayer/activity/TimeActivity.java&#10;Onlin&#9;PSI&#9;JAVA://com.ghy.yueplayer.adapter.OnLineMusicListAdapter" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
@@ -2879,6 +2911,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="48" width="1440" height="788" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.18587896" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -2970,112 +3003,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/control_view_show_translate_scale_from_bottom.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/insert_like_love_img_scale_in.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/insert_like_item_scale_in.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/delete_like_item_translate_to_left.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/insert_like_item_scale_out.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_down_lrc_tips.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="39" lean-forward="true" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_down_lrc_tips2.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="155" column="31" selection-start-line="155" selection-start-column="31" selection-end-line="155" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/view_show_translate_scale_from_top.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_about.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="47" column="61" selection-start-line="47" selection-start-column="61" selection-end-line="47" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2264">
-          <caret line="799" column="16" selection-start-line="799" selection-start-column="16" selection-end-line="799" selection-end-column="16" />
-          <folding>
-            <element signature="e#24918#24953#0" expanded="true" />
-            <element signature="e#24999#25036#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/LikeListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/UpdateTypeModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -3119,6 +3046,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="5548" column="25" lean-forward="true" selection-start-line="5548" selection-start-column="25" selection-end-line="5548" selection-end-column="25" />
+          <folding>
+            <element signature="e#236758#236759#0" expanded="true" />
+            <element signature="e#236790#236791#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3214,28 +3145,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding>
-            <element signature="e#231#232#0" expanded="true" />
-            <element signature="e#273#274#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Const.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="30" column="27" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -3260,25 +3173,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-28/android/animation/Animator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="13" column="43" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3564">
-          <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -3296,21 +3194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/PreferManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="166" column="39" selection-start-line="166" selection-start-column="39" selection-end-line="166" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/main/ImageLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -3318,45 +3201,205 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_drawer_layout.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="257" column="28" selection-start-line="257" selection-start-column="28" selection-end-line="257" selection-end-column="28" />
+        <state relative-caret-position="183">
+          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_main_bottom.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3124">
+          <caret line="142" column="48" lean-forward="true" selection-start-line="142" selection-start-column="48" selection-end-line="142" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="201" column="23" selection-start-line="201" selection-start-column="23" selection-end-line="201" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/component/blurlibrary/EasyBlur.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_music_play.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="37" lean-forward="true" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/adapter/MyPlayerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/FileUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1343">
+          <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/26b5838a5334a0f92019c87bbb587029/jars/classes.jar!/android/support/v4/widget/DrawerLayout.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="1210" column="19" selection-start-line="1210" selection-start-column="19" selection-end-line="1210" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/circle_36.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/custom_seek_bar_control_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_play.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2551">
+          <caret line="198" column="23" selection-start-line="198" selection-start-column="23" selection-end-line="198" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/fragment/PlayFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="109" column="38" lean-forward="true" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
+          <folding>
+            <element signature="e#23404#23405#0" expanded="true" />
+            <element signature="e#23436#23437#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/MusicPlayActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="73" column="40" lean-forward="true" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="157" column="53" lean-forward="true" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/PreferManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="59" column="7" lean-forward="true" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/PlayerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-28/android/animation/Animator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="157" column="19" selection-start-line="157" selection-start-column="19" selection-end-line="157" selection-end-column="19" />
+          <folding>
+            <element signature="e#5818#5819#0" expanded="true" />
+            <element signature="e#5848#5849#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-28/android/animation/AnimatorSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="656" column="16" selection-start-line="656" selection-start-column="16" selection-end-line="656" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/util/AnimHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state relative-caret-position="234">
+          <caret line="237" column="23" selection-start-line="237" selection-start-column="23" selection-end-line="237" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="439" column="49" lean-forward="true" selection-start-line="439" selection-start-column="49" selection-end-line="439" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7564#7857#0" expanded="true" />
-            <element signature="e#7856#7857#0" expanded="true" />
-            <element signature="e#8668#8961#0" expanded="true" />
-            <element signature="e#8960#8961#0" expanded="true" />
-            <element signature="e#9466#10113#0" expanded="true" />
-            <element signature="e#10112#10113#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="257">
+          <caret line="156" column="39" selection-start-line="156" selection-start-column="39" selection-end-line="156" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="744" column="49" lean-forward="true" selection-start-line="744" selection-start-column="49" selection-end-line="744" selection-end-column="49" />
+        <state relative-caret-position="243">
+          <caret line="763" column="35" lean-forward="true" selection-start-line="763" selection-start-column="35" selection-end-line="763" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Global.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="196" column="38" selection-start-line="196" selection-start-column="38" selection-end-line="196" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/activity/SetActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-70">
+          <caret line="182" column="57" lean-forward="true" selection-start-line="182" selection-start-column="57" selection-end-line="182" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="30" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#801#802#0" expanded="true" />
+            <element signature="e#3013#3265#0" expanded="true" />
+            <element signature="e#3264#3265#0" expanded="true" />
           </folding>
         </state>
       </provider>

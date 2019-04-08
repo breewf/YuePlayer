@@ -29,6 +29,9 @@ import com.ghy.yueplayer.util.SPUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author HY
+ */
 public class MusicPlayActivity extends FragmentActivity {
 
     @SuppressLint("StaticFieldLeak")
@@ -76,8 +79,8 @@ public class MusicPlayActivity extends FragmentActivity {
 
     private void initView() {
         positionView = findViewById(R.id.position_view);
-        ivBg = (ImageView) findViewById(R.id.iv_bg);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        ivBg = findViewById(R.id.iv_bg);
+        viewPager = findViewById(R.id.viewPager);
 
         String musicAlbumUri = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicAlbumUri");
@@ -120,10 +123,9 @@ public class MusicPlayActivity extends FragmentActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 Bitmap finalBitmap = EasyBlur.with(MusicPlayActivity.this)
-                        .bitmap(bitmap) //要模糊的图片
-                        .radius(20)//模糊半径 RenderScript时0<radius<=25
-                        .scale(15)//指定模糊前缩小的倍数
-//                        .policy(EasyBlur.BlurPolicy.FAST_BLUR)//使用fastBlur
+                        .bitmap(bitmap)
+                        .radius(20)
+                        .scale(15)
                         .blur();
                 ivBg.setImageBitmap(finalBitmap);
             } catch (IOException e) {

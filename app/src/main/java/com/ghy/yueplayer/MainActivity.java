@@ -38,6 +38,7 @@ import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.common.CircleAnimManager;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.common.YueAnimManager;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
@@ -119,19 +120,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean isOnResume;
 
-    private Context mContext;
-
     /**
      * YUE动画管理
      */
     private YueAnimManager mYueAnimManager;
+
+    /**
+     * CIRCLE动画管理
+     */
+    private CircleAnimManager mCircleAnimManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MA = this;
-        mContext = this;
         EventBus.getDefault().register(this);
 
         //启动音乐服务
@@ -157,6 +160,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initManager() {
         mYueAnimManager = new YueAnimManager(this);
         mYueAnimManager.initView(mAnimLayout, mYueLayout, mMusicInfoLayout);
+
+        mCircleAnimManager = new CircleAnimManager(this);
+        mCircleAnimManager.initView(mPlayerImageView);
     }
 
     private void initLoader() {
@@ -232,12 +238,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MusicPlayActivity.class);
 //            startActivity(intent);
-//            Pair pair1 = new Pair(tvMusicTitle, getString(R.string.transition_title));
-//            Pair pair2 = new Pair(tvMusicArtist, getString(R.string.transition_artist));
-            Pair pair3 = new Pair(mProgressbar, getString(R.string.transition_progress));
+//            Pair pair3 = new Pair(mProgressbar, getString(R.string.transition_progress));
             Pair pair4 = new Pair(mPlayerImageView, getString(R.string.transition_album));
             AnimUtils.makeSceneTransitionAnimationPair(this, intent,
-                    pair3, pair4);
+                    pair4);
         });
 
         mMusicInfoLayout.setOnClickListener(view -> {
@@ -267,8 +271,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
         AnimHelper.breathIconScanAnim(mPlayerImageView);
-//        rotationAnim.start();
-//        rotationAnim.pause();
     }
 
     public synchronized boolean isFastClick() {
@@ -309,14 +311,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notifyAdapterChange();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
+                // 如果在播放则旋转封面
+                startAlbumAnim();
+                // 音符
                 openMusicNote();
 
                 setYueAnimManager(true);
+                setCircleAnimManager(true);
             } else {
                 setYueAnimManager(false);
+                setCircleAnimManager(false);
             }
         }
-        judgePlayRotationAlbum();
     }
 
     private void openMusicNote() {
@@ -478,8 +484,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param view
      */
-    public void DrawerLayoutClick(final View view) {
-
+    public void drawerLayoutClick(final View view) {
         if (mDrawerLayout.isDrawerOpen(drawer_content)) {
             UI.HANDLER.postDelayed(() -> {
                 int id = view.getId();
@@ -644,6 +649,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 notifyAdapterChange();
 
                 setYueAnimManager(false);
+                setCircleAnimManager(false);
             } else {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
@@ -652,6 +658,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 notifyAdapterChange();
 
                 setYueAnimManager(true);
+                setCircleAnimManager(true);
             }
         }
     }
@@ -667,16 +674,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         return false;
-    }
-
-    /**
-     * 判断是否在播放，如果是则旋转封面
-     */
-    private void judgePlayRotationAlbum() {
-        if (isPlay) {
-            resetAlbumAnim();
-            startAlbumAnim();
-        }
     }
 
     private void startAlbumAnim() {
@@ -779,11 +776,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 底部 Circle 动画
+     *
+     * @param isOnResume isOnResume
+     */
+    private void refreshCircleAnim(Context context, boolean isOnResume) {
+        if (mCircleAnimManager != null) {
+            mCircleAnimManager.refreshCircleAnim(context, isOnResume);
+        }
+    }
+
+    /**
+     * Circle 动画管理
+     *
+     * @param isStart true开始动画 false停止动画
+     */
+    private void setCircleAnimManager(boolean isStart) {
+        if (mCircleAnimManager != null) {
+            mCircleAnimManager.setCircleAnimManager(isStart);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         isOnResume = true;
         refreshYueAnim(this, true);
+        refreshCircleAnim(this, true);
         refreshPlayMusicData();
     }
 
@@ -794,7 +814,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stopAlbumAnim();
         closeMusicNote();
         refreshYueAnim(this, false);
-        UI.HANDLER.postDelayed(this::resetAlbumAnim, 400);
+        refreshCircleAnim(this, false);
+        UI.HANDLER.postDelayed(this::resetAlbumAnim, 800);
     }
 
     @Override

@@ -199,6 +199,7 @@ public class SetActivity extends Activity {
 
             }
             PreferManager.setInt(PreferManager.MAIN_CIRCLE_ANIM, animModeSet);
+            Global.setCircleAnimType(animModeSet);
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);

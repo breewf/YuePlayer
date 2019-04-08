@@ -33,6 +33,7 @@ public class PlayerApplication extends Application {
 
     private void initGlobalConfig() {
         Global.setYueAnimType(PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1));
+        Global.setCircleAnimType(PreferManager.getInt(PreferManager.MAIN_CIRCLE_ANIM, -1));
     }
 
     private void initImageLoader() {

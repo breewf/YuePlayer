@@ -12,15 +12,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,7 +55,9 @@ import java.util.TimerTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * A simple {@link Fragment} subclass.
+ * PlayFragment.
+ *
+ * @author HY
  */
 public class PlayFragment extends RxFragment implements View.OnClickListener {
 
@@ -88,7 +88,12 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 
     private SeekBar mSeekBar;
     private CircleImageView iv_music_album;
-    boolean isRotate = false;//专辑封面是否转动
+
+    /**
+     * 专辑封面是否转动
+     */
+    boolean isRotate = false;
+
     private ObjectAnimator rotationAnim;
     private ObjectAnimator needleAnimationOn, needleAnimationOff;
 
@@ -110,7 +115,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     String musicAlbumUri;
     int musicId;
 
-    //歌词路径
+    /**
+     * 歌词路径
+     */
     private String lyricPath;
     private String lyricName;
     private String lrcText;
@@ -118,7 +125,7 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     private PowerManager.WakeLock wakeLock;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play, container, false);
@@ -147,8 +154,6 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         rotationAnim.setDuration(16000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
-//        rotationAnim.start();
-//        rotationAnim.pause();
 
         needleAnimationOn = ObjectAnimator.ofFloat(ivNeedle, "rotation", -25, 0);
         ivNeedle.setPivotX(0);
@@ -176,13 +181,13 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         if (getActivity() == null) {
             return;
         }
-        ivBack = (ImageView) getActivity().findViewById(R.id.iv_back);
-        ivNeedle = (ImageView) getActivity().findViewById(R.id.iv_needle);
-        tvMusicName = (MarqueeTextView) getActivity().findViewById(R.id.tvMusicName);
-        tvSinger = (TextView) getActivity().findViewById(R.id.tvSinger);
+        ivBack = getActivity().findViewById(R.id.iv_back);
+        ivNeedle = getActivity().findViewById(R.id.iv_needle);
+        tvMusicName = getActivity().findViewById(R.id.tvMusicName);
+        tvSinger = getActivity().findViewById(R.id.tvSinger);
 
-        mSeekBar = (SeekBar) getActivity().findViewById(R.id.play_seek_bar);
-        iv_music_album = (CircleImageView) getActivity().findViewById(R.id.iv_music_album);
+        mSeekBar = getActivity().findViewById(R.id.play_seek_bar);
+        iv_music_album = getActivity().findViewById(R.id.iv_music_album);
         //设置专辑图片宽高
 //        ViewGroup.LayoutParams params = iv_music_album.getLayoutParams();
 //        params.width = getDisplayWidth() / 7 * 4;
@@ -190,23 +195,23 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 //        iv_music_album.setLayoutParams(params);
 
 
-        tv_time_duration = (TextView) getActivity().findViewById(R.id.tv_time_duration);
-        tv_time_all = (TextView) getActivity().findViewById(R.id.tv_time_all);
+        tv_time_duration = getActivity().findViewById(R.id.tv_time_duration);
+        tv_time_all = getActivity().findViewById(R.id.tv_time_all);
 
         //控制按钮
-        iv_control_pre = (ImageView) getActivity().findViewById(R.id.iv_control_pre);
-        iv_control_start_pause = (ImageView) getActivity().findViewById(R.id.iv_control_start_pause);
-        iv_control_next = (ImageView) getActivity().findViewById(R.id.iv_control_next);
+        iv_control_pre = getActivity().findViewById(R.id.iv_control_pre);
+        iv_control_start_pause = getActivity().findViewById(R.id.iv_control_start_pause);
+        iv_control_next = getActivity().findViewById(R.id.iv_control_next);
 
         //加载动画
-        play_layout1 = (LinearLayout) getActivity().findViewById(R.id.play_layout1);
-        play_layout2 = (LinearLayout) getActivity().findViewById(R.id.play_layout2);
-        play_layout3 = (RelativeLayout) getActivity().findViewById(R.id.play_layout3);
+        play_layout1 = getActivity().findViewById(R.id.play_layout1);
+        play_layout2 = getActivity().findViewById(R.id.play_layout2);
+        play_layout3 = getActivity().findViewById(R.id.play_layout3);
 
-        lrc_layout = (FrameLayout) getActivity().findViewById(R.id.lrc_layout);
-        cover_layout = (FrameLayout) getActivity().findViewById(R.id.cover_layout);
-        lrcView = (LrcView) getActivity().findViewById(R.id.lrc_view);
-        tv_down_lrc = (TextView) getActivity().findViewById(R.id.tv_down_lrc);
+        lrc_layout = getActivity().findViewById(R.id.lrc_layout);
+        cover_layout = getActivity().findViewById(R.id.cover_layout);
+        lrcView = getActivity().findViewById(R.id.lrc_view);
+        tv_down_lrc = getActivity().findViewById(R.id.tv_down_lrc);
 
         play_layout1.startAnimation(AnimationUtils.loadAnimation(
                 getActivity(), R.anim.view_show_translate_from_right
@@ -231,8 +236,6 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     }
 
     private void setLrcViewVisibility() {
-//        cover_layout.setVisibility(View.INVISIBLE);
-//        lrc_layout.setVisibility(View.VISIBLE);
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(cover_layout, "alpha", 1f, 0f);
         animator1.addListener(new Animator.AnimatorListener() {
             @Override
@@ -265,8 +268,6 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     }
 
     private void setLrcViewInvisibility() {
-//        lrc_layout.setVisibility(View.INVISIBLE);
-//        cover_layout.setVisibility(View.VISIBLE);
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(lrc_layout, "alpha", 1f, 0f);
         animator1.addListener(new Animator.AnimatorListener() {
             @Override
@@ -311,11 +312,15 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
     /**
      * 屏幕背景常量
      */
+    @SuppressLint("InvalidWakeLockTag")
     private void screenLightOnAllTime() {
+        if (getActivity() == null) {
+            return;
+        }
         PowerManager pm = (PowerManager) getActivity().getSystemService(Context.POWER_SERVICE);
         if (pm != null) {
             wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "==KeepScreenOn==");
-            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+            wakeLock.acquire(10 * 60 * 1000L);
         }
     }
 
@@ -328,7 +333,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 0://刷新进度条
+                // 刷新进度条
+                case 0:
                     if (MusicPlayService.player != null) {
                         mSeekBar.setMax(MusicPlayService.player.getDuration());
                         mSeekBar.setProgress(MusicPlayService.player.getCurrentPosition());
@@ -338,8 +344,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                     }
                     handler.sendEmptyMessageDelayed(0, 200);
                     break;
-                case 1://读取歌词成功
-                    //显示歌词
+                // 读取歌词成功
+                case 1:
+                    // 显示歌词
                     if (TextUtils.isEmpty(lrcText)) {
                         showToast("歌词信息读取失败");
                         return;
@@ -358,8 +365,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
                         return true;
                     });
                     break;
-                case 2://写入歌词成功
-                    //加载歌词
+                // 写入歌词成功
+                case 2:
+                    // 加载歌词
                     loadLrcFile();
                     break;
                 default:
@@ -385,19 +393,14 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         }
     };
 
-    /*
-     * 获取手机屏幕宽度
-     * */
-    private int getDisplayWidth() {
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.widthPixels; //当前分辨率宽度
-    }
-
-    /*
+    /**
      * 加载歌曲播放数据方法
-     * */
+     */
     public void initData() {
+
+        if (getActivity() == null) {
+            return;
+        }
 
         //设置音频流 - STREAM_MUSIC：音乐回放即媒体音量
         getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -417,7 +420,8 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         String lrcArtistTemp;
         lrcArtistTemp = musicArtist;
         //  /storage/emulated/0/YuePlayer/Lyric/小时姑娘/孙悠然-望.lrc
-        if (lrcArtistTemp.contains("/")) {//防止文件名错误
+        // 防止文件名错误
+        if (lrcArtistTemp.contains("/")) {
             lrcArtistTemp = lrcArtistTemp.substring(0, lrcArtistTemp.indexOf("/"));
         }
         //歌词的命名格式为：歌手名-歌曲名.lrc
@@ -484,11 +488,12 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         if (!TextUtils.isEmpty(lyricPath)) {
             File lrcFile = new File(lyricPath + lyricName);
             if (lrcFile.exists()) {
-                //加载本地歌词文件
+                // 加载本地歌词文件
                 initLyric(lrcFile);
                 tv_down_lrc.setVisibility(View.GONE);
             } else {
-                lrcView.loadLrc("");//歌词置空
+                // 歌词置空
+                lrcView.loadLrc("");
                 tv_down_lrc.setVisibility(View.VISIBLE);
             }
         } else {
@@ -574,7 +579,7 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
             setLrcViewVisibility();
         } else if (view == iv_control_pre) {
             MusicPlayService.MPS.stopPlay();
-            MusicPlayOver();
+            musicPlayOver();
             MusicPlayService.MPS.playPre();
         } else if (view == iv_control_start_pause) {
             //播放or暂停
@@ -584,7 +589,7 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
             playOrPause();
         } else if (view == iv_control_next) {
             MusicPlayService.MPS.stopPlay();
-            MusicPlayOver();
+            musicPlayOver();
             MusicPlayService.MPS.playNext();
         } else if (view == ivBack) {
             if (!isLyricVisibility()) {
@@ -657,17 +662,20 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         isRotate = false;
     }
 
-    /*
+    /**
      * 把歌曲总时长毫秒数转换为时间格式
-     * */
+     *
+     * @param time
+     * @return
+     */
     private String getFormatTime(int time) {
-        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");//初始化Formatter的转换格式
+        SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
         return formatter.format(time);
     }
 
-    /*
+    /**
      * 计时任务
-     * */
+     */
     private class CurrentPlayTimerTask extends TimerTask {
 
         @Override
@@ -689,10 +697,10 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         return (int) (percent * 100);
     }
 
-    /*
+    /**
      * 单首歌曲播放完毕
-     * */
-    public void MusicPlayOver() {
+     */
+    public void musicPlayOver() {
         //控制按钮置为播放
         iv_control_start_pause.setImageResource(R.mipmap.icon_play_play);
         //播放时间清零，seekBar清零
@@ -725,9 +733,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         clearAlbumAnim();
     }
 
-    /*
+    /**
      * 按Home键进入后台
-     * */
+     */
     public void homeBackground() {
         UI.HANDLER.postDelayed(() -> {
             if (isRotate) {
@@ -738,9 +746,9 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
         screenLightOffAllTime();
     }
 
-    /*
+    /**
      * 从后台返回
-     * */
+     */
     public void fromBackgroundBack() {
         UI.HANDLER.postDelayed(() -> {
             if (!isRotate) {

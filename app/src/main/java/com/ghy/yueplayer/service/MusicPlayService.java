@@ -125,7 +125,7 @@ public class MusicPlayService extends Service {
             // 监听歌曲播放完毕
             player.setOnCompletionListener(mediaPlayer -> {
                 if (PlayFragment.PF != null) {
-                    PlayFragment.PF.MusicPlayOver();
+                    PlayFragment.PF.musicPlayOver();
                 }
                 // player置为空
                 if (player != null) {
