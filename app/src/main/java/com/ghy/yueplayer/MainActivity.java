@@ -1,6 +1,5 @@
 package com.ghy.yueplayer;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -11,21 +10,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -44,10 +39,8 @@ import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.PreferManager;
-import com.ghy.yueplayer.common.SimpleAnimationListener;
+import com.ghy.yueplayer.common.YueAnimManager;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
-import com.ghy.yueplayer.constant.Const;
-import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
@@ -58,22 +51,16 @@ import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.util.AnimHelper;
 import com.ghy.yueplayer.util.AnimUtils;
-import com.ghy.yueplayer.util.AppUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
 import com.john.waveview.WaveView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.TimerTask;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
@@ -135,49 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Context mContext;
 
     /**
-     * YUE PLAYER
+     * YUE动画管理
      */
-    private String[] mYueSnakeStr = {"Y", "U", "E", "P", "L", "A", "Y", "E", "R"};
-
-    /**
-     * YUE PLAYER
-     */
-    private View[] mYueSnakeAnimView = new HeroTextView[9];
-
-    private ScheduledExecutorService scheduledExecutorService;
-    private TimerTask mCountTimeSnakeTimerTask;
-
-    private int mYueAnimWidth;
-    private int mYueAnimHeight;
-    /**
-     * 控制器宽度
-     */
-    private int mCircleConW;
-
-    /**
-     * 贪吃蛇--节拍器
-     */
-    private int mSnakeMetronome;
-
-    /**
-     * 贪吃蛇--步长
-     */
-    private int mStepW;
-
-    private int[] iW = new int[9];
-    private int[] iW2 = new int[9];
-    private int[] iW3 = new int[9];
-
-    private HeroTextView mShakeTextView;
-
-    /**
-     * 晃晃漂流--晃一晃
-     */
-    private ObjectAnimator mShakeRotation;
-    /**
-     * 晃晃漂流--漂流
-     */
-    private ObjectAnimator mShakeTransX;
+    private YueAnimManager mYueAnimManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,21 +143,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initLoader();
 
-        initConfig();
-
         initView();
 
         initViewPager();
+
+        initManager();
 
         setOnclickListener();
 
         refreshPlayMusicData();
     }
 
-    private void initConfig() {
-        mYueAnimWidth = AppUtils.getScreenWidth(this);
-        mYueAnimHeight = AppUtils.dip2px(this, 50);
-        mCircleConW = AppUtils.dip2px(mContext, 70);
+    private void initManager() {
+        mYueAnimManager = new YueAnimManager(this);
+        mYueAnimManager.initView(mAnimLayout, mYueLayout, mMusicInfoLayout);
     }
 
     private void initLoader() {
@@ -806,140 +752,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param isOnResume isOnResume
      */
     private void refreshYueAnim(Context context, boolean isOnResume) {
-
-        int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
-        // 无动画
-        if (animMode <= 1) {
-            resetBottomStatus();
-            // clear
-            setYueAnimManager(false);
-            // 贪吃蛇动画配置
-            clearSnakeAnimConfig();
-        } else {
-            // 有动画
-            if (animMode != 3) {
-                // 贪吃蛇动画配置
-                clearSnakeAnimConfig();
-            }
-            if (!isOnResume) {
-                setYueAnimManager(false);
-            } else {
-
-                if (mAnimLayout.getVisibility() == View.VISIBLE) {
-                    if (MusicPlayService.MPS.isPlay()) {
-                        setYueAnimManager(true);
-                    } else {
-                        setYueAnimManager(false);
-                    }
-                    return;
-                }
-
-                // 显示布局
-                setBottomStatusAnim();
-
-                // 根据动画类型创建view
-                if (animMode == 2) {
-                    mAnimLayout.removeAllViews();
-                    mShakeTextView = new HeroTextView(context);
-                    mShakeTextView.setText("YuePlayer");
-                    mShakeTextView.setTextSize(18);
-                    mShakeTextView.setTextColor(ContextCompat.getColor(context, R.color.gray_light));
-                    mShakeTextView.setVisibility(View.INVISIBLE);
-                    mShakeTextView.setGravity(Gravity.CENTER);
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.gravity = Gravity.BOTTOM;
-                    mShakeTextView.setLayoutParams(params);
-                    mAnimLayout.addView(mShakeTextView);
-                    return;
-                }
-
-                if (animMode == 3) {
-                    mAnimLayout.removeAllViews();
-                    // 添加view
-                    for (int i = 0; i < mYueSnakeStr.length; i++) {
-                        HeroTextView heroTextView = new HeroTextView(context);
-                        heroTextView.setText(mYueSnakeStr[i]);
-                        heroTextView.setTextSize(16);
-                        heroTextView.setTextColor(ContextCompat.getColor(context, R.color.gray_light));
-                        heroTextView.setVisibility(View.INVISIBLE);
-                        heroTextView.setGravity(Gravity.CENTER);
-//                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-//                                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                                AppUtils.dip2px(mContext, 18), AppUtils.dip2px(mContext, 18));
-                        heroTextView.setLayoutParams(params);
-                        mYueSnakeAnimView[i] = heroTextView;
-                        mAnimLayout.addView(heroTextView);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 晃晃漂流--平移动画
-     *
-     * @param progress
-     */
-    private void setYueShakeTransAnim(int progress) {
-        if (Global.mYueAnimType != Const.YUE_ANIM_TYPE_2) {
-            return;
-        }
-        if (mShakeTextView == null) {
-            return;
-        }
-        if (mShakeTextView.getVisibility() != View.VISIBLE) {
-            mShakeTextView.setVisibility(View.VISIBLE);
-        }
-        float tranY = (float) -(mYueAnimHeight) / 100 * progress;
-        mShakeTextView.setTranslationY(tranY);
-
-        if (mShakeTextView.getTranslationY() < -(mYueAnimHeight - mShakeTextView.getHeight())) {
-            mShakeTextView.setTranslationY(-(mYueAnimHeight - mShakeTextView.getHeight()));
-        }
-    }
-
-    /**
-     * 清除贪吃蛇动画配置
-     */
-    private void clearSnakeAnimConfig() {
-        mSnakeMetronome = 0;
-        iW = new int[9];
-        iW2 = new int[9];
-        iW3 = new int[9];
-    }
-
-    /**
-     * 底部状态为默认
-     */
-    private void resetBottomStatus() {
-        if (mAnimLayout != null && mAnimLayout.getVisibility() != View.GONE) {
-            mAnimLayout.setVisibility(View.GONE);
-        }
-        if (mYueLayout != null && mYueLayout.getVisibility() != View.VISIBLE) {
-            mYueLayout.setVisibility(View.VISIBLE);
-            AnimHelper.fadeIn(mYueLayout, 1000);
-        }
-        if (mMusicInfoLayout != null && mMusicInfoLayout.getVisibility() != View.VISIBLE) {
-            mMusicInfoLayout.setVisibility(View.VISIBLE);
-            AnimHelper.fadeIn(mMusicInfoLayout, 1000);
-        }
-    }
-
-    /**
-     * 底部状态为动画
-     */
-    private void setBottomStatusAnim() {
-        if (mAnimLayout != null && mAnimLayout.getVisibility() != View.VISIBLE) {
-            mAnimLayout.setVisibility(View.VISIBLE);
-            AnimHelper.fadeIn(mAnimLayout, 1000);
-        }
-        if (mYueLayout != null && mYueLayout.getVisibility() != View.GONE) {
-            mYueLayout.setVisibility(View.GONE);
-        }
-        if (mMusicInfoLayout != null && mMusicInfoLayout.getVisibility() != View.GONE) {
-            mMusicInfoLayout.setVisibility(View.GONE);
+        if (mYueAnimManager != null) {
+            mYueAnimManager.refreshYueAnim(context, isOnResume);
         }
     }
 
@@ -949,194 +763,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param isStart true开始动画 false停止动画
      */
     private void setYueAnimManager(boolean isStart) {
-        if (isStart) {
-            int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
-
-            if (animMode != 2) {
-                mShakeRotation = null;
-                mShakeTransX = null;
-            }
-
-            if (animMode == 3) {
-                startYueAnimTimerTask();
-            } else if (animMode == 2) {
-                startShakeAnim();
-            }
-        } else {
-            int animMode = PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1);
-            if (animMode == 3) {
-                stopYueAnimTimerTask();
-            } else if (animMode == 2) {
-                stopShakeAnim();
-            }
-        }
-    }
-
-    private void stopShakeAnim() {
-        if (mShakeRotation != null) {
-            mShakeRotation.pause();
-        }
-        if (mShakeTransX != null) {
-            mShakeTransX.pause();
-        }
-    }
-
-    private void startShakeAnim() {
-        if (mShakeTextView == null) {
-            return;
-        }
-        mShakeTextView.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mShakeRotation == null) {
-                    float x = (float) mShakeTextView.getWidth() / 2;
-                    mShakeTextView.setPivotX(x);
-                    mShakeTextView.setPivotY(0f);
-                    mShakeRotation = ObjectAnimator.ofFloat(mShakeTextView, "rotation", -14f, 0f, 14f, 0f, -14f, 0f, 10f, 0f, -6f, 0f);
-                    mShakeRotation.setInterpolator(new LinearInterpolator());
-                    mShakeRotation.setDuration(600);
-                    mShakeRotation.setStartDelay(4000);
-                    mShakeRotation.addListener(new SimpleAnimationListener() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            startShakeAnim();
-                        }
-                    });
-                }
-                if (mShakeRotation.isPaused()) {
-                    mShakeRotation.resume();
-                } else {
-                    if (!mShakeRotation.isRunning()) {
-                        mShakeRotation.start();
-                    }
-                }
-
-                if (mShakeTransX == null) {
-                    float startX = 0;
-                    float endX = mYueAnimWidth - mShakeTextView.getWidth();
-                    mShakeTransX = ObjectAnimator.ofFloat(mShakeTextView, "translationX",
-                            startX, endX, startX);
-                    mShakeTransX.setInterpolator(new BounceInterpolator());
-                    mShakeTransX.setDuration(12000);
-                    mShakeTransX.setStartDelay(1000);
-                    mShakeTransX.addListener(new SimpleAnimationListener() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            startShakeAnim();
-                        }
-                    });
-                }
-                if (mShakeTransX.isPaused()) {
-                    mShakeTransX.resume();
-                } else {
-                    if (!mShakeTransX.isRunning()) {
-                        mShakeTransX.start();
-                    }
-                }
-            }
-
-        });
-    }
-
-    /**
-     * TimerTask
-     */
-    private void startYueAnimTimerTask() {
-        createExecutorService();
-        if (mCountTimeSnakeTimerTask == null) {
-            mCountTimeSnakeTimerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(() -> {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        if (mYueSnakeAnimView.length != mYueSnakeStr.length) {
-                            return;
-                        }
-                        // 动画计算
-                        calculationSnakeAnim();
-                    });
-                }
-            };
-            scheduledExecutorService.scheduleAtFixedRate(mCountTimeSnakeTimerTask,
-                    500, 150, TimeUnit.MILLISECONDS);
+        if (mYueAnimManager != null) {
+            mYueAnimManager.setYueAnimManager(isStart);
         }
     }
 
     /**
-     * 贪吃蛇动画计算
+     * 晃晃漂流--平移动画
+     *
+     * @param progress
      */
-    private void calculationSnakeAnim() {
-        for (int i = 0; i <= mSnakeMetronome; i++) {
-
-            if (mYueSnakeAnimView[i] == null) {
-                return;
-            }
-
-            if (mYueSnakeAnimView[i].getTranslationX() == 0 && mYueSnakeAnimView[i].getTranslationY() == 0) {
-                if (mYueSnakeAnimView[i].getVisibility() != View.VISIBLE) {
-                    mYueSnakeAnimView[i].setVisibility(View.VISIBLE);
-                }
-            }
-
-            if (mYueSnakeAnimView[i].getTranslationY() == 0) {
-                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
-                int oneStepX = mYueAnimWidth / (mStepW);
-                if (iW[i] != 0) {
-                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() + oneStepX);
-                }
-                iW[i]++;
-                if (iW[i] == mStepW + 1) {
-                    mYueSnakeAnimView[i].setTranslationX(mYueAnimWidth);
-                    int transY = mYueAnimHeight / 2 - mYueSnakeAnimView[i].getHeight() / 2;
-                    mYueSnakeAnimView[i].setTranslationY(transY);
-                    iW[i] = 0;
-                }
-            }
-
-            if (mYueSnakeAnimView[i].getTranslationY() == mYueAnimHeight / 2 - mYueSnakeAnimView[i].getHeight() / 2) {
-                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
-                int oneStepX = mYueAnimWidth / (mStepW);
-                if (iW2[i] != 0) {
-                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() - oneStepX);
-                }
-                iW2[i]++;
-                if (iW2[i] == mStepW + 2) {
-                    mYueSnakeAnimView[i].setTranslationX(-oneStepX);
-                    mYueSnakeAnimView[i].setTranslationY(mYueAnimHeight - mYueSnakeAnimView[i].getHeight());
-                    iW2[i] = 0;
-                }
-            }
-
-            if (mYueSnakeAnimView[i].getTranslationY() == mYueAnimHeight - mYueSnakeAnimView[i].getHeight()) {
-                mStepW = mYueAnimWidth / AppUtils.dip2px(mContext, 18);
-                int oneStepX = mYueAnimWidth / (mStepW);
-                if (iW3[i] != 0) {
-                    mYueSnakeAnimView[i].setTranslationX(mYueSnakeAnimView[i].getTranslationX() + oneStepX);
-                }
-                iW3[i]++;
-                if (iW3[i] == mStepW + 2) {
-                    mYueSnakeAnimView[i].setTranslationX(0);
-                    mYueSnakeAnimView[i].setTranslationY(0);
-                    mYueSnakeAnimView[i].setVisibility(View.INVISIBLE);
-                    iW3[i] = 0;
-                }
-            }
-        }
-
-        mSnakeMetronome++;
-        if (mSnakeMetronome > mYueSnakeStr.length - 1) {
-            mSnakeMetronome = mYueSnakeStr.length - 1;
-        }
-    }
-
-    private void createExecutorService() {
-        if (scheduledExecutorService == null) {
-            scheduledExecutorService = new ScheduledThreadPoolExecutor(3,
-                    new BasicThreadFactory.Builder().namingPattern("scheduled-pool-%d").daemon(true).build());
+    private void setYueShakeTransAnim(int progress) {
+        if (mYueAnimManager != null) {
+            mYueAnimManager.setYueShakeTransAnim(progress);
         }
     }
 
@@ -1167,21 +806,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UI.HANDLER.removeCallbacksAndMessages(null);
         EventBus.getDefault().unregister(this);
         stopService();
-    }
-
-    private void cancelCountTimeTask() {
-        if (mCountTimeSnakeTimerTask != null) {
-            mCountTimeSnakeTimerTask.cancel();
-            mCountTimeSnakeTimerTask = null;
-        }
-    }
-
-    private void stopYueAnimTimerTask() {
-        cancelCountTimeTask();
-        if (scheduledExecutorService != null) {
-            scheduledExecutorService.shutdown();
-            scheduledExecutorService = null;
-        }
     }
 
 }

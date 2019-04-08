@@ -13,7 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
-import com.ghy.yueplayer.common.SimpleAnimationListener;
+import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 
 
 /**

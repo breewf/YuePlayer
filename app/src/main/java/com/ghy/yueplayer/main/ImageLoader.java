@@ -13,13 +13,15 @@ import jp.wasabeef.glide.transformations.CropSquareTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * Created by GHY on 2017/7/14.
+ * @author HY
+ * @date 2017/7/14
  * 图片加载类
  */
 public class ImageLoader {
 
     private Context context;
-    private OnProgressListener onProgressListener;//图片加载进度监听
+
+    private OnProgressListener onProgressListener;
 
     private ImageLoader(Context context) {
         this.context = context;

@@ -9,7 +9,7 @@ import com.ghy.yueplayer.common.securitysp.SecuritySharedPreference;
 /**
  * Desc:SharedPreferences
  *
- * @author huxiuwang
+ * @author HY
  */
 public class PreferManager {
 
