@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent service = new Intent(this, MusicPlayService.class);
         this.startService(service);
         //启动时间统计服务
-        Intent timeService = new Intent(this, TimeService.class);
-        this.startService(timeService);
+//        Intent timeService = new Intent(this, TimeService.class);
+//        this.startService(timeService);
 
         initLoader();
 
