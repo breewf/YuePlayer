@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.BounceInterpolator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -120,7 +120,7 @@ public class YueAnimManager {
 
         int animMode = Global.getYueAnimType();
         // 无动画
-        if (animMode <= 1) {
+        if (animMode <= Const.YUE_ANIM_TYPE_1) {
             resetBottomStatus();
             // clear
             setYueAnimManager(false);
@@ -128,7 +128,7 @@ public class YueAnimManager {
             clearSnakeAnimConfig();
         } else {
             // 有动画
-            if (animMode != 3) {
+            if (animMode != Const.YUE_ANIM_TYPE_3) {
                 // 贪吃蛇动画配置
                 clearSnakeAnimConfig();
             }
@@ -149,7 +149,7 @@ public class YueAnimManager {
                 setBottomStatusAnim();
 
                 // 根据动画类型创建view
-                if (animMode == 2) {
+                if (animMode == Const.YUE_ANIM_TYPE_2) {
                     mAnimLayout.removeAllViews();
                     mShakeTextView = new HeroTextView(context);
                     mShakeTextView.setText("YuePlayer");
@@ -165,7 +165,7 @@ public class YueAnimManager {
                     return;
                 }
 
-                if (animMode == 3) {
+                if (animMode == Const.YUE_ANIM_TYPE_3) {
                     mAnimLayout.removeAllViews();
                     // 添加view
                     for (int i = 0; i < mYueSnakeStr.length; i++) {
@@ -197,20 +197,20 @@ public class YueAnimManager {
         int animMode = Global.getYueAnimType();
         if (isStart) {
 
-            if (animMode != 2) {
+            if (animMode != Const.YUE_ANIM_TYPE_2) {
                 mShakeRotation = null;
                 mShakeTransX = null;
             }
 
-            if (animMode == 3) {
+            if (animMode == Const.YUE_ANIM_TYPE_3) {
                 startYueAnimTimerTask();
-            } else if (animMode == 2) {
+            } else if (animMode == Const.YUE_ANIM_TYPE_2) {
                 startShakeAnim();
             }
         } else {
-            if (animMode == 3) {
+            if (animMode == Const.YUE_ANIM_TYPE_3) {
                 stopYueAnimTimerTask();
-            } else if (animMode == 2) {
+            } else if (animMode == Const.YUE_ANIM_TYPE_2) {
                 stopShakeAnim();
             }
         }
@@ -239,7 +239,7 @@ public class YueAnimManager {
                     mShakeRotation = ObjectAnimator.ofFloat(mShakeTextView, "rotation", -14f, 0f, 14f, 0f, -14f, 0f, 10f, 0f, -6f, 0f);
                     mShakeRotation.setInterpolator(new LinearInterpolator());
                     mShakeRotation.setDuration(600);
-                    mShakeRotation.setStartDelay(3000);
+                    mShakeRotation.setStartDelay(2000);
                     mShakeRotation.addListener(new SimpleAnimationListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -261,8 +261,9 @@ public class YueAnimManager {
                     float endX = mYueAnimWidth - mShakeTextView.getWidth();
                     mShakeTransX = ObjectAnimator.ofFloat(mShakeTextView, "translationX",
                             startX, endX, startX);
-                    mShakeTransX.setInterpolator(new BounceInterpolator());
-                    mShakeTransX.setDuration(12000);
+//                    mShakeTransX.setInterpolator(new BounceInterpolator());
+                    mShakeTransX.setInterpolator(new AccelerateDecelerateInterpolator());
+                    mShakeTransX.setDuration(8000);
                     mShakeTransX.setStartDelay(1000);
                     mShakeTransX.addListener(new SimpleAnimationListener() {
                         @Override

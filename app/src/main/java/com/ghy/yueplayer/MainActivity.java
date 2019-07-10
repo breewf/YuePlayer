@@ -270,7 +270,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotationAnim.setDuration(10000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
-        AnimHelper.breathIconScanAnim(mPlayerImageView);
     }
 
     public synchronized boolean isFastClick() {

@@ -10,7 +10,17 @@ public class Const {
     /**
      * YUE动画类型
      */
+
+    /**
+     * 没有动画
+     */
     public static final int YUE_ANIM_TYPE_1 = 1;
+    /**
+     * 晃晃漂流
+     */
     public static final int YUE_ANIM_TYPE_2 = 2;
+    /**
+     * 贪吃蛇啊
+     */
     public static final int YUE_ANIM_TYPE_3 = 3;
 }
