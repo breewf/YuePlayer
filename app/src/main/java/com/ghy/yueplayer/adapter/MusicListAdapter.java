@@ -12,15 +12,12 @@ import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.MusicInfo;
-import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.util.List;
-
-import io.gresse.hugo.vumeterlibrary.VuMeterView;
 
 /**
  * @author GHY
@@ -87,7 +84,7 @@ public class MusicListAdapter extends BaseAdapter {
         ImageView ivMusic = ViewHolder.getView(view, R.id.iv_music);
         TextView tvMusicName = ViewHolder.getView(view, R.id.tv_music_name);
         TextView tvMusicArtist = ViewHolder.getView(view, R.id.tv_music_artist);
-        VuMeterView vuMeterView = ViewHolder.getView(view, R.id.vumeter);
+        ImageView ivPlayHorn = ViewHolder.getView(view, R.id.iv_play_horn);
 
         MusicInfo musicInfo = mMusicInfo.get(i);
 
@@ -102,17 +99,12 @@ public class MusicListAdapter extends BaseAdapter {
 
         if (!isPlayLike) {
             if (musicInfo.isPlaying()) {
-                vuMeterView.setVisibility(View.VISIBLE);
-                if (MusicPlayService.MPS.isPlay()) {
-                    vuMeterView.resume(true);
-                } else {
-                    vuMeterView.stop(true);
-                }
+                ivPlayHorn.setVisibility(View.VISIBLE);
             } else {
-                vuMeterView.setVisibility(View.GONE);
+                ivPlayHorn.setVisibility(View.GONE);
             }
         } else {
-            vuMeterView.setVisibility(View.GONE);
+            ivPlayHorn.setVisibility(View.GONE);
         }
 
         return view;

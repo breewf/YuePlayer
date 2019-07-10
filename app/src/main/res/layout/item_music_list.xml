@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/music_list_bg_selector_color1"
@@ -29,8 +29,8 @@
                 android:id="@+id/tv_music_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/iv_music"
                 android:layout_alignLeft="@+id/tv_music_name"
+                android:layout_alignBottom="@+id/iv_music"
                 android:layout_marginBottom="6dp"
                 android:text="TextView"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -52,18 +52,15 @@
 
         </RelativeLayout>
 
-        <io.gresse.hugo.vumeterlibrary.VuMeterView
-            android:id="@+id/vumeter"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
+        <ImageView
+            android:id="@+id/iv_play_horn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/icon_play_horn"
             android:visibility="gone"
-            vumeter:vumeter_backgroundColor="@color/white"
-            vumeter:vumeter_blockNumber="6"
-            vumeter:vumeter_speed="4"
-            vumeter:vumeter_startOff="true"
-            vumeter:vumeter_stopSize="5dp"/>
+            tools:visibility="visible"/>
 
     </LinearLayout>
 
