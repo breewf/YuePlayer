@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView app_icon;
     private HeroTextView tv_app_name;
     private HeroTextView tv_app_text;
-    private TextView tvMusicTitle;
     private WaveView wave_view;
     private ProgressBar mProgressbar;
 
@@ -214,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         app_icon = findViewById(R.id.app_icon);
         tv_app_name = findViewById(R.id.tv_app_name);
         tv_app_text = findViewById(R.id.tv_app_text);
-        tvMusicTitle = findViewById(R.id.tv_music_title);
         wave_view = findViewById(R.id.wave_view);
         mProgressbar = findViewById(R.id.main_seek_bar);
 
@@ -245,15 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mMusicInfoLayout.setOnClickListener(view -> {
-            if (isFastClick()) {
-                AnimHelper.shakeAnimCycle(mMusicInfoLayout);
-                boolean isLikeList = SPUtil.getBooleanSP(this, Constant.MUSIC_SP, "isLikeList");
-                if (!isLikeList) {
-                    if (musicListFragment != null) {
-                        musicListFragment.fastClick(toMovePosition);
-                    }
-                }
-            }
+
         });
 
         tv_app_text.setOnClickListener(view -> {
@@ -298,7 +288,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Constant.MUSIC_SP, "musicId");
 
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
-        tvMusicTitle.setText(TextUtils.isEmpty(musicName) ? "UNKNOWN" : musicName);
 
         if (!isOnResume) {
             return;
@@ -423,6 +412,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mViewPagerMain.setCurrentItem(0);
             favour_music.setImageResource(R.mipmap.note_btn_love);
             local_music.setImageResource(R.mipmap.icon_music_selected);
+
+            if (mViewPagerMain != null && mViewPagerMain.getCurrentItem() == 0 && isFastClick()) {
+                AnimHelper.shakeAnimCycle(local_music);
+                if (musicListFragment != null) {
+                    musicListFragment.fastClick(toMovePosition);
+                }
+            }
+
         } else if (view == favour_music) {
             mViewPagerMain.setCurrentItem(1);
             favour_music.setImageResource(R.mipmap.note_btn_loved_white);
@@ -430,7 +427,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view == app_icon) {
             showDrawerLayout();
         } else if (view == tv_app_name) {
-            showToast(getString(R.string.click_app_name));
+//            showToast(getString(R.string.click_app_name));
+
+            if (mViewPagerMain != null && mViewPagerMain.getCurrentItem() == 0 && isFastClick()) {
+                AnimHelper.shakeAnimCycle(tv_app_name);
+                if (musicListFragment != null) {
+                    musicListFragment.scrollTopPosition();
+                }
+            }
         }
     }
 

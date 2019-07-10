@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/custom_toolbar_bg"
         android:clickable="true"
         android:padding="8dp"
         android:src="@mipmap/icon_app_white"/>
@@ -35,7 +34,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/favour_music"
-        android:background="@drawable/custom_toolbar_bg"
         android:padding="10dp"
         android:src="@mipmap/icon_music_selected"/>
 
@@ -43,9 +41,8 @@
         android:id="@+id/favour_music"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/custom_toolbar_bg"
+        android:layout_alignParentRight="true"
         android:padding="8dp"
         android:src="@mipmap/note_btn_love"/>
 

@@ -212,7 +212,7 @@ public class AnimHelper {
             rotation.setRepeatCount(0);
             rotation.start();
             notifyTransPointAnim(view);
-        }, 3000);
+        }, 5000);
     }
 
     /**

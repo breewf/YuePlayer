@@ -245,6 +245,12 @@ public class MusicListFragment extends Fragment {
         }
     }
 
+    public void scrollTopPosition() {
+        if (lv_music != null) {
+            lv_music.smoothScrollToPositionFromTop(0, 0);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
