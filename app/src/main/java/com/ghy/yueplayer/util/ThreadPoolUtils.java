@@ -10,25 +10,37 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by GHY on 2017/3/22.
+ * @author GHY
+ * @date 2017/3/22
  * Desc: 线程池工具类
  */
-
 public class ThreadPoolUtils {
 
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    //线程池核心线程数
+    /**
+     * 线程池核心线程数
+     */
     private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
-    //线程池最大线程数
+    /**
+     * 线程池最大线程数
+     */
     private static final int MAX_POOL_SIZE = CPU_COUNT * 2 + 1;
-    //额外线程空状态生存时间
+    /**
+     * 额外线程空状态生存时间
+     */
     private static int KEEP_ALIVE_TIME = 30;
-    //阻塞队列，当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程
+    /**
+     * 阻塞队列，当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程
+     */
     private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(10);
-    //线程池
+    /**
+     * 线程池
+     */
     private static ThreadPoolExecutor threadPool;
 
-    //线程工厂
+    /**
+     * 线程工厂
+     */
     private static ThreadFactory threadFactory = new ThreadFactory() {
         private final AtomicInteger integer = new AtomicInteger();
 
@@ -56,7 +68,7 @@ public class ThreadPoolUtils {
      * 关闭线程
      */
     public static void cancel() {
-        if (!threadPool.isShutdown()) {//判断线程池是否关闭
+        if (!threadPool.isShutdown()) {
             threadPool.shutdownNow();
         }
     }

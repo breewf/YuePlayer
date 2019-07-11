@@ -1,4 +1,4 @@
-package com.ghy.yueplayer.util;
+package com.ghy.yueplayer.helper;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;

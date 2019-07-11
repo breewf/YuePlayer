@@ -50,7 +50,7 @@ import com.ghy.yueplayer.main.PlayControlView;
 import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
-import com.ghy.yueplayer.util.AnimHelper;
+import com.ghy.yueplayer.helper.AnimHelper;
 import com.ghy.yueplayer.util.AnimUtils;
 import com.ghy.yueplayer.util.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;

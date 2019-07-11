@@ -14,11 +14,10 @@ import com.ghy.yueplayer.R;
 
 
 /**
- * Desc:   Activity切换动画
+ * @author HY
+ * Desc:Activity切换动画
  */
-
 public class AnimUtils {
-
 
     /**
      * 打开新页面-淡入

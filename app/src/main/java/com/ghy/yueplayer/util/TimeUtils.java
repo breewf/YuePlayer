@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by GHY on 2018/1/6.
+ * @author GHY
+ * @date 2018/1/6
  * Modify by GHY on 2018/1/6.
  * ClassDesc:时间日期工具类
  **/
@@ -97,6 +98,7 @@ public class TimeUtils {
         calendar.setTimeInMillis(time);
         return format.format(calendar.getTime());
     }
+
     public static String getDateStrSeconds(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss", Locale.CHINA);
         Calendar calendar = Calendar.getInstance();
@@ -139,6 +141,8 @@ public class TimeUtils {
                 break;
             case 7:
                 textView.setText("星期日");
+                break;
+            default:
                 break;
         }
     }
@@ -217,7 +221,7 @@ public class TimeUtils {
      * @return
      */
     public static String getNowDay() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());//可根据不同样式请求显示不同日期格式，要显示星期可以添加E参数
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return simpleDateFormat.format(new Date());
     }
 
@@ -257,6 +261,7 @@ public class TimeUtils {
         }
         return time;
     }
+
     /**
      * 获取当天日期
      *

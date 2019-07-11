@@ -50,6 +50,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 /**
+ * @author HY
  * 名称：AppUtils.java
  * 描述：应用工具类
  */
@@ -455,8 +456,8 @@ public class AppUtils {
      * @return
      */
     public static boolean isWeixinAvilible(Context context) {
-        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
         if (pinfo != null) {
             for (int i = 0; i < pinfo.size(); i++) {
                 String pn = pinfo.get(i).packageName;
@@ -827,6 +828,8 @@ public class AppUtils {
                             }
                             break;
                         case XmlPullParser.END_TAG:
+                            break;
+                        default:
                             break;
                     }
                     event = parser.next();
