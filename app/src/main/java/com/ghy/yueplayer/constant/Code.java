@@ -1,10 +1,10 @@
 package com.ghy.yueplayer.constant;
 
 /**
- * Created by GHY on 2018/1/6.
+ * @author GHY
+ * @date 2018/1/6
  * Desc: http请求响应码
  */
-
 public class Code {
 
     /***------------------业务逻辑code码--和后台约定------------------------*/

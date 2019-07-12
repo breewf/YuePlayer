@@ -1,10 +1,10 @@
 package com.ghy.yueplayer.constant;
 
 /**
- * Created by GHY on 2018/1/6.
+ * @author GHY
+ * @date 2018/1/6
  * Desc:HttpConfig配置信息
  */
-
 public class HttpConfig {
 
     /**
@@ -37,6 +37,6 @@ public class HttpConfig {
      * 请求超时配置
      * ================================================
      */
-    public static final int HTTP_TIME_OUT = 30;//30s
-    public static final int HTTP_TIME_OUT_BIG = 120;//120s
+    public static final int HTTP_TIME_OUT = 30;
+    public static final int HTTP_TIME_OUT_BIG = 120;
 }

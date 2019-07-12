@@ -15,10 +15,9 @@ import android.widget.LinearLayout;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
-import com.ghy.yueplayer.constant.Const;
 import com.ghy.yueplayer.constant.Global;
-import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.helper.AnimHelper;
+import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.util.AppUtils;
 import com.ghy.yueplayer.view.HeroTextView;
 
@@ -28,6 +27,10 @@ import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static com.ghy.yueplayer.constant.Const.YUE_ANIM_TYPE_1;
+import static com.ghy.yueplayer.constant.Const.YUE_ANIM_TYPE_2;
+import static com.ghy.yueplayer.constant.Const.YUE_ANIM_TYPE_3;
 
 /**
  * @author HY
@@ -120,7 +123,7 @@ public class YueAnimManager {
 
         int animMode = Global.getYueAnimType();
         // 无动画
-        if (animMode <= Const.YUE_ANIM_TYPE_1) {
+        if (animMode <= YUE_ANIM_TYPE_1) {
             resetBottomStatus();
             // clear
             setYueAnimManager(false);
@@ -128,7 +131,7 @@ public class YueAnimManager {
             clearSnakeAnimConfig();
         } else {
             // 有动画
-            if (animMode != Const.YUE_ANIM_TYPE_3) {
+            if (animMode != YUE_ANIM_TYPE_3) {
                 // 贪吃蛇动画配置
                 clearSnakeAnimConfig();
             }
@@ -149,7 +152,7 @@ public class YueAnimManager {
                 setBottomStatusAnim();
 
                 // 根据动画类型创建view
-                if (animMode == Const.YUE_ANIM_TYPE_2) {
+                if (animMode == YUE_ANIM_TYPE_2) {
                     mAnimLayout.removeAllViews();
                     mShakeTextView = new HeroTextView(context);
                     mShakeTextView.setText("YuePlayer");
@@ -165,7 +168,7 @@ public class YueAnimManager {
                     return;
                 }
 
-                if (animMode == Const.YUE_ANIM_TYPE_3) {
+                if (animMode == YUE_ANIM_TYPE_3) {
                     mAnimLayout.removeAllViews();
                     // 添加view
                     for (int i = 0; i < mYueSnakeStr.length; i++) {
@@ -197,20 +200,20 @@ public class YueAnimManager {
         int animMode = Global.getYueAnimType();
         if (isStart) {
 
-            if (animMode != Const.YUE_ANIM_TYPE_2) {
+            if (animMode != YUE_ANIM_TYPE_2) {
                 mShakeRotation = null;
                 mShakeTransX = null;
             }
 
-            if (animMode == Const.YUE_ANIM_TYPE_3) {
+            if (animMode == YUE_ANIM_TYPE_3) {
                 startYueAnimTimerTask();
-            } else if (animMode == Const.YUE_ANIM_TYPE_2) {
+            } else if (animMode == YUE_ANIM_TYPE_2) {
                 startShakeAnim();
             }
         } else {
-            if (animMode == Const.YUE_ANIM_TYPE_3) {
+            if (animMode == YUE_ANIM_TYPE_3) {
                 stopYueAnimTimerTask();
-            } else if (animMode == Const.YUE_ANIM_TYPE_2) {
+            } else if (animMode == YUE_ANIM_TYPE_2) {
                 stopShakeAnim();
             }
         }
@@ -387,7 +390,7 @@ public class YueAnimManager {
      * @param progress
      */
     public void setYueShakeTransAnim(int progress) {
-        if (Global.getYueAnimType() != Const.YUE_ANIM_TYPE_2) {
+        if (Global.getYueAnimType() != YUE_ANIM_TYPE_2) {
             return;
         }
         if (mShakeTextView == null) {

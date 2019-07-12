@@ -171,18 +171,17 @@ public class SetActivity extends Activity {
                     break;
                 default:
                     break;
-
             }
             PreferManager.setInt(PreferManager.MAIN_LAST_ANIM, PreferManager.getInt(PreferManager.MAIN_BOTTOM_ANIM, -1));
             PreferManager.setInt(PreferManager.MAIN_BOTTOM_ANIM, animModeSet);
             Global.setYueAnimType(animModeSet);
+            finish();
         });
 
         circle_group.setOnCheckedChangeListener((radioGroup, i) -> {
             int radioButtonId = radioGroup.getCheckedRadioButtonId();
             RadioButton rb = findViewById(radioButtonId);
-//            Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(SetActivity.this, "敬请期待哦~", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SetActivity.this, rb.getText(), Toast.LENGTH_SHORT).show();
             int animModeSet = -1;
             switch (radioButtonId) {
                 case R.id.c_anim1:
@@ -196,10 +195,10 @@ public class SetActivity extends Activity {
                     break;
                 default:
                     break;
-
             }
             PreferManager.setInt(PreferManager.MAIN_CIRCLE_ANIM, animModeSet);
             Global.setCircleAnimType(animModeSet);
+            finish();
         });
 
         boolean isOpenAlbumColor = PreferManager.getBoolean(PreferManager.ALBUM_COLOR, false);

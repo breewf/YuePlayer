@@ -92,9 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
     private ImageView mPlayerImageView;
+    private ImageView mPlayerIvAnim;
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
 
+    private FrameLayout mMainLayout;
     private FrameLayout mAnimLayout;
     private LinearLayout mYueLayout;
     private LinearLayout mMusicInfoLayout;
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mYueAnimManager.initView(mAnimLayout, mYueLayout, mMusicInfoLayout);
 
         mCircleAnimManager = new CircleAnimManager(this);
-        mCircleAnimManager.initView(mPlayerImageView);
+        mCircleAnimManager.initView(mMainLayout, mPlayerImageView, mPlayerIvAnim);
     }
 
     private void initLoader() {
@@ -222,7 +224,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mVDHLayout = findViewById(R.id.vdh_layout);
         mPlayerImageView = findViewById(R.id.iv_play);
+        mPlayerIvAnim = findViewById(R.id.iv_play_anim);
         mPlayControlView = findViewById(R.id.play_control_view);
+        mMainLayout = findViewById(R.id.main);
         mAnimLayout = findViewById(R.id.anim_layout);
         mYueLayout = findViewById(R.id.yue_layout);
         mMusicInfoLayout = findViewById(R.id.music_info_layout);

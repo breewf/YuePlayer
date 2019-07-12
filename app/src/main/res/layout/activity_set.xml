@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="弹弹弹球"
+                    android:text="魔力圈圈"
                     android:textColor="@color/gray3"
                     android:textSize="16sp"/>
 
@@ -164,9 +164,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="是个轮子"
+                    android:text="重力感应"
                     android:textColor="@color/gray3"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
 
             </RadioGroup>
 

@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.ghy.yueplayer.BuildConfig;
+import com.ghy.yueplayer.PlayerApplication;
 import com.ghy.yueplayer.widget.FakeBoldSpan;
 import com.gyf.barlibrary.ImmersionBar;
 
@@ -25,6 +26,28 @@ import timber.log.Timber;
  * Desc:Utils
  */
 public class Utils {
+
+    /**
+     * dp转px
+     *
+     * @param dpValue
+     * @return
+     */
+    public static int dip2px(float dpValue) {
+        final float scale = PlayerApplication.getInstance().getResources().getDisplayMetrics().density;
+        return (int) ((dpValue * scale) + 0.5f);
+    }
+
+    /**
+     * px转dp
+     *
+     * @param pxValue
+     * @return
+     */
+    public static int px2dip(float pxValue) {
+        final float scale = PlayerApplication.getInstance().getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
 
     /**
      * 拨打客服电话

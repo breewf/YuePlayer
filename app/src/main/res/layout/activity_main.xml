@@ -195,6 +195,18 @@
 
                 </FrameLayout>
 
+                <!--播放按钮的副本-用于动画-->
+
+                <com.ghy.yueplayer.view.CircleImageView
+                    android:id="@+id/iv_play_anim"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:src="@mipmap/default_artist"
+                    android:visibility="gone"
+                    app:civ_border_color="@color/black_66"
+                    app:civ_border_width="1dp"/>
+
             </FrameLayout>
 
             <!-- The drawerLayout侧滑菜单布局 -->

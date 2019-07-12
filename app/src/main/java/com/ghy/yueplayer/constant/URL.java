@@ -2,7 +2,8 @@ package com.ghy.yueplayer.constant;
 
 
 /**
- * Created by GHY on 2018/1/6.
+ * @author GHY
+ * @date 2018/1/6
  * Modify by GHY on 2018/1/6.
  * ClassDesc:URL管理.
  **/
