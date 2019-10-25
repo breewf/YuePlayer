@@ -203,7 +203,7 @@ public class DarkModeManager {
      * @param view view
      * @return
      */
-    private List<View> getAllViews(View view) {
+    public List<View> getAllViews(View view) {
         List<View> allViews = new ArrayList<>();
         if (view instanceof ViewGroup) {
             ViewGroup vp = (ViewGroup) view;

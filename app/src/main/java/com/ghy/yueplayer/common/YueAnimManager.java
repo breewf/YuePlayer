@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,18 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.view.DnHeroTextView;
 import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.helper.AnimHelper;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.utils.AppUtils;
+import com.ghy.yueplayer.utils.ViewUtils;
 import com.ghy.yueplayer.view.HeroTextView;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
+import java.util.List;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -89,7 +91,7 @@ public class YueAnimManager {
     private int[] iW2 = new int[9];
     private int[] iW3 = new int[9];
 
-    private HeroTextView mShakeTextView;
+    private DnHeroTextView mShakeTextView;
 
     /**
      * 晃晃漂流--晃一晃
@@ -154,10 +156,10 @@ public class YueAnimManager {
                 // 根据动画类型创建view
                 if (animMode == YUE_ANIM_TYPE_2) {
                     mAnimLayout.removeAllViews();
-                    mShakeTextView = new HeroTextView(context);
+                    mShakeTextView = new DnHeroTextView(context);
                     mShakeTextView.setText("YuePlayer");
                     mShakeTextView.setTextSize(18);
-                    mShakeTextView.setTextColor(ContextCompat.getColor(context, R.color.gray_light));
+                    mShakeTextView.setTextColor(ViewUtils.getColor(context, R.color.dn_content_yue));
                     mShakeTextView.setVisibility(View.INVISIBLE);
                     mShakeTextView.setGravity(Gravity.CENTER);
                     FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
@@ -172,10 +174,10 @@ public class YueAnimManager {
                     mAnimLayout.removeAllViews();
                     // 添加view
                     for (int i = 0; i < mYueSnakeStr.length; i++) {
-                        HeroTextView heroTextView = new HeroTextView(context);
+                        DnHeroTextView heroTextView = new DnHeroTextView(context);
                         heroTextView.setText(mYueSnakeStr[i]);
                         heroTextView.setTextSize(16);
-                        heroTextView.setTextColor(ContextCompat.getColor(context, R.color.gray_light));
+                        heroTextView.setTextColor(ViewUtils.getColor(context, R.color.dn_content_yue));
                         heroTextView.setVisibility(View.INVISIBLE);
                         heroTextView.setGravity(Gravity.CENTER);
 //                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
@@ -469,6 +471,16 @@ public class YueAnimManager {
         if (scheduledExecutorService != null) {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
+        }
+    }
+
+    public void darkModeChange() {
+        List<View> listAllViews = DarkModeManager.getInstance().getAllViews(mAnimLayout);
+        for (int i = 0; i < listAllViews.size(); i++) {
+            if (listAllViews.get(i) instanceof DnHeroTextView) {
+                ((DnHeroTextView) listAllViews.get(i)).setTextColor(
+                        ViewUtils.getColor(mContext, R.color.dn_content_yue));
+            }
         }
     }
 }

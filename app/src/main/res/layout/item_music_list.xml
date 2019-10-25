@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_marginLeft="5dp"
                 android:src="@mipmap/ic_launcher"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:id="@+id/tv_music_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,10 +34,10 @@
                 android:layout_marginBottom="6dp"
                 android:text="TextView"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/gray_light"
+                android:textColor="@color/dn_content_1"
                 android:textSize="10sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:id="@+id/tv_music_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_toRightOf="@+id/iv_music"
                 android:singleLine="true"
                 android:text="TextView"
-                android:textColor="@color/gray_light"
+                android:textColor="@color/dn_content_2"
                 android:textSize="16sp"/>
 
         </RelativeLayout>
@@ -64,4 +64,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</com.ghy.yueplayer.base.view.DnRelativeLayout>

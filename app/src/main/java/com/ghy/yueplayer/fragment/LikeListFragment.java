@@ -4,12 +4,12 @@ package com.ghy.yueplayer.fragment;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +18,9 @@ import android.widget.Toast;
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.LikeListAdapter;
+import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.db.DBHelper;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
@@ -34,7 +36,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LikeListFragment extends Fragment {
+public class LikeListFragment extends BaseFragment {
 
     @SuppressLint("StaticFieldLeak")
     public static LikeListFragment LLF;
@@ -58,13 +60,6 @@ public class LikeListFragment extends Fragment {
 
     public LikeListFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_like_list, container, false);
     }
 
     @Override
@@ -165,14 +160,25 @@ public class LikeListFragment extends Fragment {
         likeAdapter.notifyAdapter(likeMusicList);
     }
 
-    private void initView() {
-        lv_like_music = (ListView) getActivity().findViewById(R.id.lv_like_music);
-        tv_like_remind = (TextView) getActivity().findViewById(R.id.tv_like_remind);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_like_list;
     }
 
-    /*
+    @Override
+    protected void initView() {
+        lv_like_music = getActivity().findViewById(R.id.lv_like_music);
+        tv_like_remind = getActivity().findViewById(R.id.tv_like_remind);
+    }
+
+    @Override
+    protected void initData() {
+        setListDivider(Global.DAY_MODE);
+    }
+
+    /**
      * 查询数据库操作
-     * */
+     */
     public void queryLikeListInfo() {
 
         lv_like_music.setVisibility(View.VISIBLE);
@@ -229,6 +235,28 @@ public class LikeListFragment extends Fragment {
         super.onDestroy();
         if (LLF != null) {
             LLF = null;
+        }
+    }
+
+    @Override
+    public void onDarkModeChange(boolean isDayMode) {
+        super.onDarkModeChange(isDayMode);
+        setListDivider(isDayMode);
+        if (likeAdapter != null) {
+            likeAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setListDivider(boolean isDayMode) {
+        if (lv_like_music == null || getActivity() == null) {
+            return;
+        }
+        if (isDayMode) {
+            lv_like_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray1)));
+            lv_like_music.setDividerHeight(1);
+        } else {
+            lv_like_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray8)));
+            lv_like_music.setDividerHeight(1);
         }
     }
 

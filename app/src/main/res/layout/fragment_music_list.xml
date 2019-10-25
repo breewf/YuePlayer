@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dn_white"
     tools:context="com.ghy.yueplayer.fragment.MusicListFragment">
 
     <ListView
@@ -13,4 +14,4 @@
         android:gravity="center"
         android:listSelector="@android:color/transparent"/>
 
-</RelativeLayout>
+</com.ghy.yueplayer.base.view.DnRelativeLayout>

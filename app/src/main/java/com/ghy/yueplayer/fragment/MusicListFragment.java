@@ -4,13 +4,12 @@ package com.ghy.yueplayer.fragment;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.content.ContextCompat;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +17,9 @@ import android.widget.Toast;
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MusicListAdapter;
+import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.MusicInfo;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.db.DBHelper;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
@@ -35,7 +36,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MusicListFragment extends Fragment {
+public class MusicListFragment extends BaseFragment {
 
     @SuppressLint("StaticFieldLeak")
     public static MusicListFragment MLF;
@@ -52,13 +53,6 @@ public class MusicListFragment extends Fragment {
 
     public MusicListFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_music_list, container, false);
     }
 
     @Override
@@ -81,8 +75,19 @@ public class MusicListFragment extends Fragment {
         new MusicLoaderTask().execute();
     }
 
-    private void initView() {
-        lv_music = (ListView) getActivity().findViewById(R.id.lv_music);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_music_list;
+    }
+
+    @Override
+    protected void initView() {
+        lv_music = getActivity().findViewById(R.id.lv_music);
+    }
+
+    @Override
+    protected void initData() {
+        setListDivider(Global.DAY_MODE);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -260,5 +265,27 @@ public class MusicListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onDarkModeChange(boolean isDayMode) {
+        super.onDarkModeChange(isDayMode);
+        setListDivider(isDayMode);
+        if (musicListAdapter != null) {
+            musicListAdapter.notifyDataSetChanged(false);
+        }
+    }
+
+    private void setListDivider(boolean isDayMode) {
+        if (lv_music == null || getActivity() == null) {
+            return;
+        }
+        if (isDayMode) {
+            lv_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray1)));
+            lv_music.setDividerHeight(1);
+        } else {
+            lv_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray8)));
+            lv_music.setDividerHeight(1);
+        }
     }
 }

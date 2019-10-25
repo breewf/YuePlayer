@@ -42,7 +42,7 @@ public abstract class BaseFragment extends RxFragment {
      *
      * @return
      */
-    protected abstract int getLayoutID();
+    protected abstract int getLayoutId();
 
     /**
      * 初始化View
@@ -57,7 +57,7 @@ public abstract class BaseFragment extends RxFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(getLayoutID(), container, false);
+        View rootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }

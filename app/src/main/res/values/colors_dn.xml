@@ -56,6 +56,10 @@
     <color name="dn_overlay_1">#64000000</color>
     <color name="dn_overlay_1_night">#80000000</color>
 
+    <!--内容1-->
+    <color name="dn_content_yue">#303030</color>
+    <color name="dn_content_yue_night">#f0f0f0</color>
+
 
     <!--===========================================================-->
     <!--不在设计搞的一些背景、颜色等，如按压效果之类-->

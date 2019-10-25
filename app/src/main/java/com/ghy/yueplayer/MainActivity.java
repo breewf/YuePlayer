@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -24,7 +25,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +59,7 @@ import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.utils.AnimUtils;
 import com.ghy.yueplayer.utils.SPUtil;
 import com.ghy.yueplayer.utils.ViewUtils;
+import com.ghy.yueplayer.view.CircleImageView;
 import com.ghy.yueplayer.view.HeroTextView;
 import com.john.waveview.WaveView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -85,8 +86,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private ImageView app_icon;
     private HeroTextView tv_app_name;
     private HeroTextView tv_app_text;
-    private WaveView wave_view;
-    private ProgressBar mProgressbar;
+    private WaveView mWaveViewDay;
+    private WaveView mWaveViewNight;
 
     private DrawerLayout mDrawerLayout;
     /**
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
-    private ImageView mPlayerImageView;
+    private CircleImageView mPlayerImageView;
     private ImageView mPlayerIvAnim;
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
@@ -260,8 +261,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         app_icon = findViewById(R.id.app_icon);
         tv_app_name = findViewById(R.id.tv_app_name);
         tv_app_text = findViewById(R.id.tv_app_text);
-        wave_view = findViewById(R.id.wave_view);
-        mProgressbar = findViewById(R.id.main_seek_bar);
+        mWaveViewDay = findViewById(R.id.wave_view_day);
+        mWaveViewNight = findViewById(R.id.wave_view_night);
 
         mMusicNoteViewLayout = findViewById(R.id.note_layout);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -324,7 +325,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initData() {
-        initIconSetting(Global.DAY_MODE);
+        initDarkModeSetting(Global.DAY_MODE);
     }
 
     private void setDarkModeUi() {
@@ -413,20 +414,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             switch (msg.what) {
                 case 0:
                     if (MusicPlayService.player != null) {
-                        mProgressbar.setMax(MusicPlayService.player.getDuration());
-                        mProgressbar.setProgress(MusicPlayService.player.getCurrentPosition());
-
                         int progress = (int) (MusicPlayService.player.getCurrentPosition() / (float) MusicPlayService.player.getDuration() * 100);
-                        if (wave_view != null) {
-                            wave_view.setProgress(progress + 5);
+                        if (mWaveViewDay != null) {
+                            mWaveViewDay.setProgress(progress + 5);
+                        }
+                        if (mWaveViewNight != null) {
+                            mWaveViewNight.setProgress(progress + 5);
                         }
                         setYueShakeTransAnim(progress);
                     } else {
-                        mProgressbar.setMax(100);
-                        mProgressbar.setProgress(0);
-
-                        if (wave_view != null) {
-                            wave_view.setProgress(0);
+                        if (mWaveViewDay != null) {
+                            mWaveViewDay.setProgress(0);
+                        }
+                        if (mWaveViewNight != null) {
+                            mWaveViewNight.setProgress(0);
                         }
                         setYueShakeTransAnim(0);
                     }
@@ -596,7 +597,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
             if (id == R.id.layout7) {
                 changeDarkMode();
-                clickCloseDrawer = false;
+//                clickCloseDrawer = false;
             }
 
             if (clickCloseDrawer) {
@@ -942,11 +943,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onDarkModeChange(boolean isDayMode) {
         super.onDarkModeChange(isDayMode);
         initImmersionBar();
-
-        initIconSetting(isDayMode);
+        initDarkModeSetting(isDayMode);
+        if (mYueAnimManager != null) {
+            mYueAnimManager.darkModeChange();
+        }
     }
 
-    private void initIconSetting(boolean isDayMode) {
+    private void initDarkModeSetting(boolean isDayMode) {
         if (isDayMode) {
             app_icon.setImageDrawable(ViewUtils.getTintDrawable(this,
                     R.mipmap.icon_app_white, R.color.dn_page_title));
@@ -990,6 +993,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
             mIvDarkMode.setImageDrawable(ViewUtils.getTintDrawable(this,
                     R.mipmap.icon_day_mode, R.color.dn_page_title_night));
+        }
+
+        if (isDayMode) {
+            mWaveViewDay.setVisibility(View.VISIBLE);
+            mWaveViewNight.setVisibility(View.GONE);
+
+            mPlayerImageView.setBorderColor(ContextCompat.getColor(this, R.color.dn_gary_bg));
+        } else {
+            mWaveViewDay.setVisibility(View.GONE);
+            mWaveViewNight.setVisibility(View.VISIBLE);
+
+            mPlayerImageView.setBorderColor(ContextCompat.getColor(this, R.color.dn_gary_bg_night));
         }
     }
 }

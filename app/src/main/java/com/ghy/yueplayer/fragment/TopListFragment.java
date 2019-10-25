@@ -42,7 +42,7 @@ public class TopListFragment extends BaseFragment {
     }
 
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutId() {
         return R.layout.fragment_top_list;
     }
 

@@ -32,18 +32,11 @@
 
                 <!--底部控制布局1-->
 
-                <FrameLayout
+                <com.ghy.yueplayer.base.view.DnFrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="@color/gray6">
-
-                    <ProgressBar
-                        android:id="@+id/main_seek_bar"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:progressDrawable="@drawable/my_seek_bar_bg"/>
+                    android:background="@color/dn_gary_bg">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -58,14 +51,14 @@
                             android:layout_weight="1.5"
                             android:orientation="vertical">
 
-                            <com.ghy.yueplayer.view.HeroTextView
+                            <com.ghy.yueplayer.base.view.DnHeroTextView
                                 android:id="@+id/tv_app_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="left|center"
                                 android:text="YuePlayer"
-                                android:textColor="@color/gray_light"
+                                android:textColor="@color/dn_hero_title_1"
                                 android:textSize="20dp"
                                 android:visibility="visible"/>
 
@@ -87,7 +80,7 @@
 
                     </LinearLayout>
 
-                </FrameLayout>
+                </com.ghy.yueplayer.base.view.DnFrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -95,12 +88,25 @@
                     android:layout_gravity="bottom">
 
                     <com.john.waveview.WaveView
-                        android:id="@+id/wave_view"
+                        android:id="@+id/wave_view_day"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/trans"
                         app:above_wave_color="@color/trans30"
                         app:blow_wave_color="@color/trans40"
+                        app:progress="0"
+                        app:wave_height="little"
+                        app:wave_hz="slow"
+                        app:wave_length="middle"/>
+
+                    <com.john.waveview.WaveView
+                        android:id="@+id/wave_view_night"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/trans"
+                        android:visibility="gone"
+                        app:above_wave_color="@color/trans30_dm"
+                        app:blow_wave_color="@color/trans40_dm"
                         app:progress="0"
                         app:wave_height="little"
                         app:wave_hz="slow"
