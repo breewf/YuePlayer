@@ -12,7 +12,7 @@ import butterknife.OnClick;
 public class AllTopListActivity extends BaseActivity {
 
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutId() {
         return R.layout.activity_all_top_list;
     }
 

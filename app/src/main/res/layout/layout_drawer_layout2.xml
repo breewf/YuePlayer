@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray6"
+    android:background="@color/dn_gary_bg"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    tools:background="@color/dn_tools_red">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,15 +32,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/iv_online"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_alb"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="OnLine"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -56,15 +59,16 @@
                 android:visibility="visible">
 
                 <ImageView
+                    android:id="@+id/iv_time"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_time"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -89,15 +93,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/iv_about"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_about"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="About"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -114,15 +119,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/iv_help"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_help"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Help"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -147,15 +153,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/iv_set"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_set"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Set"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -172,15 +179,16 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/iv_exit"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@mipmap/icn_exit"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Exit"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -210,12 +218,12 @@
                     android:layout_height="40dp"
                     android:src="@mipmap/icon_day_mode"/>
 
-                <com.ghy.yueplayer.view.HeroTextView
+                <com.ghy.yueplayer.base.view.DnHeroTextView
                     android:id="@+id/tv_dark_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Day"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_hero_title_1"
                     android:textSize="22sp"
                     android:textStyle="bold"/>
 
@@ -237,4 +245,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</com.ghy.yueplayer.base.view.DnRelativeLayout>

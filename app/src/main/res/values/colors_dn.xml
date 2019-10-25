@@ -24,7 +24,7 @@
     <color name="dn_bg_white_night">#161619</color>
 
     <!--页面名称-->
-    <color name="dn_page_title">#303030</color>
+    <color name="dn_page_title">#606060</color>
     <color name="dn_page_title_night">#909198</color>
 
     <!--刷新loading三角-->
@@ -269,6 +269,9 @@
     <!--标题8-->
     <color name="dn_title_8">#303030</color>
     <color name="dn_title_8_night">#909198</color>
+
+    <color name="dn_hero_title_1">#606060</color>
+    <color name="dn_hero_title_1_night">#909198</color>
 
 
     <!--===========================================================-->

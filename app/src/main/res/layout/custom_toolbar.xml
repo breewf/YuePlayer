@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/custom_toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/gray">
+    android:background="@color/dn_white">
 
     <ImageView
         android:id="@+id/app_icon"
@@ -11,11 +11,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:clickable="true"
         android:padding="8dp"
         android:src="@mipmap/icon_app_white"/>
 
-    <com.ghy.yueplayer.view.HeroTextView
+    <com.ghy.yueplayer.base.view.DnHeroTextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -25,8 +24,9 @@
         android:gravity="center|left"
         android:paddingLeft="10dp"
         android:text="YuePlayer"
-        android:textColor="@color/gray_light"
-        android:textSize="24dp"/>
+        android:textColor="@color/dn_page_title"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/local_music"
@@ -46,4 +46,4 @@
         android:padding="8dp"
         android:src="@mipmap/note_btn_love"/>
 
-</RelativeLayout>
+</com.ghy.yueplayer.base.view.DnRelativeLayout>

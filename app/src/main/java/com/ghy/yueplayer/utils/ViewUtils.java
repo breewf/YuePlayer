@@ -1,9 +1,11 @@
 package com.ghy.yueplayer.utils;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -474,5 +476,13 @@ public class ViewUtils {
                 .setSize(size)
                 .build();
         recyclerView.addItemDecoration(divider);
+    }
+
+    /**
+     * 获取着色后的drawable
+     */
+    public static Drawable getTintDrawable(@NonNull Context context, @DrawableRes int resId, @ColorRes int colorId) {
+        return AppUtils.tintDrawable(ContextCompat.getDrawable(context, resId),
+                ContextCompat.getColor(context, colorId));
     }
 }

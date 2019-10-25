@@ -31,7 +31,7 @@ public class AllTopListDetailActivity extends BaseActivity {
     ListView mLvMusic;
 
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutId() {
         return R.layout.activity_all_top_list_detail;
     }
 

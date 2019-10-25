@@ -76,13 +76,17 @@ public class ApiHelper {
                                           Map requestParams,
                                           String url, String loadingMsg,
                                           BaseRequestCallBack requestCallBack, String requestMethod) {
-        if (rxFragmentActivity == null && rxFragment == null) return;
-        if (requestCallBack == null) return;
+        if (rxFragmentActivity == null && rxFragment == null) {
+            return;
+        }
+        if (requestCallBack == null) {
+            return;
+        }
         LinkedHashMap<String, Object> requestParamsNew = new LinkedHashMap<>(requestParams);
         Observable<String> observable = getObservableMethod(requestParamsNew, url, requestMethod);
         if (observable != null) {
             observable.compose(RetrofitManager.schedulersTransformer())
-                    .compose(rxFragmentActivity == null ? rxFragment.bindToLifecycle() : rxFragmentActivity.bindToLifecycle())//绑定生命周期
+                    .compose(rxFragmentActivity == null ? rxFragment.bindToLifecycle() : rxFragmentActivity.bindToLifecycle())
                     .subscribeWith(getUserObserver(rxFragmentActivity, rxFragment, loadingMsg, requestCallBack));
         }
     }
@@ -108,8 +112,12 @@ public class ApiHelper {
                                            String jsonData,
                                            String url, String loadingMsg,
                                            BaseRequestCallBack requestCallBack) {
-        if (rxFragmentActivity == null && rxFragment == null) return;
-        if (requestCallBack == null) return;
+        if (rxFragmentActivity == null && rxFragment == null) {
+            return;
+        }
+        if (requestCallBack == null) {
+            return;
+        }
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonData);
         getApiService().requestApiPostJson(url, body)
                 .compose(RetrofitManager.schedulersTransformer())
@@ -167,8 +175,9 @@ public class ApiHelper {
                     JSONObject jData = new JSONObject(text);
                     String msg = jData.optString(HttpConfig.RESULT_MSG);//msg
                     int code = jData.optInt(HttpConfig.RESULT_CODE, -1);//code
-                    if (requestCallBack != null)
+                    if (requestCallBack != null) {
                         requestCallBack.callbackResult(jData, msg, code, true);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -176,8 +185,9 @@ public class ApiHelper {
 
             @Override
             protected void onError(int code, String message) {
-                if (requestCallBack != null)
+                if (requestCallBack != null) {
                     requestCallBack.callbackResult(new JSONObject(), message, code, false);
+                }
             }
         };
     }
@@ -187,14 +197,16 @@ public class ApiHelper {
 
             @Override
             protected void onSuccess(String s) {
-                if (requestCallBack != null)
+                if (requestCallBack != null) {
                     requestCallBack.requestCallback(s, true);
+                }
             }
 
             @Override
             protected void onError(int code, String message) {
-                if (requestCallBack != null)
+                if (requestCallBack != null) {
                     requestCallBack.requestCallback("", false);
+                }
             }
         };
     }

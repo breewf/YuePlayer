@@ -14,7 +14,6 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,12 +36,15 @@ import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
 import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.CircleAnimManager;
 import com.ghy.yueplayer.common.DarkModeConfig;
 import com.ghy.yueplayer.common.DarkModeManager;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.common.YueAnimManager;
+import com.ghy.yueplayer.common.event.Actions;
+import com.ghy.yueplayer.common.event.Event;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.constant.UpdateTypeModel;
@@ -56,17 +58,17 @@ import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.utils.AnimUtils;
 import com.ghy.yueplayer.utils.SPUtil;
+import com.ghy.yueplayer.utils.ViewUtils;
 import com.ghy.yueplayer.view.HeroTextView;
 import com.john.waveview.WaveView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+public class MainActivity extends BaseActivity implements View.OnClickListener,
         View.OnLongClickListener, VDHLayout.TouchDirectionListener, VDHLayout.TouchReleasedListener {
 
     public static final String TAG = "MainActivity";
@@ -94,6 +96,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageView mIvDarkMode;
     private TextView mTvDarkMode;
+
+    private ImageView mIvOnline;
+    private ImageView mIvTime;
+    private ImageView mIvAbout;
+    private ImageView mIvHelp;
+    private ImageView mIvSet;
+    private ImageView mIvExit;
 
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
@@ -127,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isOnResume;
 
-    private boolean mClickCloseDrawer;
-
     /**
      * YUE动画管理
      */
@@ -139,12 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private CircleAnimManager mCircleAnimManager;
 
+    private int mPagerPosition;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MA = this;
-        EventBus.getDefault().register(this);
 
         //启动音乐服务
         Intent service = new Intent(this, MusicPlayService.class);
@@ -199,13 +212,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    favour_music.setImageResource(R.mipmap.note_btn_love);
-                    local_music.setImageResource(R.mipmap.icon_music_selected);
-                } else if (position == 1) {
-                    favour_music.setImageResource(R.mipmap.note_btn_loved_white);
-                    local_music.setImageResource(R.mipmap.icon_music_unselected);
-                }
+                mPagerPosition = position;
+                setMusicLoveIcon();
             }
 
             @Override
@@ -215,7 +223,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void initView() {
+    private void setMusicLoveIcon() {
+        if (mPagerPosition == 0) {
+            if (Global.DAY_MODE) {
+                local_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.icon_music_selected, R.color.dn_page_title));
+                favour_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.note_btn_love, R.color.dn_page_title));
+            } else {
+                local_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.icon_music_selected, R.color.dn_page_title_night));
+                favour_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.note_btn_love, R.color.dn_page_title_night));
+            }
+        } else if (mPagerPosition == 1) {
+            if (Global.DAY_MODE) {
+                local_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.icon_music_unselected, R.color.dn_page_title));
+                favour_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.note_btn_loved_white, R.color.dn_page_title));
+            } else {
+                local_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.icon_music_unselected, R.color.dn_page_title_night));
+                favour_music.setImageDrawable(ViewUtils.getTintDrawable(this,
+                        R.mipmap.note_btn_loved_white, R.color.dn_page_title_night));
+            }
+        }
+    }
+
+    @Override
+    protected void initView() {
         mViewPagerMain = findViewById(R.id.viewPager_main);
 
         local_music = findViewById(R.id.local_music);
@@ -231,6 +268,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerContent = findViewById(R.id.drawer_content);
         mIvDarkMode = findViewById(R.id.iv_dark_mode);
         mTvDarkMode = findViewById(R.id.tv_dark_mode);
+        mIvOnline = findViewById(R.id.iv_online);
+        mIvTime = findViewById(R.id.iv_time);
+        mIvAbout = findViewById(R.id.iv_about);
+        mIvHelp = findViewById(R.id.iv_help);
+        mIvSet = findViewById(R.id.iv_set);
+        mIvExit = findViewById(R.id.iv_exit);
 
         mVDHLayout = findViewById(R.id.vdh_layout);
         mPlayerImageView = findViewById(R.id.iv_play);
@@ -277,6 +320,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setDarkModeUi();
 
+    }
+
+    @Override
+    protected void initData() {
+        initIconSetting(Global.DAY_MODE);
     }
 
     private void setDarkModeUi() {
@@ -519,7 +567,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         if (mDrawerLayout.isDrawerOpen(mDrawerContent)) {
-            mClickCloseDrawer = true;
+            boolean clickCloseDrawer = true;
             int id = view.getId();
             UI.HANDLER.postDelayed(() -> {
                 switch (id) {
@@ -548,10 +596,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (id == R.id.layout7) {
                 changeDarkMode();
-                mClickCloseDrawer = false;
+                clickCloseDrawer = false;
             }
 
-            if (mClickCloseDrawer) {
+            if (clickCloseDrawer) {
                 mDrawerLayout.closeDrawer(mDrawerContent);
             }
         }
@@ -875,8 +923,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handler.removeCallbacksAndMessages(null);
         }
         UI.HANDLER.removeCallbacksAndMessages(null);
-        EventBus.getDefault().unregister(this);
         stopService();
     }
 
+    @Override
+    public void onEvent(Event event) {
+        if (event == null) {
+            return;
+        }
+        // DarkMode
+        if (Actions.ACTION_DARK_MODE_CHANGE.equals(event.getAction())) {
+            DarkModeManager.getInstance().publishDarkModeEvent();
+        }
+        super.onEvent(event);
+    }
+
+    @Override
+    public void onDarkModeChange(boolean isDayMode) {
+        super.onDarkModeChange(isDayMode);
+        initImmersionBar();
+
+        initIconSetting(isDayMode);
+    }
+
+    private void initIconSetting(boolean isDayMode) {
+        if (isDayMode) {
+            app_icon.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white, R.color.dn_page_title));
+
+            setMusicLoveIcon();
+
+            mIvOnline.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_alb, R.color.dn_page_title));
+            mIvTime.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_time, R.color.dn_page_title));
+            mIvAbout.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_about, R.color.dn_page_title));
+            mIvHelp.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_help, R.color.dn_page_title));
+            mIvSet.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_set, R.color.dn_page_title));
+            mIvExit.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_exit, R.color.dn_page_title));
+
+            mIvDarkMode.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_night_mode, R.color.dn_page_title));
+
+        } else {
+            app_icon.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white, R.color.dn_page_title_night));
+
+            setMusicLoveIcon();
+
+            mIvOnline.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_alb, R.color.dn_page_title_night));
+            mIvTime.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_time, R.color.dn_page_title_night));
+            mIvAbout.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_about, R.color.dn_page_title_night));
+            mIvHelp.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_help, R.color.dn_page_title_night));
+            mIvSet.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_set, R.color.dn_page_title_night));
+            mIvExit.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icn_exit, R.color.dn_page_title_night));
+
+            mIvDarkMode.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_day_mode, R.color.dn_page_title_night));
+        }
+    }
 }

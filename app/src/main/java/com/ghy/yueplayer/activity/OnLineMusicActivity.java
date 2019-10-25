@@ -36,7 +36,7 @@ public class OnLineMusicActivity extends BaseActivity {
     private String[] mTitles = {"榜单", "推荐", "歌单"};
 
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutId() {
         return R.layout.activity_on_line_music;
     }
 

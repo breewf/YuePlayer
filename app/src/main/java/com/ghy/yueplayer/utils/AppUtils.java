@@ -1,5 +1,6 @@
 package com.ghy.yueplayer.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -372,7 +373,9 @@ public class AppUtils {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
             versionName = pi.versionName;
-            if (TextUtils.isEmpty(versionName)) return "";
+            if (TextUtils.isEmpty(versionName)) {
+                return "";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -439,6 +442,7 @@ public class AppUtils {
      * @param context
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getDeviceID(Context context) {
         String deviceId = "";
         try {
@@ -705,6 +709,7 @@ public class AppUtils {
      * @param context
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getMac(Context context) {
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
@@ -721,6 +726,7 @@ public class AppUtils {
      * @param context
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getSSID(Context context) {
 
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -737,6 +743,7 @@ public class AppUtils {
      *
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager.getDeviceId() == null) {
@@ -784,6 +791,7 @@ public class AppUtils {
      *
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getPhoneNumber(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager.getLine1Number() == null || telephonyManager.getLine1Number().length() < 11) {
