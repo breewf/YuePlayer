@@ -10,6 +10,11 @@ import com.ghy.yueplayer.common.PreferManager;
 public class Global {
 
     /**
+     * 是否是日间模式--全局
+     */
+    public static boolean DAY_MODE = true;
+
+    /**
      * YUE动画类型
      */
     private static int mYueAnimType;

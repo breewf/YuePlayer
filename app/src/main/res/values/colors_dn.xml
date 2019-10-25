@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--colors:日间夜间模式下色值-->
+    <!--注1:色值成对出现且一一对应-->
+    <!--注2:所有名称以dn_开头，夜间名称copy日间名字并以_night结尾-->
+    <!--注3:每对色值必须要加注释头，注释文案直接copy设计稿，不可随意命名-->
+    <!--注4:每个大类原则上放在一块，如标题类，内容类，数字类等等，便于查找-->
+
+    <!--===========================================================-->
+    <!--常规的一些色值-->
+    <!--===========================================================-->
+
+    <!--全局白色-->
+    <color name="dn_white">#ffffff</color>
+    <color name="dn_white_night">#161619</color>
+
+    <!--透明-->
+    <color name="dn_transparent">#00000000</color>
+    <color name="dn_transparent_night">#00000000</color>
+
+    <!--背景-->
+    <color name="dn_bg_white">#ffffff</color>
+    <color name="dn_bg_white_night">#161619</color>
+
+    <!--页面名称-->
+    <color name="dn_page_title">#303030</color>
+    <color name="dn_page_title_night">#909198</color>
+
+    <!--刷新loading三角-->
+    <color name="dn_loading_triangle">#000000</color>
+    <color name="dn_loading_triangle_night">#c0c2c9</color>
+    <!--刷新loading三角反色-->
+    <color name="dn_loading_triangle_reverse">#ffffff</color>
+    <color name="dn_loading_triangle_reverse_night">#c0c2c9</color>
+    <!--刷新文案-->
+    <color name="dn_loading_text_color">#606060</color>
+    <color name="dn_loading_text_color_night">#c0c2c9</color>
+    <!--switch开关-->
+    <color name="dn_switch_bg">#F0F0F0</color>
+    <color name="dn_switch_bg_night">#909198</color>
+    <!--placeholder-->
+    <color name="dn_placeholder">#F8F8F8</color>
+    <color name="dn_placeholder_night">#27282D</color>
+    <!--progressbar color-->
+    <color name="dn_progress">#303030</color>
+    <color name="dn_progress_night">#606060</color>
+    <!--progressbar bg color-->
+    <color name="dn_progress_bg">#ffffff</color>
+    <color name="dn_progress_bg_night">#161619</color>
+    <!--progressbar second color-->
+    <color name="dn_progress_second">#33000000</color>
+    <color name="dn_progress_second_night">#33000000</color>
+
+    <!--蒙版1-->
+    <color name="dn_overlay_1">#64000000</color>
+    <color name="dn_overlay_1_night">#80000000</color>
+
+
+    <!--===========================================================-->
+    <!--不在设计搞的一些背景、颜色等，如按压效果之类-->
+    <!--===========================================================-->
+
+    <color name="dn_gary_bg_e5e5e5">#e5e5e5</color>
+    <color name="dn_gary_bg_e5e5e5_night">#27282d</color>
+
+    <color name="dn_gary_bg_e2e2e2">#e2e2e2</color>
+    <color name="dn_gary_bg_e2e2e2_night">#27282d</color>
+
+    <color name="dn_gary_bg_f0f0f0">#f0f0f0</color>
+    <color name="dn_gary_bg_f0f0f0_night">#27282d</color>
+
+    <color name="dn_gary_bg_f8f8f8">#F8F8F8</color>
+    <color name="dn_gary_bg_f8f8f8_night">#27282d</color>
+
+    <color name="dn_gary_bg_c0c0c0">#c0c0c0</color>
+    <color name="dn_gary_bg_c0c0c0_night">#27282d</color>
+
+    <color name="dn_black_bg_dialog">#7b000000</color>
+    <color name="dn_black_bg_dialog_night">#7b000000</color>
+
+
+    <!--===========================================================-->
+    <!--背景相关-->
+    <!--===========================================================-->
+
+    <!--灰底-->
+    <color name="dn_gary_bg">#f5f5f5</color>
+    <color name="dn_gary_bg_night">#0e0e0f</color>
+    <!--灰底1-->
+    <color name="dn_gary_bg_1">#f5f5f5</color>
+    <color name="dn_gary_bg_1_night">#0e0e0f</color>
+    <!--灰底2-->
+    <color name="dn_gary_bg_2">#f5f5f5</color>
+    <color name="dn_gary_bg_2_night">#27282D</color>
+    <!--灰底3-->
+    <color name="dn_gary_bg_3">#F8F8F8</color>
+    <color name="dn_gary_bg_3_night">#27282D</color>
+    <!--灰底4-->
+    <color name="dn_gary_bg_4">#F0F0F0</color>
+    <color name="dn_gary_bg_4_night">#27282D</color>
+    <!--灰底5-->
+    <color name="dn_gary_bg_5">#c0c0c0</color>
+    <color name="dn_gary_bg_5_night">#606167</color>
+    <!--灰底6-->
+    <color name="dn_gary_bg_6">#303030</color>
+    <color name="dn_gary_bg_6_night">#909198</color>
+    <!--灰底7-->
+    <color name="dn_gary_bg_7">#f0f0f0</color>
+    <color name="dn_gary_bg_7_night">#161619</color>
+    <!--灰底8-->
+    <color name="dn_gary_bg_8">#303030</color>
+    <color name="dn_gary_bg_8_night">#606167</color>
+
+    <!--背景2-->
+    <color name="dn_bg_2">#FF6060</color>
+    <color name="dn_bg_2_night">#BC3535</color>
+    <!--背景3-->
+    <color name="dn_bg_3">#909090</color>
+    <color name="dn_bg_3_night">#606167</color>
+    <!--背景4-->
+    <color name="dn_bg_4">#ffffff</color>
+    <color name="dn_bg_4_night">#27282D</color>
+    <!--背景5-->
+    <color name="dn_bg_5">#F63756</color>
+    <color name="dn_bg_5_night">#A73030</color>
+    <!--背景6-->
+    <color name="dn_bg_6">#41C360</color>
+    <color name="dn_bg_6_night">#0F8957</color>
+    <!--背景7-->
+    <color name="dn_bg_7">#f5f5f5</color>
+    <color name="dn_bg_7_night">#000000</color>
+    <!--背景8-->
+    <color name="dn_bg_8">#f5f5f5</color>
+    <color name="dn_bg_8_night">#161619</color>
+
+
+    <!--===========================================================-->
+    <!--分割线、框等相关-->
+    <!--===========================================================-->
+
+    <!--线框-->
+    <color name="dn_line_frame">#e3e3e3</color>
+    <color name="dn_line_frame_night">#27282d</color>
+    <!--线框2-->
+    <color name="dn_line_frame_2">#e8e8e8</color>
+    <color name="dn_line_frame_2_night">#606167</color>
+    <!--线框3-->
+    <color name="dn_line_frame_3">#F5F5F5</color>
+    <color name="dn_line_frame_3_night">#000000</color>
+    <!--线框4-->
+    <color name="dn_line_frame_4">#F5F5F5</color>
+    <color name="dn_line_frame_4_night">#27282d</color>
+    <!--线框5-->
+    <color name="dn_line_frame_5">#C0C0C0</color>
+    <color name="dn_line_frame_5_night">#606167</color>
+    <!--线框6-->
+    <color name="dn_line_frame_6">#FF6060</color>
+    <color name="dn_line_frame_6_night">#BC3535</color>
+    <!--线框7-->
+    <color name="dn_line_frame_7">#303030</color>
+    <color name="dn_line_frame_7_night">#909198</color>
+    <!--线框8-->
+    <color name="dn_line_frame_8">#e3e3e3</color>
+    <color name="dn_line_frame_8_night">#606167</color>
+    <!--分割线-->
+    <color name="dn_dividing_line">#E8E8E8</color>
+    <color name="dn_dividing_line_night">#27282D</color>
+    <!--分割线2-->
+    <color name="dn_dividing_line_2">#e8e8e8</color>
+    <color name="dn_dividing_line_2_night">#606167</color>
+    <!--分割线4-->
+    <color name="dn_dividing_line_4">#C0C0C0</color>
+    <color name="dn_dividing_line_4_night">#606167</color>
+    <!--分割线5-->
+    <color name="dn_dividing_line_5">#f5f5f5</color>
+    <color name="dn_dividing_line_5_night">#161619</color>
+    <!--分割线6-->
+    <color name="dn_dividing_line_6">#e5e5e5</color>
+    <color name="dn_dividing_line_6_night">#47484D</color>
+    <!--分割线7-->
+    <color name="dn_dividing_line_7">#E8E8E8</color>
+    <color name="dn_dividing_line_7_night">#161619</color>
+
+
+    <!--===========================================================-->
+    <!--状态栏、导航栏-->
+    <!--===========================================================-->
+
+    <!--状态栏颜色-->
+    <color name="dn_status_bar_color">#ffffff</color>
+    <color name="dn_status_bar_color_night">#161619</color>
+    <!--导航栏颜色-->
+    <color name="dn_navigation_bar_color">#eeeeee</color>
+    <color name="dn_navigation_bar_color_night">#27282d</color>
+    <!--导航栏颜色反色-->
+    <color name="dn_navigation_bar_color_reverse">#27282d</color>
+    <color name="dn_navigation_bar_color_reverse_night">#eeeeee</color>
+
+
+    <!--===========================================================-->
+    <!--标题相关-->
+    <!--===========================================================-->
+
+    <!--焦点图标题-->
+    <color name="dn_banner_title">#ffffff</color>
+    <color name="dn_banner_title_night">#c0c2c9</color>
+
+    <!--大图标题1-->
+    <color name="dn_big_pic_title_1">#ffffff</color>
+    <color name="dn_big_pic_title_1_night">#c0c2c9</color>
+    <!--大图标题2-->
+    <color name="dn_big_pic_title_2">#ffffff</color>
+    <color name="dn_big_pic_title_2_night">#c0c2c9</color>
+
+    <!--小图标题1-->
+    <color name="dn_small_pic_title_1">#303030</color>
+    <color name="dn_small_pic_title_1_night">#909198</color>
+    <!--小图标题2-->
+    <color name="dn_small_pic_title_2">#909090</color>
+    <color name="dn_small_pic_title_2_night">#606167</color>
+    <!--大图标题3-->
+    <color name="dn_big_pic_title_3">#303030</color>
+    <color name="dn_big_pic_title_3_night">#909198</color>
+    <!--大图标题4-->
+    <color name="dn_big_pic_title_4">#303030</color>
+    <color name="dn_big_pic_title_4_night">#c0c2c9</color>
+
+    <!--频道名-->
+    <color name="dn_channel_name">#303030</color>
+    <color name="dn_channel_name_night">#c0c2c9</color>
+    <!--频道名2-->
+    <color name="dn_channel_name_2">#909090</color>
+    <color name="dn_channel_name_2_night">#909198</color>
+    <!--频道名3-->
+    <color name="dn_channel_name_3">#FFFFFF</color>
+    <color name="dn_channel_name_3_night">#C0C2C9</color>
+    <!--频道名4-->
+    <color name="dn_channel_name_4">#C0C0C0</color>
+    <color name="dn_channel_name_4_night">#909198</color>
+    <!--选中下划线-->
+    <color name="dn_channel_line">#303030</color>
+    <color name="dn_channel_line_night">#606167</color>
+    <!--选中下划线2-->
+    <color name="dn_channel_line_2">#FFFFFF</color>
+    <color name="dn_channel_line_2_night">#C0C2C9</color>
+
+    <!--标题1-->
+    <color name="dn_title_1">#ffffff</color>
+    <color name="dn_title_1_night">#c0c2c9</color>
+    <!--标题2-->
+    <color name="dn_title_2">#303030</color>
+    <color name="dn_title_2_night">#909198</color>
+    <!--标题3-->
+    <color name="dn_title_3">#303030</color>
+    <color name="dn_title_3_night">#909198</color>
+    <!--标题4-->
+    <color name="dn_title_4">#303030</color>
+    <color name="dn_title_4_night">#909198</color>
+    <!--标题5-->
+    <color name="dn_title_5">#909090</color>
+    <color name="dn_title_5_night">#909198</color>
+    <!--标题6-->
+    <color name="dn_title_6">#909090</color>
+    <color name="dn_title_6_night">#909198</color>
+    <!--标题7-->
+    <color name="dn_title_7">#ffffff</color>
+    <color name="dn_title_7_night">#C0C2C9</color>
+    <!--标题8-->
+    <color name="dn_title_8">#303030</color>
+    <color name="dn_title_8_night">#909198</color>
+
+
+    <!--===========================================================-->
+    <!--内容、文本相关-->
+    <!--===========================================================-->
+
+    <!--内容1-->
+    <color name="dn_content_1">#303030</color>
+    <color name="dn_content_1_night">#909198</color>
+    <!--内容2-->
+    <color name="dn_content_2">#606060</color>
+    <color name="dn_content_2_night">#909198</color>
+    <!--内容3-->
+    <color name="dn_content_3">#606060</color>
+    <color name="dn_content_3_night">#909198</color>
+    <!--内容4-->
+    <color name="dn_content_4">#303030</color>
+    <color name="dn_content_4_night">#909198</color>
+    <!--内容5--><color name="dn_content_5">#303030</color>x
+    <color name="dn_content_5_night">#909198</color>
+    <!--内容6-->
+    <color name="dn_content_6">#ffffff</color>
+    <color name="dn_content_6_night">#C0C2C9</color>
+    <!--内容7-->
+    <color name="dn_content_7">#ffffff</color>
+    <color name="dn_content_7_night">#909198</color>
+    <!--内容8-->
+    <color name="dn_content_8">#303030</color>
+    <color name="dn_content_8_night">#606167</color>
+    <!--内容9-->
+    <color name="dn_content_9">#909090</color>
+    <color name="dn_content_9_night">#909198</color>
+    <!--内容10-->
+    <color name="dn_content_10">#909090</color>
+    <color name="dn_content_10_night">#909198</color>
+    <!--内容11-->
+    <color name="dn_content_11">#606060</color>
+    <color name="dn_content_11_night">#909198</color>
+    <!--内容12-->
+    <color name="dn_content_12">#FF6060</color>
+    <color name="dn_content_12_night">#BC3535</color>
+    <!--内容13-->
+    <color name="dn_content_13">#909090</color>
+    <color name="dn_content_13_night">#909198</color>
+    <!--内容14-->
+    <color name="dn_content_14">#303030</color>
+    <color name="dn_content_14_night">#606167</color>
+    <!--内容15-->
+    <color name="dn_content_15">#303030</color>
+    <color name="dn_content_15_night">#606167</color>
+    <!--内容16-->
+    <color name="dn_content_16">#909090</color>
+    <color name="dn_content_16_night">#909198</color>
+    <!--内容17-->
+    <color name="dn_content_17">#606060</color>
+    <color name="dn_content_17_night">#606167</color>
+
+
+    <!--===========================================================-->
+    <!--数字相关-->
+    <!--===========================================================-->
+
+    <!--数字1-->
+    <color name="dn_number_1">#c0c0c0</color>
+    <color name="dn_number_1_night">#606167</color>
+    <!--数字2-->
+    <color name="dn_number_2">#ff6060</color>
+    <color name="dn_number_2_night">#bc3535</color>
+    <!--数字3-->
+    <color name="dn_number_3">#C0C0C0</color>
+    <color name="dn_number_3_night">#606167</color>
+    <!--数字4-->
+    <color name="dn_number_4">#C0C0C0</color>
+    <color name="dn_number_4_night">#606167</color>
+    <!--数字5-->
+    <color name="dn_number_5">#FF6060</color>
+    <color name="dn_number_5_night">#BC3535</color>
+    <!--数字6-->
+    <color name="dn_number_6">#FF6060</color>
+    <color name="dn_number_6_night">#BC3535</color>
+    <!--数字7-->
+    <color name="dn_number_7">#303030</color>
+    <color name="dn_number_7_night">#c0c2c9</color>
+    <!--数字8-->
+    <color name="dn_number_8">#303030</color>
+    <color name="dn_number_8_night">#909198</color>
+    <!--数字9-->
+    <color name="dn_number_9">#378BD3</color>
+    <color name="dn_number_9_night">#2974B4</color>
+    <!--数字10-->
+    <color name="dn_number_10">#378BD3</color>
+    <color name="dn_number_10_night">#2974B4</color>
+    <!--数字11-->
+    <color name="dn_number_11">#FF6060</color>
+    <color name="dn_number_11_night">#BC3535</color>
+    <!--数字12-->
+    <color name="dn_number_12">#FF6060</color>
+    <color name="dn_number_12_night">#BC3535</color>
+    <!--数字13-->
+    <color name="dn_number_13">#FF6060</color>
+    <color name="dn_number_13_night">#BC3535</color>
+    <!--数字14-->
+    <color name="dn_number_14">#FF6060</color>
+    <color name="dn_number_14_night">#BC3535</color>
+    <!--数字15-->
+    <color name="dn_number_15">#303030</color>
+    <color name="dn_number_15_night">#C0C2C9</color>
+    <!--数字16-->
+    <color name="dn_number_16">#303030</color>
+    <color name="dn_number_16_night">#C0C2C9</color>
+    <!--数字20-->
+    <color name="dn_number_20">#606060</color>
+    <color name="dn_number_20_night">#909198</color>
+
+
+    <!--===========================================================-->
+    <!--用户相关-->
+    <!--===========================================================-->
+
+    <!--用户名1-->
+    <color name="dn_user_name_1">#303030</color>
+    <color name="dn_user_name_1_night">#909198</color>
+    <!--用户名2-->
+    <color name="dn_user_name_2">#303030</color>
+    <color name="dn_user_name_2_night">#C0C2C9</color>
+    <!--用户名3-->
+    <color name="dn_user_name_3">#303030</color>
+    <color name="dn_user_name_3_night">#909198</color>
+    <!--用户名5-->
+    <color name="dn_user_name_5">#909090</color>
+    <color name="dn_user_name_5_night">#909198</color>
+
+
+    <!--===========================================================-->
+    <!--辅助字、text相关-->
+    <!--===========================================================-->
+
+    <!--辅助字1-->
+    <color name="dn_assist_text_1">#c0c0c0</color>
+    <color name="dn_assist_text_1_night">#606167</color>
+    <!--辅助字2-->
+    <color name="dn_assist_text_2">#ffffff</color>
+    <color name="dn_assist_text_2_night">#909198</color>
+    <!--辅助字3-->
+    <color name="dn_assist_text_3">#909090</color>
+    <color name="dn_assist_text_3_night">#606167</color>
+    <!--辅助字4-->
+    <color name="dn_assist_text_4">#C0C0C0</color>
+    <color name="dn_assist_text_4_night">#606167</color>
+    <!--辅助字5-->
+    <color name="dn_assist_text_5">#909090</color>
+    <color name="dn_assist_text_5_night">#C0C2C9</color>
+    <!--辅助字6-->
+    <color name="dn_assist_text_6">#ffffff</color>
+    <color name="dn_assist_text_6_night">#909198</color>
+    <!--辅助字7-->
+    <color name="dn_assist_text_7">#909090</color>
+    <color name="dn_assist_text_7_night">#606167</color>
+    <!--辅助字8-->
+    <color name="dn_assist_text_8">#606060</color>
+    <color name="dn_assist_text_8_night">#909198</color>
+    <!--辅助字9-->
+    <color name="dn_assist_text_9">#C0C0C0</color>
+    <color name="dn_assist_text_9_night">#606167</color>
+    <!--辅助字11-->
+    <color name="dn_assist_text_11">#909090</color>
+    <color name="dn_assist_text_11_night">#909198</color>
+    <!--辅助字12-->
+    <color name="dn_assist_text_12">#ffffff</color>
+    <color name="dn_assist_text_12_night">#909198</color>
+    <!--辅助字13-->
+    <color name="dn_assist_text_13">#ff6060</color>
+    <color name="dn_assist_text_13_night">#bc3535</color>
+    <!--辅助字14-->
+    <color name="dn_assist_text_14">#606060</color>
+    <color name="dn_assist_text_14_night">#909198</color>
+    <!--辅助字15-->
+    <color name="dn_assist_text_15">#303030</color>
+    <color name="dn_assist_text_15_night">#C0C2C9</color>
+    <!--辅助字16-->
+    <color name="dn_assist_text_16">#C0C0C0</color>
+    <color name="dn_assist_text_16_night">#606167</color>
+    <!--辅助字19-->
+    <color name="dn_assist_text_19">#BBBBBB</color>
+    <color name="dn_assist_text_19_night">#27282D</color>
+    <!--辅助字20-->
+    <color name="dn_assist_text_20">#0F8957</color>
+    <color name="dn_assist_text_20_night">#0F8957</color>
+    <!--辅助字21-->
+    <color name="dn_assist_text_21">#ffffff</color>
+    <color name="dn_assist_text_21_night">#C0C2C9</color>
+    <!--辅助字22-->
+    <color name="dn_assist_text_22">#303030</color>
+    <color name="dn_assist_text_22_night">#909198</color>
+    <!--辅助字23-->
+    <color name="dn_assist_text_23">#ff6060</color>
+    <color name="dn_assist_text_23_night">#bc3535</color>
+    <!--辅助字24-->
+    <color name="dn_assist_text_24">#909090</color>
+    <color name="dn_assist_text_24_night">#606167</color>
+    <!--辅助字25-->
+    <color name="dn_assist_text_25">#C0C0C0</color>
+    <color name="dn_assist_text_25_night">#606167</color>
+    <!--辅助字26-->
+    <color name="dn_assist_text_26">#378BD3</color>
+    <color name="dn_assist_text_26_night">#2974B4</color>
+    <!--辅助字27-->
+    <color name="dn_assist_text_27">#909090</color>
+    <color name="dn_assist_text_27_night">#606167</color>
+    <!--辅助字28-->
+    <color name="dn_assist_text_28">#c0c0c0</color>
+    <color name="dn_assist_text_28_night">#47484d</color>
+
+
+    <!--===========================================================-->
+    <!--按钮相关-->
+    <!--===========================================================-->
+
+    <!--按钮1-->
+    <color name="dn_btn_1">#FF6060</color>
+    <color name="dn_btn_1_night">#BC3535</color>
+    <!--按钮2-->
+    <color name="dn_btn_2">#C0C0C0</color>
+    <color name="dn_btn_2_night">#606167</color>
+    <!--按钮4-->
+    <color name="dn_btn_4">#ffffff</color>
+    <color name="dn_btn_4_night">#C0C2C9</color>
+    <!--按钮5-->
+    <color name="dn_btn_5">#FF6060</color>
+    <color name="dn_btn_5_night">#BC3535</color>
+    <!--按钮6-->
+    <color name="dn_btn_6">#ffffff</color>
+    <color name="dn_btn_6_night">#C0C2C9</color>
+    <!--按钮7-->
+    <color name="dn_btn_7">#606060</color>
+    <color name="dn_btn_7_night">#909198</color>
+    <!--按钮8-->
+    <color name="dn_btn_8">#c0c0c0</color>
+    <color name="dn_btn_8_night">#606167</color>
+    <!--按钮10-->
+    <color name="dn_btn_10">#C0C0C0</color>
+    <color name="dn_btn_10_night">#606167</color>
+    <!--按钮11-->
+    <color name="dn_btn_11">#ffffff</color>
+    <color name="dn_btn_11_night">#C0C2C9</color>
+    <!--按钮13-->
+    <color name="dn_btn_13">#FF6060</color>
+    <color name="dn_btn_13_night">#BC3535</color>
+    <!--按钮14-->
+    <color name="dn_btn_14">#909090</color>
+    <color name="dn_btn_14_night">#606167</color>
+    <!--按钮15-->
+    <color name="dn_btn_15">#C0C0C0</color>
+    <color name="dn_btn_15_night">#606167</color>
+    <!--按钮16-->
+    <color name="dn_btn_16">#909090</color>
+    <color name="dn_btn_16_night">#606167</color>
+
+
+    <!--===========================================================-->
+    <!--名称、文本等其他相关-->
+    <!--===========================================================-->
+
+    <!--功能名称-->
+    <color name="dn_fun_title">#303030</color>
+    <color name="dn_fun_title_night">#909198</color>
+
+
+    <!--===========================================================-->
+    <!--特殊色值相关-->
+    <!--===========================================================-->
+
+    <!--特殊1-->
+    <color name="dn_special_1">#777799</color>
+    <color name="dn_special_1_night">#5A5A77</color>
+    <!--特殊2-->
+    <color name="dn_special_2">#777799</color>
+    <color name="dn_special_2_night">#5A5A77</color>
+
+
+    <!--===========================================================-->
+    <!--标签相关-->
+    <!--===========================================================-->
+
+    <!--标签1-->
+    <color name="dn_label_1">#e3d2b8</color>
+    <color name="dn_label_1_night">#c9ad86</color>
+
+
+    <!--===========================================================-->
+    <!--其他Others相关-->
+    <!--===========================================================-->
+
+
+    <!--===========================================================-->
+    <!--test色值，成对添加，这里可以随意添加，不会在线上出现-->
+    <!--===========================================================-->
+    <color name="dn_test_god_bg">#F0F0F0</color>
+    <color name="dn_test_god_bg_night">#909198</color>
+
+    <color name="dn_test_god_title">#303030</color>
+    <color name="dn_test_god_title_night">#F0F0F0</color>
+
+
+    <!--===========================================================-->
+    <!--tools预览色值，不用成对添加，这里可以随意添加，但也要用dn_开头-->
+    <!--===========================================================-->
+    <color name="dn_tools_white">#ffffff</color>
+    <color name="dn_tools_black">#000000</color>
+    <color name="dn_tools_black30">#30000000</color>
+    <color name="dn_tools_red">#ff6060</color>
+
+</resources>

@@ -23,8 +23,8 @@ import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.blurlibrary.EasyBlur;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
-import com.ghy.yueplayer.util.AppUtils;
-import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.utils.AppUtils;
+import com.ghy.yueplayer.utils.SPUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;

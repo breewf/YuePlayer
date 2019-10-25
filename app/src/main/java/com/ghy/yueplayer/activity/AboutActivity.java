@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.util.AppUtils;
+import com.ghy.yueplayer.utils.AppUtils;
 
 public class AboutActivity extends AppCompatActivity {
 

@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 import com.ghy.yueplayer.constant.Global;
-import com.ghy.yueplayer.util.ScreenUtils;
-import com.ghy.yueplayer.util.Utils;
+import com.ghy.yueplayer.utils.ScreenUtils;
+import com.ghy.yueplayer.utils.Utils;
 
 import static com.ghy.yueplayer.constant.Const.CIRCLE_ANIM_TYPE_1;
 import static com.ghy.yueplayer.constant.Const.CIRCLE_ANIM_TYPE_2;

@@ -23,7 +23,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.util.AppUtils;
+import com.ghy.yueplayer.utils.AppUtils;
 
 import java.io.File;
 import java.util.ArrayList;

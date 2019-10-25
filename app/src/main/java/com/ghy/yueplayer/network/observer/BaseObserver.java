@@ -10,8 +10,8 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.constant.Code;
 import com.ghy.yueplayer.constant.HttpConfig;
 import com.ghy.yueplayer.network.BaseEntity;
-import com.ghy.yueplayer.util.NetworkUtils;
-import com.ghy.yueplayer.util.TimeUtils;
+import com.ghy.yueplayer.utils.NetworkUtils;
+import com.ghy.yueplayer.utils.TimeUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

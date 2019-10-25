@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.MusicInfo;
-import com.ghy.yueplayer.util.ViewHolder;
+import com.ghy.yueplayer.utils.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

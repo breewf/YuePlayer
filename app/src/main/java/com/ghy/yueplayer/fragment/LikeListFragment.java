@@ -22,7 +22,7 @@ import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.db.DBHelper;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
-import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.utils.SPUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;

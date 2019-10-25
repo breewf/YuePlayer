@@ -16,7 +16,7 @@ import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.OnLineListInfo;
 import com.ghy.yueplayer.network.RetrofitManager;
 import com.ghy.yueplayer.network.observer.EntityObserverNoBase;
-import com.ghy.yueplayer.util.AnimUtils;
+import com.ghy.yueplayer.utils.AnimUtils;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.Bind;

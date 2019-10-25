@@ -8,6 +8,14 @@ package com.ghy.yueplayer.constant;
 public class Const {
 
     /**
+     * 夜间模式后缀标识
+     */
+    public static final String NIGHT_SUFFIX = "_night";
+
+    public static final String RESOURCE_NAME_COLOR = "color";
+    public static final String RESOURCE_NAME_DRAWABLE = "drawable";
+
+    /**
      * ========================================
      * YUE动画类型
      * ========================================

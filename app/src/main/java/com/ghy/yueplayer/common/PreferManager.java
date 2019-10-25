@@ -134,4 +134,19 @@ public class PreferManager {
         return sp.getFloat(key, defaultValue);
     }
 
+    /**
+     * ================================================
+     * DarkMode配置
+     * ================================================
+     */
+    public static final String DARK_MODE_CONFIG = "dark_mode_config";
+
+    public static int getDarkModeConfig() {
+        return sp.getInt(DARK_MODE_CONFIG, DarkModeConfig.DARK_MODE_DAY);
+    }
+
+    public static void setDarkModeConfig(int darkMode) {
+        edit.putInt(DARK_MODE_CONFIG, darkMode).apply();
+    }
+
 }

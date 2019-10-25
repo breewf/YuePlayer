@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.bean.OnLineListInfo;
 import com.ghy.yueplayer.main.ImageLoader;
-import com.ghy.yueplayer.util.ViewHolder;
+import com.ghy.yueplayer.utils.ViewHolder;
 
 /**
  * Created by GHY on 2017/7/31.

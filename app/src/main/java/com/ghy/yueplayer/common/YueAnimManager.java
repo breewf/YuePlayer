@@ -18,7 +18,7 @@ import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.helper.AnimHelper;
 import com.ghy.yueplayer.service.MusicPlayService;
-import com.ghy.yueplayer.util.AppUtils;
+import com.ghy.yueplayer.utils.AppUtils;
 import com.ghy.yueplayer.view.HeroTextView;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;

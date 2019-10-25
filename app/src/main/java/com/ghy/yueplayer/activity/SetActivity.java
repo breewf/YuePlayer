@@ -16,7 +16,7 @@ import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.global.Constant;
-import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.utils.SPUtil;
 
 public class SetActivity extends Activity {
 

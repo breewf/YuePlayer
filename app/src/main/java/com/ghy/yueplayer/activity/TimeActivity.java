@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.TimeService;
-import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.utils.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
 
 import java.text.SimpleDateFormat;

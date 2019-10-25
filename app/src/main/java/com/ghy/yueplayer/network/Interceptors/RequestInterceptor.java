@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.ghy.yueplayer.constant.HttpConfig;
 import com.ghy.yueplayer.network.utils.ZipHelper;
-import com.ghy.yueplayer.util.TimeUtils;
+import com.ghy.yueplayer.utils.TimeUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.base.BaseActivity;
-import com.ghy.yueplayer.util.AnimUtils;
+import com.ghy.yueplayer.utils.AnimUtils;
 
 import butterknife.OnClick;
 

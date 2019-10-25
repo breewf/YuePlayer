@@ -22,7 +22,7 @@ import com.ghy.yueplayer.constant.UpdateType;
 import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.fragment.PlayFragment;
 import com.ghy.yueplayer.global.Constant;
-import com.ghy.yueplayer.util.SPUtil;
+import com.ghy.yueplayer.utils.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
