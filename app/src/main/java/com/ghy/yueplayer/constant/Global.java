@@ -12,7 +12,7 @@ public class Global {
     /**
      * 是否是日间模式--全局
      */
-    public static boolean DAY_MODE = true;
+    public static boolean DAY_MODE = false;
 
     /**
      * YUE动画类型

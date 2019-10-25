@@ -40,4 +40,7 @@
     <string name="play_ing">playing…</string>
     <string name="play_er">player</string>
 
+    <string name="dark_mode_day">day</string>
+    <string name="dark_mode_night">night</string>
+
 </resources>

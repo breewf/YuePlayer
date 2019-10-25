@@ -39,18 +39,21 @@ import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.bean.MusicInfo;
 import com.ghy.yueplayer.common.CircleAnimManager;
+import com.ghy.yueplayer.common.DarkModeConfig;
+import com.ghy.yueplayer.common.DarkModeManager;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.common.YueAnimManager;
 import com.ghy.yueplayer.component.musicview.MusicNoteViewLayout;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.constant.UpdateTypeModel;
 import com.ghy.yueplayer.fragment.LikeListFragment;
 import com.ghy.yueplayer.fragment.MusicListFragment;
 import com.ghy.yueplayer.global.Constant;
+import com.ghy.yueplayer.helper.AnimHelper;
 import com.ghy.yueplayer.main.PlayControlView;
 import com.ghy.yueplayer.main.VDHLayout;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.service.TimeService;
-import com.ghy.yueplayer.helper.AnimHelper;
 import com.ghy.yueplayer.utils.AnimUtils;
 import com.ghy.yueplayer.utils.SPUtil;
 import com.ghy.yueplayer.view.HeroTextView;
@@ -87,7 +90,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 侧滑菜单布局
      */
-    private RelativeLayout drawer_content;
+    private RelativeLayout mDrawerContent;
+
+    private ImageView mIvDarkMode;
+    private TextView mTvDarkMode;
 
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
@@ -113,13 +119,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private com.nostra13.universalimageloader.core.ImageLoader mImageLoader;
     private DisplayImageOptions options;
 
-    String musicUrl;
-    String musicName;
-    String musicArtist;
-    String musicAlbumUri;
-    int musicId;
+    private String musicUrl;
+    private String musicName;
+    private String musicArtist;
+    private String musicAlbumUri;
+    private int musicId;
 
-    boolean isOnResume;
+    private boolean isOnResume;
+
+    private boolean mClickCloseDrawer;
 
     /**
      * YUE动画管理
@@ -220,7 +228,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mMusicNoteViewLayout = findViewById(R.id.note_layout);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        drawer_content = findViewById(R.id.drawer_content);
+        mDrawerContent = findViewById(R.id.drawer_content);
+        mIvDarkMode = findViewById(R.id.iv_dark_mode);
+        mTvDarkMode = findViewById(R.id.tv_dark_mode);
 
         mVDHLayout = findViewById(R.id.vdh_layout);
         mPlayerImageView = findViewById(R.id.iv_play);
@@ -264,6 +274,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotationAnim.setDuration(10000);
         rotationAnim.setInterpolator(new LinearInterpolator());
         rotationAnim.setRepeatCount(ValueAnimator.INFINITE);
+
+        setDarkModeUi();
+
+    }
+
+    private void setDarkModeUi() {
+        if (!Global.DAY_MODE) {
+            mIvDarkMode.setImageResource(R.mipmap.icon_day_mode);
+            mTvDarkMode.setText(getString(R.string.dark_mode_day));
+        } else {
+            mIvDarkMode.setImageResource(R.mipmap.icon_night_mode);
+            mTvDarkMode.setText(getString(R.string.dark_mode_night));
+        }
     }
 
     public synchronized boolean isFastClick() {
@@ -492,9 +515,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param view
      */
     public void drawerLayoutClick(final View view) {
-        if (mDrawerLayout.isDrawerOpen(drawer_content)) {
+        if (mDrawerLayout == null) {
+            return;
+        }
+        if (mDrawerLayout.isDrawerOpen(mDrawerContent)) {
+            mClickCloseDrawer = true;
+            int id = view.getId();
             UI.HANDLER.postDelayed(() -> {
-                int id = view.getId();
                 switch (id) {
                     case R.id.layout1:
                         startActivity(OnLineMusicActivity.class);
@@ -518,9 +545,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                 }
             }, 400);
-            mDrawerLayout.closeDrawer(drawer_content);
-        }
 
+            if (id == R.id.layout7) {
+                changeDarkMode();
+                mClickCloseDrawer = false;
+            }
+
+            if (mClickCloseDrawer) {
+                mDrawerLayout.closeDrawer(mDrawerContent);
+            }
+        }
+    }
+
+    private void changeDarkMode() {
+        if (!Global.DAY_MODE) {
+            DarkModeManager.getInstance().setDarkMode(DarkModeConfig.DARK_MODE_DAY);
+        } else {
+            DarkModeManager.getInstance().setDarkMode(DarkModeConfig.DARK_MODE_NIGHT);
+        }
+        setDarkModeUi();
     }
 
     private void startActivity(Class<?> activity) {

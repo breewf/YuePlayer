@@ -3,6 +3,7 @@ package com.ghy.yueplayer;
 import android.app.Application;
 
 import com.ghy.yueplayer.base.lifecycle.ActivityLifecycleCallbacksImpl;
+import com.ghy.yueplayer.common.DarkModeManager;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.constant.Global;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,6 +36,16 @@ public class PlayerApplication extends Application {
         PreferManager.init(this);
 
         initGlobalConfig();
+
+        // DarkMode
+        initDarkModeSet();
+    }
+
+    /**
+     * DarkMode配置
+     */
+    private void initDarkModeSet() {
+        DarkModeManager.getInstance().setAppDarkMode();
     }
 
     private void initGlobalConfig() {
