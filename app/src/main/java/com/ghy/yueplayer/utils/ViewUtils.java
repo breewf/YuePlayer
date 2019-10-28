@@ -457,7 +457,7 @@ public class ViewUtils {
      * @param recyclerView recyclerView
      */
     public static void initRvDivider(RecyclerView recyclerView, @RecyclerViewDivider.Style int style, float size) {
-        initRvDivider(recyclerView, style, size, R.color.dn_gary_bg_1, R.color.dn_gary_bg_1_night);
+        initRvDivider(recyclerView, style, size, R.color.dn_gary_bg, R.color.dn_gary_bg_night);
     }
 
     /**
