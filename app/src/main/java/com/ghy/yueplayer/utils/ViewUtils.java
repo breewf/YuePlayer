@@ -419,13 +419,13 @@ public class ViewUtils {
     /**
      * 初始化recyclerView分割线
      * 默认RecyclerViewDivider.Style.BETWEEN
-     * 默认5f
+     * 默认1f
      * 默认全局灰底dn_gary_bg_1
      *
      * @param recyclerView recyclerView
      */
     public static void initRvDivider(RecyclerView recyclerView) {
-        initRvDivider(recyclerView, RecyclerViewDivider.Style.BETWEEN, 5F);
+        initRvDivider(recyclerView, RecyclerViewDivider.Style.BETWEEN, 1F);
     }
 
     /**

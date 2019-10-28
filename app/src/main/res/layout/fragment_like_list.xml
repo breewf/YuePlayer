@@ -1,25 +1,19 @@
 <com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dn_white"
-    tools:context="com.ghy.yueplayer.fragment.LikeListFragment">
+    android:background="@color/dn_white">
 
-    <ListView
-        android:id="@+id/lv_like_music"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/music_rv_like"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/gray5"
-        android:dividerHeight="1px"
-        android:gravity="center"
-        android:listSelector="@android:color/transparent"/>
+        android:layout_height="match_parent"/>
 
     <com.ghy.yueplayer.base.view.DnTextView
         android:id="@+id/tv_like_remind"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/dn_title_1"
+        android:textColor="@color/dn_title_5"
         android:textSize="16sp"
         android:visibility="gone"/>
 

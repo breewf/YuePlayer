@@ -2,7 +2,7 @@
 <com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/music_list_bg_selector_color1"
     android:padding="5dp">
 

@@ -4,27 +4,26 @@ package com.ghy.yueplayer.fragment;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.animation.AnimationUtils;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.adapter.MusicListAdapter;
+import com.ghy.yueplayer.adapter.MusicListRvAdapter;
 import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.MusicInfo;
-import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.db.DBHelper;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.utils.MediaUtil;
 import com.ghy.yueplayer.utils.SPUtil;
+import com.ghy.yueplayer.utils.ViewUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
@@ -40,8 +39,9 @@ public class MusicListFragment extends BaseFragment {
 
     @SuppressLint("StaticFieldLeak")
     public static MusicListFragment MLF;
-    ListView lv_music;
-    MusicListAdapter musicListAdapter;
+
+    private RecyclerView mRecyclerView;
+    private MusicListRvAdapter mMusicListRvAdapter;
 
     private static String AlbumUri = "content://media/external/audio/albumart";
 
@@ -59,7 +59,6 @@ public class MusicListFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         MLF = this;
-        initView();
         AndPermission.with(getActivity())
                 .runtime()
                 .permission(Permission.WRITE_EXTERNAL_STORAGE)
@@ -82,12 +81,16 @@ public class MusicListFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        lv_music = getActivity().findViewById(R.id.lv_music);
+        mRecyclerView = getActivity().findViewById(R.id.music_rv);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mMusicListRvAdapter = new MusicListRvAdapter(getActivity(), ImageLoader.getInstance());
+        mMusicListRvAdapter.openLoadAnimation();
     }
 
     @Override
     protected void initData() {
-        setListDivider(Global.DAY_MODE);
+
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -120,13 +123,12 @@ public class MusicListFragment extends BaseFragment {
     }
 
     private void inflateListView(final List<MusicInfo> musicInfo) {
+        mRecyclerView.setAdapter(mMusicListRvAdapter);
+        mMusicListRvAdapter.setNewData(musicInfo);
 
-        musicListAdapter = new MusicListAdapter(musicInfo, getActivity(), ImageLoader.getInstance());
-        lv_music.setAdapter(musicListAdapter);
+        ViewUtils.initRvDivider(mRecyclerView);
 
-        //音乐列表点击事件
-        lv_music.setOnItemClickListener((adapterView, view, i, l) -> {
-
+        mMusicListRvAdapter.setOnItemClickListener((adapter, view, i) -> {
             if (getActivity() == null) {
                 return;
             }
@@ -168,11 +170,9 @@ public class MusicListFragment extends BaseFragment {
             //启动音乐页面
 //                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
 //                startActivity(intent);
-
         });
 
-        //长按喜欢该音乐
-        lv_music.setOnItemLongClickListener((adapterView, view, i, l) -> {
+        mMusicListRvAdapter.setOnItemLongClickListener((adapter, view, i) -> {
             //动画1 item向内缩放
             view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
                     R.anim.insert_like_item_scale_in));
@@ -212,10 +212,8 @@ public class MusicListFragment extends BaseFragment {
                 //数据库无数据则一定不会重复添加，插入数据
                 insertLikeMusic(musicName, musicArtist, musicAlbumId, musicUrl);
             }
-
             return true;
         });
-
     }
 
     private void insertLikeMusic(String musicName, String musicArtist, int musicAlbumId, String musicUrl) {
@@ -231,7 +229,6 @@ public class MusicListFragment extends BaseFragment {
         showToast(getString(R.string.add_like_list));
         //重新查询数据库并更新喜欢列表界面
         LikeListFragment.LLF.queryLikeListInfo();
-        LikeListFragment.LLF.notifyAdapter();
     }
 
     private void showToast(String s) {
@@ -239,27 +236,26 @@ public class MusicListFragment extends BaseFragment {
     }
 
     public void notifyChange(boolean isPlayLike) {
-        if (musicListAdapter != null) {
-            musicListAdapter.notifyDataSetChanged(isPlayLike);
+        if (mMusicListRvAdapter != null) {
+            mMusicListRvAdapter.notifyDataSetChanged(isPlayLike);
         }
     }
 
     public void fastClick(int toMovePosition) {
-        if (lv_music != null) {
-            lv_music.smoothScrollToPositionFromTop(toMovePosition, 0);
+        if (mRecyclerView != null && mRecyclerView.getLayoutManager() != null) {
+            mRecyclerView.getLayoutManager().scrollToPosition(toMovePosition);
         }
     }
 
     public void scrollTopPosition() {
-        if (lv_music != null) {
-            lv_music.smoothScrollToPositionFromTop(0, 0);
+        if (mRecyclerView != null && mRecyclerView.getLayoutManager() != null) {
+            mRecyclerView.getLayoutManager().scrollToPosition(0);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        notifyChange(false);
     }
 
     @Override
@@ -270,22 +266,7 @@ public class MusicListFragment extends BaseFragment {
     @Override
     public void onDarkModeChange(boolean isDayMode) {
         super.onDarkModeChange(isDayMode);
-        setListDivider(isDayMode);
-        if (musicListAdapter != null) {
-            musicListAdapter.notifyDataSetChanged(false);
-        }
-    }
-
-    private void setListDivider(boolean isDayMode) {
-        if (lv_music == null || getActivity() == null) {
-            return;
-        }
-        if (isDayMode) {
-            lv_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray1)));
-            lv_music.setDividerHeight(1);
-        } else {
-            lv_music.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray8)));
-            lv_music.setDividerHeight(1);
-        }
+        ViewUtils.initRvDivider(mRecyclerView);
+        ViewUtils.clearRecycledViewPool(mRecyclerView);
     }
 }

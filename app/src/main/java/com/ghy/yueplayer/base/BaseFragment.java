@@ -69,14 +69,14 @@ public abstract class BaseFragment extends RxFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        initView();
+        initData();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         className = getClass().getSimpleName();
-        initView();
-        initData();
     }
 
     @Subscribe

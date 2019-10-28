@@ -1,17 +1,11 @@
-<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ghy.yueplayer.base.view.DnFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dn_white"
-    tools:context="com.ghy.yueplayer.fragment.MusicListFragment">
+    android:background="@color/dn_white">
 
-    <ListView
-        android:id="@+id/lv_music"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/music_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/gray5"
-        android:dividerHeight="1px"
-        android:gravity="center"
-        android:listSelector="@android:color/transparent"/>
+        android:layout_height="match_parent"/>
 
-</com.ghy.yueplayer.base.view.DnRelativeLayout>
+</com.ghy.yueplayer.base.view.DnFrameLayout>
