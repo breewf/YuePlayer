@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ghy.yueplayer"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 11
         versionName "2.9"

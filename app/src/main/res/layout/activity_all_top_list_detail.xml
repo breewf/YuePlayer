@@ -5,9 +5,10 @@
 
     <include layout="@layout/title_bar_layout"/>
 
-    <RelativeLayout
+    <com.ghy.yueplayer.base.view.DnRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/dn_white">
 
         <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,6 +28,6 @@
             android:dividerHeight="1px"
             android:gravity="center"/>
 
-    </RelativeLayout>
+    </com.ghy.yueplayer.base.view.DnRelativeLayout>
 
 </LinearLayout>

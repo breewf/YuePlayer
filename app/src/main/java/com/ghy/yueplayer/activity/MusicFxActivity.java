@@ -4,8 +4,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBar;
 
@@ -20,7 +19,7 @@ import static com.ghy.yueplayer.service.MusicPlayService.mBass;
 import static com.ghy.yueplayer.service.MusicPlayService.mEqualizer;
 
 
-public class MusicFxActivity extends AppCompatActivity {
+public class MusicFxActivity extends BaseActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
@@ -44,9 +43,12 @@ public class MusicFxActivity extends AppCompatActivity {
     private VerticalSeekBar[] verticalSeekBars = new VerticalSeekBar[5];
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_fx);
+    protected int getLayoutId() {
+        return R.layout.activity_music_fx;
+    }
+
+    @Override
+    protected void initView() {
         initToolBar();
 
         tvBottom1 = (TextView) findViewById(R.id.tv_bottom1);
@@ -76,6 +78,11 @@ public class MusicFxActivity extends AppCompatActivity {
         setupEqualizer();
         // 初始化重低音控制器
         setupBassBoost();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initToolBar() {

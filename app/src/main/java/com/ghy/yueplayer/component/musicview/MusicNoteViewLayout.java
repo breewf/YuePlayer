@@ -18,6 +18,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 
+import com.ghy.yueplayer.constant.Global;
+
 import java.util.Random;
 
 /**
@@ -64,7 +66,7 @@ public class MusicNoteViewLayout extends RelativeLayout {
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         final MusicImageView imageView = new MusicImageView(context);
 //        imageView.setColor(colors[new Random().nextInt(colors.length)]);
-        imageView.setColor(Color.WHITE);
+        imageView.setColor(Global.DAY_MODE ? Color.BLACK : Color.WHITE);
         imageView.setVisibility(INVISIBLE);
         addView(imageView, params);
 

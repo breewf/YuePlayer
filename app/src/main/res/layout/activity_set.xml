@@ -1,9 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.ghy.yueplayer.activity.SetActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
@@ -11,250 +9,267 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.ghy.yueplayer.base.view.DnLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/dn_white"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="播放模式"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray4"/>
+                android:background="@color/dn_gary_bg_1"/>
 
             <RadioGroup
                 android:id="@+id/set_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/radioButton1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="列表循环"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/radioButton2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="随机播放"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="单曲循环"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
             </RadioGroup>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Y U E 动画"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray4"/>
+                android:background="@color/dn_gary_bg_1"/>
 
             <RadioGroup
                 android:id="@+id/anim_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/anim1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="没有动画"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/anim2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="晃晃漂流"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/anim3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="贪吃蛇啊"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
             </RadioGroup>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="CIRCLE 动画"
-                android:textColor="@color/gray2"
-                android:textSize="16sp"/>
+                android:textColor="@color/dn_title_5"
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray4"/>
+                android:background="@color/dn_gary_bg_1"
+                android:visibility="gone"/>
 
             <RadioGroup
                 android:id="@+id/circle_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/c_anim1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="没有动画"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/c_anim2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="魔力圈圈"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 
-                <RadioButton
+                <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/c_anim3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
                     android:text="重力感应"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="16sp"
                     android:visibility="gone"/>
 
             </RadioGroup>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="设置项"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray4"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:id="@+id/tv_fx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="音效调节"
-                android:textColor="@color/gray3"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"
                 android:visibility="gone"/>
 
-            <RadioButton
+            <com.ghy.yueplayer.base.view.DnRadioButton
                 android:id="@+id/rb_fx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:buttonTint="@color/dn_title_5"
                 android:checked="true"
                 android:padding="10dp"
                 android:text="音效调节"
-                android:textColor="@color/gray3"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="实验室"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray4"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <RadioButton
+            <com.ghy.yueplayer.base.view.DnRadioButton
                 android:id="@+id/radioButton_color_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:buttonTint="@color/dn_title_5"
                 android:checked="false"
                 android:padding="10dp"
                 android:text="专辑封面背景虚化"
-                android:textColor="@color/gray3"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <RadioButton
+            <com.ghy.yueplayer.base.view.DnRadioButton
                 android:id="@+id/radioButton_note_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:buttonTint="@color/dn_title_5"
                 android:checked="false"
                 android:padding="10dp"
                 android:text="开启播放音乐音符"
-                android:textColor="@color/gray3"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"/>
 
-            <RadioButton
+            <com.ghy.yueplayer.base.view.DnRadioButton
                 android:id="@+id/radioButton_open_list_anim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:buttonTint="@color/dn_title_5"
                 android:checked="false"
                 android:padding="10dp"
                 android:text="开启音乐列表动画"
-                android:textColor="@color/gray3"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"
                 android:visibility="gone"/>
 
-        </LinearLayout>
+        </com.ghy.yueplayer.base.view.DnLinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

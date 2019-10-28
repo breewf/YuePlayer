@@ -5,9 +5,10 @@
 
     <include layout="@layout/title_bar_layout"/>
 
-    <ScrollView
+    <com.ghy.yueplayer.base.view.DnScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dn_white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +21,7 @@
                 android:layout_margin="20dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_new"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -29,11 +30,11 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="新歌榜"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_hot"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="热歌榜"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
@@ -55,7 +56,7 @@
                 android:layout_margin="20dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_pop"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -64,11 +65,11 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="流行榜"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_us"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="欧美金曲"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
@@ -90,7 +91,7 @@
                 android:layout_margin="20dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_old"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -99,11 +100,11 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="经典老歌"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_love"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -113,7 +114,7 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="情歌对唱"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
@@ -125,7 +126,7 @@
                 android:layout_margin="20dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_movie"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -134,11 +135,11 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="影视金曲"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:id="@+id/tv_list_net"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -148,7 +149,7 @@
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="网络歌曲"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"
                     android:textStyle="italic"/>
 
@@ -156,6 +157,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.ghy.yueplayer.base.view.DnScrollView>
 
 </LinearLayout>

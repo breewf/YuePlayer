@@ -351,9 +351,9 @@ public class ViewUtils {
         tabLayout.setTextUnselectColor(ContextCompat.getColor(context,
                 Global.DAY_MODE ? R.color.dn_channel_name_2 : R.color.dn_channel_name_2_night));
         tabLayout.setTextSelectColor(ContextCompat.getColor(context,
-                Global.DAY_MODE ? R.color.dn_channel_name : R.color.dn_channel_name_night));
+                Global.DAY_MODE ? R.color.dn_title_5 : R.color.dn_title_5_night));
         tabLayout.setIndicatorColor(ContextCompat.getColor(context,
-                Global.DAY_MODE ? R.color.dn_channel_line : R.color.dn_channel_line_night));
+                Global.DAY_MODE ? R.color.dn_title_5 : R.color.dn_title_5_night));
     }
 
     /**

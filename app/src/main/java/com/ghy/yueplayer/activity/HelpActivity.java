@@ -1,7 +1,5 @@
 package com.ghy.yueplayer.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,19 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends BaseActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
-        initToolBar();
-        initView();
-    }
 
     private void initToolBar() {
         app_icon_back= (ImageView) findViewById(R.id.app_icon_back);
@@ -35,7 +26,18 @@ public class HelpActivity extends AppCompatActivity {
         });
     }
 
-    private void initView() {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_help;
+    }
+
+    @Override
+    protected void initView() {
+        initToolBar();
+    }
+
+    @Override
+    protected void initData() {
 
     }
 

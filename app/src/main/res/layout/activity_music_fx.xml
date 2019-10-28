@@ -8,22 +8,23 @@
 
     <include layout="@layout/toolbar"/>
 
-    <ScrollView
+    <com.ghy.yueplayer.base.view.DnScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dn_white">
 
         <LinearLayout
             android:id="@+id/fx_content_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="15dp">
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="音效调节功能需要插入耳机"
-                android:textColor="@color/gray4"
+                android:textColor="@color/dn_title_5"
                 android:textSize="16sp"
                 android:visibility="gone"/>
 
@@ -33,20 +34,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="均衡器"
-                    android:textColor="@color/white"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="18sp"/>
 
-                <TextView
+                <com.ghy.yueplayer.base.view.DnTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="  (长按我可恢复默认~)"
-                    android:textColor="@color/gray4"
+                    android:textColor="@color/dn_title_5"
                     android:textSize="12sp"/>
 
             </LinearLayout>
@@ -66,11 +67,11 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_top1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                     <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
                         android:layout_width="wrap_content"
@@ -85,12 +86,12 @@
 
                     </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_bottom1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-15db"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                 </LinearLayout>
 
@@ -101,11 +102,11 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_top2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                     <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
                         android:layout_width="wrap_content"
@@ -120,12 +121,12 @@
 
                     </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_bottom2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-15db"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                 </LinearLayout>
 
@@ -136,11 +137,11 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_top3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                     <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
                         android:layout_width="wrap_content"
@@ -155,12 +156,12 @@
 
                     </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_bottom3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-15db"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                 </LinearLayout>
 
@@ -171,11 +172,11 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_top4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                     <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
                         android:layout_width="wrap_content"
@@ -190,12 +191,12 @@
 
                     </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_bottom4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-15db"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                 </LinearLayout>
 
@@ -206,11 +207,11 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_top5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                     <com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper
                         android:layout_width="wrap_content"
@@ -225,29 +226,29 @@
 
                     </com.ghy.yueplayer.component.verticalseekbar.VerticalSeekBarWrapper>
 
-                    <TextView
+                    <com.ghy.yueplayer.base.view.DnTextView
                         android:id="@+id/tv_bottom5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-15db"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/dn_title_5"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="20dp"
-                android:background="@color/gray5"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="重低音"
-                android:textColor="@color/white"
+                android:textColor="@color/dn_title_5"
                 android:textSize="18sp"/>
 
             <SeekBar
@@ -258,6 +259,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.ghy.yueplayer.base.view.DnScrollView>
 
 </LinearLayout>

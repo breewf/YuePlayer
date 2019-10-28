@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/music_list_bg_selector_color1"
+    android:layout_height="wrap_content"
+    android:background="@color/dn_white"
     android:padding="4dp">
 
     <RelativeLayout
@@ -11,14 +11,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:id="@+id/tv_music_num"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:text="01"
-            android:textColor="@color/white"
+            android:textColor="@color/dn_title_5"
             android:textSize="10sp"
             android:textStyle="italic"/>
 
@@ -31,7 +31,7 @@
             android:layout_toRightOf="@+id/tv_music_num"
             android:src="@mipmap/ic_launcher"/>
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:id="@+id/tv_music_artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,10 +42,10 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="TextView"
-            android:textColor="@color/gray_light"
+            android:textColor="@color/dn_title_5"
             android:textSize="11sp"/>
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:id="@+id/tv_music_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,9 +57,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="TextView"
-            android:textColor="@color/gray_light"
+            android:textColor="@color/dn_title_5"
             android:textSize="16sp"/>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</com.ghy.yueplayer.base.view.DnRelativeLayout>

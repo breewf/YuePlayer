@@ -92,8 +92,8 @@
     <color name="dn_gary_bg">#f5f5f5</color>
     <color name="dn_gary_bg_night">#0e0e0f</color>
     <!--灰底1-->
-    <color name="dn_gary_bg_1">#f5f5f5</color>
-    <color name="dn_gary_bg_1_night">#0e0e0f</color>
+    <color name="dn_gary_bg_1">#F0F0F0</color>
+    <color name="dn_gary_bg_1_night">#27282D</color>
     <!--灰底2-->
     <color name="dn_gary_bg_2">#f5f5f5</color>
     <color name="dn_gary_bg_2_night">#27282D</color>
@@ -235,7 +235,7 @@
     <color name="dn_channel_name_night">#c0c2c9</color>
     <!--频道名2-->
     <color name="dn_channel_name_2">#909090</color>
-    <color name="dn_channel_name_2_night">#909198</color>
+    <color name="dn_channel_name_2_night">#606060</color>
     <!--频道名3-->
     <color name="dn_channel_name_3">#FFFFFF</color>
     <color name="dn_channel_name_3_night">#C0C2C9</color>
@@ -262,7 +262,7 @@
     <color name="dn_title_4">#303030</color>
     <color name="dn_title_4_night">#909198</color>
     <!--标题5-->
-    <color name="dn_title_5">#909090</color>
+    <color name="dn_title_5">#606060</color>
     <color name="dn_title_5_night">#909198</color>
     <!--标题6-->
     <color name="dn_title_6">#909090</color>
@@ -332,6 +332,10 @@
     <!--内容17-->
     <color name="dn_content_17">#606060</color>
     <color name="dn_content_17_night">#606167</color>
+
+    <!--标题3-->
+    <color name="dn_title_18">#ffffff</color>
+    <color name="dn_title_18_night">#303030</color>
 
 
     <!--===========================================================-->
@@ -488,6 +492,10 @@
     <!--辅助字28-->
     <color name="dn_assist_text_28">#c0c0c0</color>
     <color name="dn_assist_text_28_night">#47484d</color>
+
+    <!--辅助字1-->
+    <color name="dn_assist_text_help">#606060</color>
+    <color name="dn_assist_text_help_night">#606167</color>
 
 
     <!--===========================================================-->

@@ -34,7 +34,6 @@ import com.ghy.yueplayer.activity.HelpActivity;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
-import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
@@ -576,7 +575,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                         startActivity(OnLineMusicActivity.class);
                         break;
                     case R.id.layout2:
-                        startActivity(TimeActivity.class);
+//                        startActivity(TimeActivity.class);
+                        showToast(getString(R.string.for_fun));
                         break;
                     case R.id.layout3:
                         startActivity(AboutActivity.class);
@@ -944,6 +944,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onDarkModeChange(isDayMode);
         initImmersionBar();
         initDarkModeSetting(isDayMode);
+        if (mPlayControlView != null) {
+            mPlayControlView.setPaintColor(isDayMode);
+        }
         if (mYueAnimManager != null) {
             mYueAnimManager.darkModeChange();
         }

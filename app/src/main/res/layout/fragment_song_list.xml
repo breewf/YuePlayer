@@ -5,19 +5,20 @@
     tools:context="com.ghy.yueplayer.fragment.RecommendFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <com.ghy.yueplayer.base.view.DnLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/dn_white">
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="歌单页面"
-            android:textColor="@color/white"
+            android:text="@string/for_fun"
+            android:textColor="@color/dn_title_5"
             android:textSize="16sp"/>
 
-    </LinearLayout>
+    </com.ghy.yueplayer.base.view.DnLinearLayout>
 
 </FrameLayout>

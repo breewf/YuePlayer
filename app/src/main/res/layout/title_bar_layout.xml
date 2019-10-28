@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ghy.yueplayer.base.view.DnLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray"
+    android:background="@color/dn_white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,20 +17,20 @@
             android:padding="15dp"
             android:src="@mipmap/icon_back"/>
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
-            android:textColor="@color/white"
+            android:textColor="@color/dn_title_5"
             android:textSize="18sp"/>
 
     </LinearLayout>
 
-    <View
+    <com.ghy.yueplayer.base.view.DnView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray3"/>
+        android:background="@color/dn_gary_bg_1"/>
 
-</LinearLayout>
+</com.ghy.yueplayer.base.view.DnLinearLayout>

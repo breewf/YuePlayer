@@ -6,10 +6,10 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.ghy.yueplayer.base.view.DnLinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/gray"
+        android:background="@color/dn_white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -20,29 +20,29 @@
             android:padding="15dp"
             android:src="@mipmap/icon_back"/>
 
-        <EditText
+        <com.ghy.yueplayer.base.view.DnEditText
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:background="@null"
             android:hint="搜索歌曲、歌手"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray2"
+            android:textColor="@color/dn_title_5"
+            android:textColorHint="@color/dn_assist_text_1"
             android:textCursorDrawable="@null"/>
 
-    </LinearLayout>
+    </com.ghy.yueplayer.base.view.DnLinearLayout>
 
-    <View
+    <com.ghy.yueplayer.base.view.DnView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray3"/>
+        android:background="@color/dn_gary_bg_1"/>
 
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/gray"
+        android:background="@color/white"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         tl:tl_indicator_margin_left="2dp"
@@ -53,9 +53,10 @@
         tl:tl_textUnselectColor="@color/gray2"
         tl:tl_textsize="16sp"/>
 
-    <android.support.v4.view.ViewPager
+    <com.ghy.yueplayer.base.view.DnViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/dn_white"/>
 
 </LinearLayout>

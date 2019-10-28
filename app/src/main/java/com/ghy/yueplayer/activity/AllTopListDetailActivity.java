@@ -1,8 +1,11 @@
 package com.ghy.yueplayer.activity;
 
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -11,14 +14,19 @@ import com.ghy.yueplayer.adapter.OnLineMusicListAdapter;
 import com.ghy.yueplayer.api.APIS;
 import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.bean.OnLineListInfo;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.network.RetrofitManager;
 import com.ghy.yueplayer.network.observer.EntityObserverNoBase;
+import com.ghy.yueplayer.utils.ViewUtils;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.Bind;
 
 
 public class AllTopListDetailActivity extends BaseActivity {
+
+    @Bind(R.id.iv_back)
+    ImageView mIvBack;
 
     private String type;//分类
     private String name;//名称
@@ -40,6 +48,35 @@ public class AllTopListDetailActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         name = getIntent().getStringExtra("name");
         backWithTitle(TextUtils.isEmpty(name) ? "" : name);
+
+        initDarkModeIcon(Global.DAY_MODE);
+
+        mSpinKitView.setColor(ContextCompat.getColor(this,
+                Global.DAY_MODE ? R.color.dn_title_5_night : R.color.dn_title_5));
+        setListDivider(Global.DAY_MODE);
+    }
+
+    private void initDarkModeIcon(boolean isDayMode) {
+        if (isDayMode) {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title));
+        } else {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title_night));
+        }
+    }
+
+    private void setListDivider(boolean isDayMode) {
+        if (mLvMusic == null) {
+            return;
+        }
+        if (isDayMode) {
+            mLvMusic.setDivider(new ColorDrawable(ContextCompat.getColor(this, R.color.gray1)));
+            mLvMusic.setDividerHeight(1);
+        } else {
+            mLvMusic.setDivider(new ColorDrawable(ContextCompat.getColor(this, R.color.gray8)));
+            mLvMusic.setDividerHeight(1);
+        }
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.ghy.yueplayer.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.utils.SPUtil;
@@ -18,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimeActivity extends AppCompatActivity {
+public class TimeActivity extends BaseActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
@@ -32,17 +31,13 @@ public class TimeActivity extends AppCompatActivity {
     Timer timer;
     CountTimerTask timerTask;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time);
-        initToolBar();
-        initView();
-        initData();
+    protected int getLayoutId() {
+        return R.layout.activity_time;
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
 
         if (timer == null) {
             timer = new Timer();
@@ -111,7 +106,8 @@ public class TimeActivity extends AppCompatActivity {
         }
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
 
         tv_time_this = findViewById(R.id.tv_time_this);
         tv_time_this_hour = findViewById(R.id.tv_time_this_hour);
@@ -119,6 +115,7 @@ public class TimeActivity extends AppCompatActivity {
         tv_time_all_hour = findViewById(R.id.tv_time_all_hour);
         tv_nick = findViewById(R.id.tv_nick);
 
+        initToolBar();
     }
 
     private void initToolBar() {

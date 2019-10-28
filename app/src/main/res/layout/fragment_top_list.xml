@@ -11,25 +11,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <com.ghy.yueplayer.base.view.DnTextView
             android:id="@+id/tv_see_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_selector_1"
-            android:drawableRight="@mipmap/arrow_right"
+            android:background="@color/dn_white"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="默认为热歌榜，点我查看其它榜单"
-            android:textColor="@color/gray2"/>
+            android:text="默认为热歌榜，点我查看其它榜单 -->>"
+            android:textColor="@color/dn_title_5"/>
 
-        <View
+        <com.ghy.yueplayer.base.view.DnView
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray3"/>
+            android:background="@color/dn_gary_bg_1"/>
 
-        <RelativeLayout
+        <com.ghy.yueplayer.base.view.DnRelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/dn_white">
 
             <com.github.ybq.android.spinkit.SpinKitView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -49,7 +49,7 @@
                 android:dividerHeight="1px"
                 android:gravity="center"/>
 
-        </RelativeLayout>
+        </com.ghy.yueplayer.base.view.DnRelativeLayout>
 
     </LinearLayout>
 

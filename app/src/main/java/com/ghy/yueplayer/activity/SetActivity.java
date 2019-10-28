@@ -1,8 +1,6 @@
 package com.ghy.yueplayer.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,12 +11,13 @@ import android.widget.Toast;
 
 import com.ghy.yueplayer.MainActivity;
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.utils.SPUtil;
 
-public class SetActivity extends Activity {
+public class SetActivity extends BaseActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
@@ -41,14 +40,6 @@ public class SetActivity extends Activity {
     RadioButton radioButtonMusicNote;
     RadioButton radioButtonListAnim;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set);
-        initToolBar();
-        initView();
-    }
-
     private void initToolBar() {
         app_icon_back = findViewById(R.id.app_icon_back);
         tv_activity_name = findViewById(R.id.tv_activity_name);
@@ -56,7 +47,15 @@ public class SetActivity extends Activity {
         app_icon_back.setOnClickListener(view -> finish());
     }
 
-    private void initView() {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_set;
+    }
+
+    @Override
+    protected void initView() {
+
+        initToolBar();
 
         tv_fx = findViewById(R.id.tv_fx);
         set_group = findViewById(R.id.set_group);
@@ -251,6 +250,11 @@ public class SetActivity extends Activity {
                 PreferManager.setBoolean(PreferManager.LIST_ANIM, true);
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void setAnimModeChange() {

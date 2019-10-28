@@ -6,13 +6,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.base.BaseActivity;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.fragment.RecommendFragment;
 import com.ghy.yueplayer.fragment.SongListFragment;
 import com.ghy.yueplayer.fragment.TopListFragment;
+import com.ghy.yueplayer.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,8 @@ import butterknife.OnClick;
  */
 public class OnLineMusicActivity extends BaseActivity {
 
+    @Bind(R.id.iv_back)
+    ImageView mIvBack;
     @Bind(R.id.et_search)
     EditText mEtSearch;
     @Bind(R.id.tab_layout)
@@ -42,7 +47,18 @@ public class OnLineMusicActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initDarkModeIcon(Global.DAY_MODE);
+        ViewUtils.initSlidingTabLayoutUi(mTabLayout);
+    }
 
+    private void initDarkModeIcon(boolean isDayMode) {
+        if (isDayMode) {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title));
+        } else {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title_night));
+        }
     }
 
     @Override
@@ -57,6 +73,8 @@ public class OnLineMusicActivity extends BaseActivity {
 
         //设置关联
         mTabLayout.setViewPager(mViewPager);
+
+        mTabLayout.setCurrentTab(0);
     }
 
     @OnClick({R.id.iv_back})
@@ -64,6 +82,8 @@ public class OnLineMusicActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
+                break;
+            default:
                 break;
         }
     }

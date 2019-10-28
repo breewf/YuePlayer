@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.widget.ImageView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
+import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.common.PreferManager;
 import com.ghy.yueplayer.component.blurlibrary.EasyBlur;
 import com.ghy.yueplayer.fragment.PlayFragment;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 /**
  * @author HY
  */
-public class MusicPlayActivity extends FragmentActivity {
+public class MusicPlayActivity extends BaseActivity {
 
     @SuppressLint("StaticFieldLeak")
     public static MusicPlayActivity MPA;
@@ -49,18 +49,11 @@ public class MusicPlayActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_play);
         MPA = this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
         }
-
-        initView();
-
-        initStatusBar();
-
-        initViewPager();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             viewPager.getViewTreeObserver().addOnPreDrawListener(
@@ -77,10 +70,19 @@ public class MusicPlayActivity extends FragmentActivity {
         }
     }
 
-    private void initView() {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_music_play;
+    }
+
+    @Override
+    protected void initView() {
         positionView = findViewById(R.id.position_view);
         ivBg = findViewById(R.id.iv_bg);
         viewPager = findViewById(R.id.viewPager);
+
+        initStatusBar();
+        initViewPager();
 
         String musicAlbumUri = SPUtil.getStringSP(this,
                 Constant.MUSIC_SP, "musicAlbumUri");
@@ -88,6 +90,16 @@ public class MusicPlayActivity extends FragmentActivity {
         if (isOpenAlbumColor && !TextUtils.isEmpty(musicAlbumUri)) {
             setPlayBackgroundImage(musicAlbumUri);
         }
+    }
+
+    @Override
+    protected boolean isImmersionBarEnabled() {
+        return false;
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initViewPager() {
@@ -103,9 +115,17 @@ public class MusicPlayActivity extends FragmentActivity {
         //沉浸式状态栏
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 getWindow().getDecorView()
                         .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                getWindow().setNavigationBarColor(Color.TRANSPARENT);
             } else {
                 getWindow()
                         .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

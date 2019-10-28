@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.ghy.yueplayer.constant.Global;
+
 /**
  * Created by GHY on 2017/7/18.
  * Desc:
@@ -71,14 +73,25 @@ public class PlayControlView extends View {
         mPaintControl.setStrokeWidth(10);
         mPaintControl.setStrokeCap(Paint.Cap.ROUND);
         mPaintControl.setStrokeJoin(Paint.Join.ROUND);
+
+        setPaintColor(Global.DAY_MODE);
+    }
+
+    public void setPaintColor(boolean isDayMode) {
+        mPaint.setColor(isDayMode ? Color.parseColor("#c0c2c9") :
+                Color.parseColor("#c0c2c9"));
+        mPaintColor.setColor(isDayMode ? Color.parseColor("#666666") :
+                Color.parseColor("#ffffff"));
+        mPaintControl.setColor(isDayMode ? Color.parseColor("#ffffff") :
+                Color.parseColor("#303030"));
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        centerX = getMeasuredWidth() / 2;
-        centerY = getMeasuredHeight() / 2;
-        radius = getMeasuredWidth() / 2;
+        centerX = getMeasuredWidth() / 2f;
+        centerY = getMeasuredHeight() / 2f;
+        radius = getMeasuredWidth() / 2f;
         diameter = radius * 2;
         leftCenterX = centerX - diameter;
         rightCenterX = centerX + diameter;
@@ -110,6 +123,8 @@ public class PlayControlView extends View {
                     }
                     break;
                 case 0://原点
+                    break;
+                default:
                     break;
             }
         }

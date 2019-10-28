@@ -1,9 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ghy.yueplayer.base.view.DnLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.ghy.yueplayer.activity.HelpActivity">
+    android:background="@color/dn_white"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
@@ -13,138 +12,141 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：如何添加喜欢的歌曲与取消喜欢的歌曲？"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：长按音乐列表中的歌曲即可添加到喜欢，同样长按喜欢列表中的歌曲即可取消喜欢。"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：我喜欢的歌曲列表在哪呢，怎么找不到？"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：主界面向右滑动就是您喜欢的歌曲列表啦，同样点击主界面上的心形按钮也可以看到哦。"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：为什么打开软件却连一首音乐都没有看到？"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：这个可能是因为您的手机上没有音乐文件哦，所以没有扫描到呢。"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：我使用过后该如何彻底退出呢？"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：您可以在主界面打开侧滑菜单，选择最后一项exit点击即可完全退出啦！如果此时还在播放音乐，音乐也会停止的哦。"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
+                android:background="@color/dn_gary_bg_1"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：为何在后台播放过程中突然就停止了呢？"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：这个很大可能是因为您的手机系统后台管理软件或者安全软件定时清理了后台的任务，请把本软件添加到后台清理软件的白名单中即可。"
-                android:textColor="@color/gray2"
+                android:textColor="@color/dn_assist_text_help"
                 android:textSize="14sp"/>
 
-            <View
+            <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray2"/>
+                android:background="@color/dn_gary_bg_1"
+                android:visibility="gone"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Q：我还有其它的问题怎么办？"
-                android:textColor="@color/gray2"
-                android:textSize="14sp"/>
+                android:textColor="@color/dn_assist_text_help"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
-            <TextView
+            <com.ghy.yueplayer.base.view.DnTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="A：请发送邮件到haiygao@163.com来与我联系吧，谢谢！"
-                android:textColor="@color/gray2"
-                android:textSize="14sp"/>
+                android:textColor="@color/dn_assist_text_help"
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+</com.ghy.yueplayer.base.view.DnLinearLayout>

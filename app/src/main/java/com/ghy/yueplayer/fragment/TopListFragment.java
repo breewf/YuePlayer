@@ -1,7 +1,9 @@
 package com.ghy.yueplayer.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -14,6 +16,7 @@ import com.ghy.yueplayer.adapter.OnLineMusicListAdapter;
 import com.ghy.yueplayer.api.APIS;
 import com.ghy.yueplayer.base.BaseFragment;
 import com.ghy.yueplayer.bean.OnLineListInfo;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.network.RetrofitManager;
 import com.ghy.yueplayer.network.observer.EntityObserverNoBase;
 import com.ghy.yueplayer.utils.AnimUtils;
@@ -48,7 +51,22 @@ public class TopListFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mSpinKitView.setColor(ContextCompat.getColor(getContext(),
+                Global.DAY_MODE ? R.color.dn_title_5_night : R.color.dn_title_5));
+        setListDivider(Global.DAY_MODE);
+    }
 
+    private void setListDivider(boolean isDayMode) {
+        if (mLvHotMusic == null || getActivity() == null) {
+            return;
+        }
+        if (isDayMode) {
+            mLvHotMusic.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray1)));
+            mLvHotMusic.setDividerHeight(1);
+        } else {
+            mLvHotMusic.setDivider(new ColorDrawable(ContextCompat.getColor(getActivity(), R.color.gray8)));
+            mLvHotMusic.setDividerHeight(1);
+        }
     }
 
     @Override

@@ -2,14 +2,21 @@ package com.ghy.yueplayer.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.base.BaseActivity;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.utils.AnimUtils;
+import com.ghy.yueplayer.utils.ViewUtils;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class AllTopListActivity extends BaseActivity {
+
+    @Bind(R.id.iv_back)
+    ImageView mIvBack;
 
     @Override
     protected int getLayoutId() {
@@ -19,11 +26,22 @@ public class AllTopListActivity extends BaseActivity {
     @Override
     protected void initView() {
         backWithTitle("全部榜单");
+        initDarkModeIcon(Global.DAY_MODE);
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    private void initDarkModeIcon(boolean isDayMode) {
+        if (isDayMode) {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title));
+        } else {
+            mIvBack.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_back, R.color.dn_page_title_night));
+        }
     }
 
     @OnClick({R.id.tv_list_new, R.id.tv_list_hot, R.id.tv_list_pop, R.id.tv_list_us,
@@ -53,6 +71,8 @@ public class AllTopListActivity extends BaseActivity {
                 break;
             case R.id.tv_list_net:
                 startActivity("网络歌曲", "25");
+                break;
+            default:
                 break;
         }
     }

@@ -1,8 +1,6 @@
 package com.ghy.yueplayer.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,43 +10,40 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
+import com.ghy.yueplayer.base.BaseActivity;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.utils.AppUtils;
+import com.ghy.yueplayer.utils.ViewUtils;
 
-public class AboutActivity extends AppCompatActivity {
-
+public class AboutActivity extends BaseActivity {
 
     ImageView app_icon_back;
+    ImageView iv_logo;
     TextView tv_activity_name;
     TextView tv_version;
     RelativeLayout layout_yue;
     boolean isAnim = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-
-        initToolBar();
-        initView();
-
-    }
-
     private void initToolBar() {
         app_icon_back = findViewById(R.id.app_icon_back);
+        iv_logo = findViewById(R.id.iv_logo);
         tv_activity_name = findViewById(R.id.tv_activity_name);
         tv_version = findViewById(R.id.tv_version);
         tv_activity_name.setText("About");
-        app_icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        app_icon_back.setOnClickListener(view -> finish());
 
         tv_version.setText("VERSION : V" + AppUtils.getVersionName(this));
     }
 
-    private void initView() {
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_about;
+    }
+
+    @Override
+    protected void initView() {
+
+        initToolBar();
 
         layout_yue = (RelativeLayout) findViewById(R.id.layout_yue);
 
@@ -81,6 +76,23 @@ public class AboutActivity extends AppCompatActivity {
                 }
             }
         });
+
+        initDarkModeIcon(Global.DAY_MODE);
+    }
+
+    private void initDarkModeIcon(boolean isDayMode) {
+        if (isDayMode) {
+            iv_logo.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white_big, R.color.dn_page_title));
+        } else {
+            iv_logo.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white_big, R.color.dn_page_title_night));
+        }
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override

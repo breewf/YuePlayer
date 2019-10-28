@@ -1,17 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.ghy.yueplayer.base.view.DnLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.ghy.yueplayer.activity.AboutActivity">
+    android:background="@color/dn_white"
+    android:orientation="vertical">
 
-    <include layout="@layout/toolbar"></include>
+    <include layout="@layout/toolbar"/>
 
-    <RelativeLayout
+    <com.ghy.yueplayer.base.view.DnRelativeLayout
         android:id="@+id/layout_yue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/dn_white"
         android:gravity="center">
 
         <LinearLayout
@@ -21,55 +21,56 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_logo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@mipmap/icon_app_white_big"/>
 
-            <com.ghy.yueplayer.view.HeroTextView
+            <com.ghy.yueplayer.base.view.DnHeroTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="YuePlayer"
-                android:textColor="@color/white"
+                android:textColor="@color/dn_hero_title_1"
                 android:textSize="54sp"/>
 
-            <com.ghy.yueplayer.view.HeroTextView
+            <com.ghy.yueplayer.base.view.DnHeroTextView
                 android:id="@+id/tv_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="VERSION"
-                android:textColor="@color/white"
+                android:textColor="@color/dn_hero_title_1"
                 android:textSize="30sp"/>
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </com.ghy.yueplayer.base.view.DnRelativeLayout>
 
-    <LinearLayout
+    <com.ghy.yueplayer.base.view.DnLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
+        android:background="@color/dn_gary_bg"
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.ghy.yueplayer.view.HeroTextView
+        <com.ghy.yueplayer.base.view.DnHeroTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="A simple Local Music Player"
-            android:textColor="@color/white"
+            android:textColor="@color/dn_hero_title_1"
             android:textSize="24sp"/>
 
-        <com.ghy.yueplayer.view.HeroTextView
+        <com.ghy.yueplayer.base.view.DnHeroTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:text="Copyright © 2015 GHY. All rights reserved."
-            android:textColor="@color/white"
+            android:textColor="@color/dn_hero_title_1"
             android:textSize="14sp"/>
 
-    </LinearLayout>
+    </com.ghy.yueplayer.base.view.DnLinearLayout>
 
-</LinearLayout>
+</com.ghy.yueplayer.base.view.DnLinearLayout>
