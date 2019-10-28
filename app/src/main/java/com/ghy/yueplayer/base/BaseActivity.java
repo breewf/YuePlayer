@@ -1,6 +1,5 @@
 package com.ghy.yueplayer.base;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -60,7 +59,7 @@ public abstract class BaseActivity extends RxFragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         View rootView = getLayoutInflater().inflate(getLayoutId(), null);
         setContentView(rootView);
         className = getClass().getSimpleName();

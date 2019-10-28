@@ -31,6 +31,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.api.ApiHelper;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.lrcview.LrcView;
 import com.ghy.yueplayer.network.ApiRequestCallBackString;
@@ -38,6 +39,7 @@ import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.utils.AppUtils;
 import com.ghy.yueplayer.utils.FileUtil;
 import com.ghy.yueplayer.utils.SPUtil;
+import com.ghy.yueplayer.utils.ViewUtils;
 import com.ghy.yueplayer.view.MarqueeTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -60,7 +62,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @author HY
  */
 public class PlayFragment extends RxFragment implements View.OnClickListener {
-
 
     public PlayFragment() {
         // Required empty public constructor
@@ -147,6 +148,12 @@ public class PlayFragment extends RxFragment implements View.OnClickListener {
 
         setOnClickListener();
 
+        initDarkModeIcon(Global.DAY_MODE);
+    }
+
+    private void initDarkModeIcon(boolean isDayMode) {
+        ivBack.setImageDrawable(ViewUtils.getTintDrawable(getContext(),
+                R.mipmap.icon_back, R.color.white));
     }
 
     private void initAnim() {
