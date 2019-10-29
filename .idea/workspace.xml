@@ -15,14 +15,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eaf82661-863a-4393-8c33-6d82518b17e1" name="Default" comment="魔力圈圈动画">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_circle_image.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/YueAnimManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/constant/Const.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml" afterDir="false" />
-    </list>
+    <list default="true" id="eaf82661-863a-4393-8c33-6d82518b17e1" name="Default" comment="魔力圈圈动画" />
     <list id="1c0025b7-e3cc-49e9-893e-1a1a3ef62a0d" name="ignore" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,40 +40,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="865" column="38" lean-forward="true" selection-start-line="865" selection-start-column="38" selection-end-line="865" selection-end-column="38" />
+            <state relative-caret-position="1031">
+              <caret line="909" column="31" lean-forward="true" selection-start-line="909" selection-start-column="31" selection-end-line="909" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-589">
-              <caret line="167" column="32" lean-forward="true" selection-start-line="167" selection-start-column="32" selection-end-line="167" selection-end-column="32" />
-              <folding>
-                <element signature="e#13866#14053#0" expanded="true" />
-                <element signature="e#14052#14053#0" expanded="true" />
-                <element signature="e#14583#14770#0" expanded="true" />
-                <element signature="e#14769#14770#0" expanded="true" />
-                <element signature="e#18417#18816#0" expanded="true" />
-                <element signature="e#18815#18816#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="177" column="42" selection-start-line="177" selection-start-column="42" selection-end-line="177" selection-end-column="42" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -176,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="45" />
     <option name="width" value="1440" />
     <option name="height" value="788" />
@@ -1109,8 +1075,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/common/CircleAnimManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-589">
-          <caret line="167" column="32" lean-forward="true" selection-start-line="167" selection-start-column="32" selection-end-line="167" selection-end-column="32" />
+        <state relative-caret-position="4467">
+          <caret line="508" column="46" selection-start-line="508" selection-start-column="46" selection-end-line="508" selection-end-column="46" />
           <folding>
             <element signature="e#13866#14053#0" expanded="true" />
             <element signature="e#14052#14053#0" expanded="true" />
@@ -1124,8 +1090,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="865" column="38" lean-forward="true" selection-start-line="865" selection-start-column="38" selection-end-line="865" selection-end-column="38" />
+        <state relative-caret-position="1031">
+          <caret line="909" column="31" lean-forward="true" selection-start-line="909" selection-start-column="31" selection-end-line="909" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
