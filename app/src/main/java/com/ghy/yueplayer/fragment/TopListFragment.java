@@ -1,17 +1,14 @@
 package com.ghy.yueplayer.fragment;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghy.yueplayer.R;
-import com.ghy.yueplayer.activity.AllTopListActivity;
 import com.ghy.yueplayer.adapter.OnLineMusicListAdapter;
 import com.ghy.yueplayer.api.APIS;
 import com.ghy.yueplayer.base.BaseFragment;
@@ -19,19 +16,15 @@ import com.ghy.yueplayer.bean.OnLineListInfo;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.network.RetrofitManager;
 import com.ghy.yueplayer.network.observer.EntityObserverNoBase;
-import com.ghy.yueplayer.utils.AnimUtils;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 榜单页面
  */
 public class TopListFragment extends BaseFragment {
 
-    @Bind(R.id.tv_see_all)
-    TextView mTvSeeAll;
     @Bind(R.id.spin_kit)
     SpinKitView mSpinKitView;
     @Bind(R.id.lv_hot_music)
@@ -123,17 +116,6 @@ public class TopListFragment extends BaseFragment {
                         }
                     }
                 });
-    }
-
-    @OnClick({R.id.tv_see_all})
-    public void topListClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_see_all:
-                AnimUtils.toLeftAnim(getActivity(), new Intent(getActivity(), AllTopListActivity.class));
-                break;
-            default:
-                break;
-        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.ghy.yueplayer.activity;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,38 +41,24 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
         initToolBar();
+        layout_yue = findViewById(R.id.layout_yue);
+        layout_yue.setOnClickListener(view -> {
+            if (!isAnim) {
+                isAnim = true;
+                layout_yue.startAnimation(AnimationUtils.loadAnimation(
+                        AboutActivity.this, R.anim.yue_hide_scale_rotate_from_center
+                ));
 
-        layout_yue = (RelativeLayout) findViewById(R.id.layout_yue);
-
-        layout_yue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isAnim) {
-                    isAnim = true;
+                new Handler().postDelayed(() -> {
                     layout_yue.startAnimation(AnimationUtils.loadAnimation(
-                            AboutActivity.this, R.anim.yue_hide_scale_rotate_from_center
+                            AboutActivity.this, R.anim.view_show_translate_scale_from_top
                     ));
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            layout_yue.startAnimation(AnimationUtils.loadAnimation(
-                                    AboutActivity.this, R.anim.view_show_translate_scale_from_top
-                            ));
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    isAnim = false;
-                                }
-                            }, 1000);
-                        }
-                    }, 2000);
-                } else {
-                    //do nothing...
-                }
+                    new Handler().postDelayed(() -> isAnim = false, 1000);
+                }, 800);
+            } else {
+                //do nothing...
             }
         });
 

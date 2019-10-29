@@ -131,20 +131,20 @@
                 android:text="CIRCLE 动画"
                 android:textColor="@color/dn_title_5"
                 android:textSize="16sp"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
             <com.ghy.yueplayer.base.view.DnView
                 android:layout_width="match_parent"
                 android:layout_height="0.4dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/dn_gary_bg_1"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
             <RadioGroup
                 android:id="@+id/circle_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.ghy.yueplayer.base.view.DnRadioButton
                     android:id="@+id/c_anim1"

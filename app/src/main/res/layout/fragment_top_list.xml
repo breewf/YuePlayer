@@ -4,22 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.ghy.yueplayer.fragment.RecommendFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <com.ghy.yueplayer.base.view.DnTextView
-            android:id="@+id/tv_see_all"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/dn_white"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="默认为热歌榜，点我查看其它榜单 -->>"
-            android:textColor="@color/dn_title_5"/>
 
         <com.ghy.yueplayer.base.view.DnView
             android:layout_width="match_parent"

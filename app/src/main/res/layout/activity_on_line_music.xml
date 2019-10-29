@@ -20,16 +20,15 @@
             android:padding="15dp"
             android:src="@mipmap/icon_back"/>
 
-        <com.ghy.yueplayer.base.view.DnEditText
-            android:id="@+id/et_search"
+        <com.ghy.yueplayer.base.view.DnTextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:background="@null"
-            android:hint="搜索歌曲、歌手"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="30dp"
+            android:text="榜单：点我查看其它榜单"
             android:textColor="@color/dn_title_5"
-            android:textColorHint="@color/dn_assist_text_1"
-            android:textCursorDrawable="@null"/>
+            android:textSize="18sp"/>
 
     </com.ghy.yueplayer.base.view.DnLinearLayout>
 

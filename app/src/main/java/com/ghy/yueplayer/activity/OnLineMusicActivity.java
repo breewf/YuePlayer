@@ -1,12 +1,13 @@
 package com.ghy.yueplayer.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.ghy.yueplayer.R;
@@ -15,6 +16,7 @@ import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.fragment.RecommendFragment;
 import com.ghy.yueplayer.fragment.SongListFragment;
 import com.ghy.yueplayer.fragment.TopListFragment;
+import com.ghy.yueplayer.utils.AnimUtils;
 import com.ghy.yueplayer.utils.ViewUtils;
 
 import java.util.ArrayList;
@@ -29,8 +31,8 @@ public class OnLineMusicActivity extends BaseActivity {
 
     @Bind(R.id.iv_back)
     ImageView mIvBack;
-    @Bind(R.id.et_search)
-    EditText mEtSearch;
+    @Bind(R.id.tv_title)
+    TextView mTvTitle;
     @Bind(R.id.tab_layout)
     SlidingTabLayout mTabLayout;
     @Bind(R.id.viewpager)
@@ -71,11 +73,42 @@ public class OnLineMusicActivity extends BaseActivity {
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(3);
 
+        mTvTitle.setOnClickListener(mClickListener);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 0) {
+                    mTvTitle.setText("榜单：点我查看其它榜单");
+                    mTvTitle.setOnClickListener(mClickListener);
+                } else if (i == 1) {
+                    mTvTitle.setText("推荐");
+                    mTvTitle.setOnClickListener(null);
+                } else if (i == 2) {
+                    mTvTitle.setText("歌单");
+                    mTvTitle.setOnClickListener(null);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
         //设置关联
         mTabLayout.setViewPager(mViewPager);
 
         mTabLayout.setCurrentTab(0);
     }
+
+    private View.OnClickListener mClickListener = v -> AnimUtils.toLeftAnim(OnLineMusicActivity.this,
+            new Intent(OnLineMusicActivity.this, AllTopListActivity.class));
 
     @OnClick({R.id.iv_back})
     public void onLineMusicClick(View view) {

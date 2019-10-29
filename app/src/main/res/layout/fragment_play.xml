@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -106,11 +107,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
                     android:padding="10dp"
                     android:text="@string/down_lrc"
                     android:textColor="@color/gray2"
                     android:textSize="12sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
             </FrameLayout>
 
@@ -205,8 +208,8 @@
         android:id="@+id/play_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="35dp">
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="25dp">
 
         <LinearLayout
             android:layout_width="match_parent"

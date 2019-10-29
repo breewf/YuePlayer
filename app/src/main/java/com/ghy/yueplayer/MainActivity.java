@@ -374,18 +374,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             notifyAdapterChange();
             if (isPlay) {
                 handler.sendEmptyMessage(0);
-                // 如果在播放则旋转封面
                 startAlbumAnim();
-                // 音符
                 openMusicNote();
 
-                setYueAnimManager(true);
-                setCircleAnimManager(true);
+                setWaveDarkModeConfig(Global.DAY_MODE);
+
+                setAnimManagerControl(true);
             } else {
-                setYueAnimManager(false);
-                setCircleAnimManager(false);
+                setAnimManagerControl(false);
             }
         }
+    }
+
+    private void setAnimManagerControl(boolean start) {
+        setYueAnimManager(start);
+        setCircleAnimManager(start);
     }
 
     private void openMusicNote() {
@@ -747,8 +750,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 closeMusicNote();
                 notifyAdapterChange();
 
-                setYueAnimManager(false);
-                setCircleAnimManager(false);
+                setAnimManagerControl(false);
             } else {
                 MusicPlayService.MPS.playOrPause(musicUrl, musicName, musicArtist, musicId);
                 isPlay = MusicPlayService.MPS.isPlay();
@@ -756,8 +758,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 openMusicNote();
                 notifyAdapterChange();
 
-                setYueAnimManager(true);
-                setCircleAnimManager(true);
+                setAnimManagerControl(true);
             }
         }
     }
@@ -998,16 +999,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     R.mipmap.icon_day_mode, R.color.dn_page_title_night));
         }
 
-        if (isDayMode) {
-            mWaveViewDay.setVisibility(View.VISIBLE);
-            mWaveViewNight.setVisibility(View.GONE);
+        setWaveDarkModeConfig(isDayMode);
 
+        if (isDayMode) {
             mPlayerImageView.setBorderColor(ContextCompat.getColor(this, R.color.dn_gary_bg));
         } else {
-            mWaveViewDay.setVisibility(View.GONE);
-            mWaveViewNight.setVisibility(View.VISIBLE);
-
             mPlayerImageView.setBorderColor(ContextCompat.getColor(this, R.color.dn_gary_bg_night));
+        }
+    }
+
+    private void setWaveDarkModeConfig(boolean isDayMode) {
+        if (isDayMode) {
+            mWaveViewDay.setVisibility(View.VISIBLE);
+            mWaveViewNight.setVisibility(View.INVISIBLE);
+        } else {
+            mWaveViewDay.setVisibility(View.INVISIBLE);
+            mWaveViewNight.setVisibility(View.VISIBLE);
         }
     }
 }
