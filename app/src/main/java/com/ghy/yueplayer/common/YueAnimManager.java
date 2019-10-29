@@ -127,8 +127,6 @@ public class YueAnimManager {
         // 无动画
         if (animMode <= YUE_ANIM_TYPE_1) {
             resetBottomStatus();
-            // clear
-            setYueAnimManager(false);
             // 贪吃蛇动画配置
             clearSnakeAnimConfig();
         } else {

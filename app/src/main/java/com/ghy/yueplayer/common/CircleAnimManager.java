@@ -1,22 +1,41 @@
 package com.ghy.yueplayer.common;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PointF;
 import android.os.Handler;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.main.ImageLoader;
+import com.ghy.yueplayer.service.MusicPlayService;
 import com.ghy.yueplayer.utils.ScreenUtils;
 import com.ghy.yueplayer.utils.Utils;
+import com.ghy.yueplayer.view.CircleImageView;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import static com.ghy.yueplayer.constant.Const.CIRCLE_ANIM_TYPE_1;
 import static com.ghy.yueplayer.constant.Const.CIRCLE_ANIM_TYPE_2;
@@ -51,6 +70,8 @@ public class CircleAnimManager {
      */
     private int mScreenWidth;
     private int mScreenHeight;
+    private int mScreenWidthHalf;
+    private int mScreenHeightHalf;
 
     /**
      * 主界面高度--不含顶部toolbar
@@ -92,10 +113,21 @@ public class CircleAnimManager {
 
     private AnimatorSet mAnimatorSetCircle;
 
+    private int mCircleLength;
+
+    private ArrayList<View> mCircleList = new ArrayList<>();
+
+    private String mMusicAlbumUri;
+
+    private int mCount;
+
     public CircleAnimManager(Activity context) {
         mContext = context;
         mScreenWidth = ScreenUtils.getScreenWidth(context);
         mScreenHeight = ScreenUtils.getScreenHeight(context);
+        mScreenWidthHalf = mScreenWidth / 2;
+        mScreenHeightHalf = mScreenHeight / 2;
+        mCircleLength = Utils.dip2px(40);
     }
 
     public void initView(FrameLayout mainLayout, ImageView circleView, ImageView circleViewAnim) {
@@ -108,7 +140,16 @@ public class CircleAnimManager {
         mViewAnimHalf = Utils.dip2px(35);
     }
 
+    private View.OnClickListener mCircleClickListener = v -> createOneCircleStartAnim(true);
+
+    private View.OnLongClickListener mCircleLongClickListener = v -> {
+        mCount = 0;
+        delayCreateOneCircleAnim();
+        return true;
+    };
+
     public void setImage(String musicAlbumUri) {
+        mMusicAlbumUri = musicAlbumUri;
         if (mCircleViewAnim != null) {
             ImageLoader.getInstance().loadImage(mCircleViewAnim, musicAlbumUri);
         }
@@ -123,12 +164,19 @@ public class CircleAnimManager {
         int animMode = Global.getCircleAnimType();
         // 无动画
         if (animMode <= CIRCLE_ANIM_TYPE_1) {
-            setCircleAnimManager(false);
             // 重置Circle
             resetCircleStatus();
         } else {
             // 有动画
-            setCircleAnimManager(isOnResume);
+            if (!isOnResume) {
+                setCircleAnimManager(false);
+            } else {
+                if (MusicPlayService.MPS.isPlay()) {
+                    setCircleAnimManager(true);
+                } else {
+                    setCircleAnimManager(false);
+                }
+            }
         }
     }
 
@@ -136,11 +184,15 @@ public class CircleAnimManager {
      * 重置--恢复为原始无动画状态
      */
     private void resetCircleStatus() {
-        if (mCircleViewOrigin == null) {
-            return;
+        if (mCircleViewOrigin != null) {
+            mCircleViewOrigin.setVisibility(View.VISIBLE);
         }
-        mCircleViewOrigin.setVisibility(View.VISIBLE);
-        mCircleViewAnim.setVisibility(View.GONE);
+        if (mCircleViewAnim != null) {
+            mCircleViewAnim.setVisibility(View.GONE);
+        }
+
+        stopCircleMagicCircle();
+        stopCircleAnim3();
     }
 
     /**
@@ -156,16 +208,24 @@ public class CircleAnimManager {
                 resetMagicCircle();
             }
 
-            if (animMode == CIRCLE_ANIM_TYPE_1) {
+            if (animMode != CIRCLE_ANIM_TYPE_3) {
+                mCircleViewAnim.setOnClickListener(null);
+                mCircleViewAnim.setOnLongClickListener(null);
+            } else {
+                mCircleViewAnim.setOnClickListener(mCircleClickListener);
+                mCircleViewAnim.setOnLongClickListener(mCircleLongClickListener);
+            }
 
-            } else if (animMode == CIRCLE_ANIM_TYPE_2) {
+            if (animMode == CIRCLE_ANIM_TYPE_2) {
                 startCircleMagicCircle();
+            } else if (animMode == CIRCLE_ANIM_TYPE_3) {
+                startCircleAnim3();
             }
         } else {
             if (animMode == CIRCLE_ANIM_TYPE_2) {
                 stopCircleMagicCircle();
             } else if (animMode == CIRCLE_ANIM_TYPE_3) {
-
+                stopCircleAnim3();
             }
         }
     }
@@ -356,12 +416,15 @@ public class CircleAnimManager {
     }
 
     private void fadeScaleInAnim(View view) {
+        if (view == null) {
+            return;
+        }
         ObjectAnimator alpha = ObjectAnimator.ofFloat(view, "alpha", 0.4f, 1f);
-        ObjectAnimator scanX = ObjectAnimator.ofFloat(view, "scaleX", 0.4f, 1.0f);
-        ObjectAnimator scanY = ObjectAnimator.ofFloat(view, "scaleY", 0.4f, 1.0f);
+        ObjectAnimator scanXx = ObjectAnimator.ofFloat(view, "scaleX", 0.4f, 1.0f);
+        ObjectAnimator scanYy = ObjectAnimator.ofFloat(view, "scaleY", 0.4f, 1.0f);
         AnimatorSet animSet = new AnimatorSet();
         animSet.setInterpolator(new BounceInterpolator());
-        animSet.play(alpha).with(scanX).with(scanY);
+        animSet.play(alpha).with(scanXx).with(scanYy);
         animSet.setDuration(1000);
         animSet.addListener(new SimpleAnimationListener() {
             @Override
@@ -370,5 +433,164 @@ public class CircleAnimManager {
             }
         });
         animSet.start();
+    }
+
+    private void scaleInAnim(View view) {
+        if (view == null) {
+            return;
+        }
+        ObjectAnimator scanXx = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.7f, 1.0f);
+        ObjectAnimator scanYy = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.7f, 1.0f);
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animSet.play(scanXx).with(scanYy);
+        animSet.setDuration(500);
+        animSet.addListener(new SimpleAnimationListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+        });
+        animSet.start();
+    }
+
+    private void startCircleAnim3() {
+        if (mCircleViewOrigin != null) {
+            mCircleViewOrigin.setVisibility(View.GONE);
+        }
+        if (mCircleViewAnim != null) {
+            mCircleViewAnim.setVisibility(View.VISIBLE);
+            fadeScaleInAnim(mCircleViewAnim);
+        }
+
+    }
+
+    private void stopCircleAnim3() {
+        if (mMainLayout == null) {
+            return;
+        }
+        mMainLayout.postDelayed(() -> {
+            if (mMainLayout != null && mCircleList.size() > 0) {
+                for (int i = 0; i < mCircleList.size(); i++) {
+                    mMainLayout.removeView(mCircleList.get(i));
+                }
+            }
+            mCircleList.clear();
+        }, 600);
+    }
+
+    private void delayCreateOneCircleAnim() {
+        if (mCount == 25) {
+            return;
+        }
+        new Handler().postDelayed(() -> {
+            createOneCircleStartAnim(false);
+            mCount++;
+            delayCreateOneCircleAnim();
+        }, 100);
+    }
+
+    /**
+     * 创建并发射一个圆圈
+     */
+    private void createOneCircleStartAnim(boolean showScaleAnim) {
+        if (showScaleAnim) {
+            scaleInAnim(mCircleViewAnim);
+        }
+
+        CircleImageView circleImageView = (CircleImageView) LayoutInflater.from(mContext).inflate(R.layout.layout_circle_image, null);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(mCircleLength, mCircleLength);
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+        ImageLoader.getInstance().loadImage(circleImageView, mMusicAlbumUri);
+        circleImageView.setLayoutParams(params);
+        mMainLayout.addView(circleImageView);
+        mCircleList.add(circleImageView);
+
+        startCirclePointAnim(circleImageView);
+    }
+
+    private void startCirclePointAnim(View imageView) {
+        imageView.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    int[] randomArray = {0, 1};
+//                    int point1x;
+                    int point1y;
+                    int point2x;
+                    int point2y;
+//                    if (randomArray[new Random().nextInt(2)] == 0) {
+//                        point1x = new Random().nextInt(mScreenWidthHalf);
+//                    } else {
+//                        point1x = new Random().nextInt(mScreenHeightHalf * 2);
+//                    }
+                    if (randomArray[new Random().nextInt(2)] == 0) {
+                        point2x = new Random().nextInt(mScreenWidthHalf);
+                    } else {
+                        point2x = new Random().nextInt(mScreenWidthHalf * 2);
+                    }
+                    point1y = new Random().nextInt(mScreenHeightHalf * 2);
+                    point2y = -new Random().nextInt(point1y) + point1y;
+                    int endXx = new Random().nextInt(mScreenWidth * 2) - mScreenWidthHalf;
+                    int endYy = -mScreenHeight;
+
+                    ValueAnimator translateAnimator = ValueAnimator.ofObject(
+                            new CircleEvaluator(new PointF(imageView.getX(), imageView.getY()), new PointF(point2x, point2y)),
+                            new PointF(imageView.getX(), imageView.getY()),
+                            new PointF(endXx, endYy));
+                    translateAnimator.addUpdateListener(animation -> {
+                        PointF pointFf = (PointF) animation.getAnimatedValue();
+                        imageView.setX(pointFf.x);
+                        imageView.setY(pointFf.y);
+                    });
+                    translateAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            if (mMainLayout != null) {
+                                mMainLayout.removeView(imageView);
+                            }
+                        }
+                    });
+
+                    translateAnimator.setDuration(3000);
+                    TimeInterpolator[] timeInterpolator = {new AccelerateInterpolator(), new AccelerateDecelerateInterpolator(),
+                            new DecelerateInterpolator(), new LinearOutSlowInInterpolator(), new FastOutLinearInInterpolator(),
+                            new FastOutSlowInInterpolator()};
+                    translateAnimator.setInterpolator(timeInterpolator[new Random().nextInt(timeInterpolator.length)]);
+                    translateAnimator.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private class CircleEvaluator implements TypeEvaluator<PointF> {
+
+        //贝塞尔曲线参考点1
+        PointF f1;
+        //贝塞尔曲线参考点2
+        PointF f2;
+
+        CircleEvaluator(PointF f1, PointF f2) {
+            this.f1 = f1;
+            this.f2 = f2;
+        }
+
+        @Override
+        public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
+            float leftTime = 1f - fraction;
+            PointF newPointFf = new PointF();
+            newPointFf.x = startValue.x * leftTime * leftTime * leftTime
+                    + f1.x * 3 * leftTime * leftTime * fraction
+                    + f2.x * 3 * leftTime * fraction * fraction
+                    + endValue.x * fraction * fraction * fraction;
+            newPointFf.y = startValue.y * leftTime * leftTime * leftTime
+                    + f1.y * 3 * leftTime * leftTime * fraction
+                    + f2.y * 3 * leftTime * fraction * fraction
+                    + endValue.y * fraction * fraction * fraction;
+            return newPointFf;
+        }
     }
 }

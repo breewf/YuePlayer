@@ -49,7 +49,7 @@ public class Const {
      */
     public static final int CIRCLE_ANIM_TYPE_2 = 2;
     /**
-     * 。。。
+     * 发射圈圈
      */
     public static final int CIRCLE_ANIM_TYPE_3 = 3;
 }
