@@ -107,7 +107,7 @@
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/dn_title_5"
                     android:padding="10dp"
-                    android:text="晃晃漂流"
+                    android:text="漂流潜泳"
                     android:textColor="@color/dn_title_5"
                     android:textSize="16sp"/>
 

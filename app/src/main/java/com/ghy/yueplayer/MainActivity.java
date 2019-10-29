@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private MusicNoteViewLayout mMusicNoteViewLayout;
     private VDHLayout mVDHLayout;
     private CircleImageView mPlayerImageView;
-    private ImageView mPlayerIvAnim;
+    private CircleImageView mPlayerIvAnim;
     private PlayControlView mPlayControlView;
     private TextView mTvPlayTip;
 
@@ -363,6 +363,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 Constant.MUSIC_SP, "musicId");
 
         mImageLoader.displayImage(musicAlbumUri, mPlayerImageView, options);
+        if (mCircleAnimManager != null) {
+            mCircleAnimManager.setImage(musicAlbumUri);
+        }
 
         if (!isOnResume) {
             return;

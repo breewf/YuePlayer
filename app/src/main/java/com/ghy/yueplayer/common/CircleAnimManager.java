@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.ghy.yueplayer.common.listener.SimpleAnimationListener;
 import com.ghy.yueplayer.constant.Global;
+import com.ghy.yueplayer.main.ImageLoader;
 import com.ghy.yueplayer.utils.ScreenUtils;
 import com.ghy.yueplayer.utils.Utils;
 
@@ -105,6 +106,12 @@ public class CircleAnimManager {
         mMainLayout.post(() -> mMainHeight = mMainLayout.getHeight());
 
         mViewAnimHalf = Utils.dip2px(35);
+    }
+
+    public void setImage(String musicAlbumUri) {
+        if (mCircleViewAnim != null) {
+            ImageLoader.getInstance().loadImage(mCircleViewAnim, musicAlbumUri);
+        }
     }
 
     /**
@@ -225,8 +232,8 @@ public class CircleAnimManager {
         mAnimatorSetCircle = new AnimatorSet();
         mAnimatorSetCircle.setInterpolator(new LinearInterpolator());
         mAnimatorSetCircle.play(rotation).with(translationXx).with(translationYy);
-        mAnimatorSetCircle.setDuration(2000);
-        mAnimatorSetCircle.setStartDelay(2000);
+        mAnimatorSetCircle.setDuration(1000);
+        mAnimatorSetCircle.setStartDelay(1500);
         mAnimatorSetCircle.addListener(new SimpleAnimationListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -247,7 +254,7 @@ public class CircleAnimManager {
         mAnimatorSetCircle = new AnimatorSet();
         mAnimatorSetCircle.setInterpolator(new LinearInterpolator());
         mAnimatorSetCircle.play(rotation).with(translationXx).with(translationYy);
-        mAnimatorSetCircle.setDuration(5000);
+        mAnimatorSetCircle.setDuration(3000);
         mAnimatorSetCircle.setStartDelay(0);
         mAnimatorSetCircle.addListener(new SimpleAnimationListener() {
             @Override
@@ -269,7 +276,7 @@ public class CircleAnimManager {
         mAnimatorSetCircle = new AnimatorSet();
         mAnimatorSetCircle.setInterpolator(new LinearInterpolator());
         mAnimatorSetCircle.play(rotation).with(translationXx).with(translationYy);
-        mAnimatorSetCircle.setDuration(3000);
+        mAnimatorSetCircle.setDuration(2000);
         mAnimatorSetCircle.setStartDelay(0);
         mAnimatorSetCircle.addListener(new SimpleAnimationListener() {
             @Override
@@ -291,7 +298,7 @@ public class CircleAnimManager {
         mAnimatorSetCircle = new AnimatorSet();
         mAnimatorSetCircle.setInterpolator(new LinearInterpolator());
         mAnimatorSetCircle.play(rotation).with(translationXx).with(translationYy);
-        mAnimatorSetCircle.setDuration(5000);
+        mAnimatorSetCircle.setDuration(3000);
         mAnimatorSetCircle.setStartDelay(0);
         mAnimatorSetCircle.addListener(new SimpleAnimationListener() {
             @Override
@@ -313,7 +320,7 @@ public class CircleAnimManager {
         mAnimatorSetCircle = new AnimatorSet();
         mAnimatorSetCircle.setInterpolator(new LinearInterpolator());
         mAnimatorSetCircle.play(rotation).with(translationXx).with(translationYy);
-        mAnimatorSetCircle.setDuration(2000);
+        mAnimatorSetCircle.setDuration(1500);
         mAnimatorSetCircle.setStartDelay(0);
         mAnimatorSetCircle.addListener(new SimpleAnimationListener() {
             @Override

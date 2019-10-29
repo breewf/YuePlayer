@@ -401,12 +401,18 @@ public class YueAnimManager {
         if (mShakeTextView.getVisibility() != View.VISIBLE) {
             mShakeTextView.setVisibility(View.VISIBLE);
         }
+
+        if (progress > 50) {
+            // 50后下沉
+            progress = 100 - progress;
+        }
+
         float tranY = (float) -(mYueAnimHeight) / 100 * progress;
         mShakeTextView.setTranslationY(tranY);
 
-        if (mShakeTextView.getTranslationY() < -(mYueAnimHeight - mShakeTextView.getHeight())) {
-            mShakeTextView.setTranslationY(-(mYueAnimHeight - mShakeTextView.getHeight()));
-        }
+//        if (mShakeTextView.getTranslationY() < -(mYueAnimHeight - mShakeTextView.getHeight())) {
+//            mShakeTextView.setTranslationY(-(mYueAnimHeight - mShakeTextView.getHeight()));
+//        }
     }
 
     /**
