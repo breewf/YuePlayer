@@ -63,23 +63,18 @@
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="220">
-                <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <first_editor relative-caret-position="308">
+                <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
               </second_editor>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Screenshots/screen_001.jpg">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -448,7 +443,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="788" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20317003" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17074928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -577,13 +572,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ghy/yueplayer/utils/SPUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.CymChad/BaseRecyclerViewAdapterHelper/2.9.22/2cd6dd101fb318c00e9a1a304a8950fc960f6c8/BaseRecyclerViewAdapterHelper-2.9.22-sources.jar!/com/chad/library/adapter/base/BaseQuickAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -910,9 +898,6 @@
     <entry file="file://$PROJECT_DIR$/Screenshots/screenshort4.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/screenshort3.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Screenshots/screenshort10.jpeg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -928,20 +913,26 @@
     <entry file="file://$PROJECT_DIR$/Screenshots/screenshort1.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/screen_001.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/screenshort10.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/screenshort3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="220">
-            <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <first_editor relative-caret-position="308">
+            <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
           </second_editor>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/screen_001.jpg">
-      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">
