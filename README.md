@@ -1,5 +1,7 @@
 # YuePlayer
-A simple Local Music Player
+#### A simple Local Music Player
+
++ DarkMode Support
 
 Screenshots
 
