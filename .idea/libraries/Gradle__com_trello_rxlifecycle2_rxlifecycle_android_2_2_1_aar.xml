@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.trello.rxlifecycle2:rxlifecycle-android:2.2.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxlifecycle-android-2.2.1.aar/78151882ca0a7304a2f02f88b6d792b2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxlifecycle-android-2.2.1.aar/78151882ca0a7304a2f02f88b6d792b2/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a6ad3d0a71a5976c0e2ded278a7242c/rxlifecycle-android-2.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a6ad3d0a71a5976c0e2ded278a7242c/rxlifecycle-android-2.2.1/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trello.rxlifecycle2/rxlifecycle-android/2.2.1/ddbc06cdd6c585ddc559b24f32b2edb7da6cfea1/rxlifecycle-android-2.2.1-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trello.rxlifecycle2/rxlifecycle-android/2.2.1/528171468a7c6052cbb75352d08218d9f9caac9b/rxlifecycle-android-2.2.1-sources.jar!/" />
     </SOURCES>

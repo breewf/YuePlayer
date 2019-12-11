@@ -16,7 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="15dp"
-            android:src="@mipmap/icon_back"/>
+            android:src="@mipmap/icon_back" />
 
         <LinearLayout
             android:id="@+id/play_layout1"
@@ -38,7 +38,7 @@
                 android:text="歌曲名称"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:transitionName="@string/transition_title"/>
+                android:transitionName="@string/transition_title" />
 
             <TextView
                 android:id="@+id/tvSinger"
@@ -48,7 +48,7 @@
                 android:text="歌手名"
                 android:textColor="#80FFFFFF"
                 android:textSize="12sp"
-                android:transitionName="@string/transition_artist"/>
+                android:transitionName="@string/transition_artist" />
 
         </LinearLayout>
 
@@ -59,7 +59,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray4"/>
+        android:background="@color/gray4" />
 
     <!-- 进度条，封面，歌词控件-->
 
@@ -99,7 +99,7 @@
                     app:lrcTextSize="16sp"
                     app:lrcTimeTextColor="@color/gray_bd"
                     app:lrcTimelineColor="@color/gray_bd80"
-                    app:lrcTimelineTextColor="@color/gray2"/>
+                    app:lrcTimelineTextColor="@color/gray2" />
 
                 <TextView
                     android:id="@+id/tv_down_lrc"
@@ -113,7 +113,7 @@
                     android:textColor="@color/gray2"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    tools:visibility="visible"/>
+                    tools:visibility="visible" />
 
             </FrameLayout>
 
@@ -138,7 +138,7 @@
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:src="@mipmap/default_artist"
-                        android:transitionName="@string/transition_album"/>
+                        android:transitionName="@string/transition_album" />
 
                 </RelativeLayout>
 
@@ -148,9 +148,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="-10dp"
-                    android:src="@mipmap/ic_needle"/>
+                    android:src="@mipmap/ic_needle"
+                    android:visibility="gone" />
 
             </FrameLayout>
 
@@ -175,7 +176,7 @@
                 android:layout_marginRight="-10dp"
                 android:text="00:00"
                 android:textColor="@color/gray1"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
 
             <SeekBar
                 android:id="@+id/play_seek_bar"
@@ -188,7 +189,7 @@
                 android:progressDrawable="@drawable/my_seek_bar_bg"
                 android:thumb="@drawable/custom_seek_bar_control_selector"
                 android:thumbOffset="0dp"
-                android:transitionName="@string/transition_progress"/>
+                android:transitionName="@string/transition_progress" />
 
             <TextView
                 android:id="@+id/tv_time_all"
@@ -197,7 +198,7 @@
                 android:layout_marginLeft="-10dp"
                 android:text="00:00"
                 android:textColor="@color/gray1"
-                android:textSize="10sp"/>
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -223,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_last"/>
+                android:src="@mipmap/ic_last" />
 
             <ImageView
                 android:id="@+id/iv_control_start_pause"
@@ -232,7 +233,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_play"/>
+                android:src="@mipmap/ic_play" />
 
             <ImageView
                 android:id="@+id/iv_control_next"
@@ -240,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_next"/>
+                android:src="@mipmap/ic_next" />
 
         </LinearLayout>
 

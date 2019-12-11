@@ -34,6 +34,7 @@ import com.ghy.yueplayer.activity.HelpActivity;
 import com.ghy.yueplayer.activity.MusicPlayActivity;
 import com.ghy.yueplayer.activity.OnLineMusicActivity;
 import com.ghy.yueplayer.activity.SetActivity;
+import com.ghy.yueplayer.activity.TimeActivity;
 import com.ghy.yueplayer.adapter.MyPlayerAdapter;
 import com.ghy.yueplayer.base.BaseActivity;
 import com.ghy.yueplayer.bean.MusicInfo;
@@ -163,8 +164,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         Intent service = new Intent(this, MusicPlayService.class);
         this.startService(service);
         //启动时间统计服务
-//        Intent timeService = new Intent(this, TimeService.class);
-//        this.startService(timeService);
+        Intent timeService = new Intent(this, TimeService.class);
+        this.startService(timeService);
 
         initLoader();
 
@@ -581,8 +582,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                         startActivity(OnLineMusicActivity.class);
                         break;
                     case R.id.layout2:
-//                        startActivity(TimeActivity.class);
-                        showToast(getString(R.string.for_fun));
+                        startActivity(TimeActivity.class);
+//                        showToast(getString(R.string.for_fun));
                         break;
                     case R.id.layout3:
                         startActivity(AboutActivity.class);

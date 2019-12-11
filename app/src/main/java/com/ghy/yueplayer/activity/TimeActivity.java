@@ -8,10 +8,11 @@ import android.widget.TextView;
 
 import com.ghy.yueplayer.R;
 import com.ghy.yueplayer.base.BaseActivity;
+import com.ghy.yueplayer.constant.Global;
 import com.ghy.yueplayer.global.Constant;
 import com.ghy.yueplayer.service.TimeService;
 import com.ghy.yueplayer.utils.SPUtil;
-import com.ghy.yueplayer.view.HeroTextView;
+import com.ghy.yueplayer.utils.ViewUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Timer;
@@ -21,11 +22,12 @@ public class TimeActivity extends BaseActivity {
 
     ImageView app_icon_back;
     TextView tv_activity_name;
+    ImageView iv_logo;
 
-    HeroTextView tv_time_this;
-    HeroTextView tv_time_this_hour;
-    HeroTextView tv_time_all_use;
-    HeroTextView tv_time_all_hour;
+    TextView tv_time_this;
+    TextView tv_time_this_hour;
+    TextView tv_time_all_use;
+    TextView tv_time_all_hour;
     TextView tv_nick;
 
     Timer timer;
@@ -38,6 +40,8 @@ public class TimeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
+        initDarkModeIcon(Global.DAY_MODE);
 
         if (timer == null) {
             timer = new Timer();
@@ -114,6 +118,7 @@ public class TimeActivity extends BaseActivity {
         tv_time_all_use = findViewById(R.id.tv_time_all_use);
         tv_time_all_hour = findViewById(R.id.tv_time_all_hour);
         tv_nick = findViewById(R.id.tv_nick);
+        iv_logo = findViewById(R.id.iv_logo);
 
         initToolBar();
     }
@@ -128,6 +133,16 @@ public class TimeActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    private void initDarkModeIcon(boolean isDayMode) {
+        if (isDayMode) {
+            iv_logo.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white_big, R.color.dn_page_title));
+        } else {
+            iv_logo.setImageDrawable(ViewUtils.getTintDrawable(this,
+                    R.mipmap.icon_app_white_big, R.color.dn_page_title_night));
+        }
     }
 
     private String getTime(int timeSecond) {
